@@ -9,6 +9,32 @@ import type { NextConfig } from "next";
  */
 const LEGACY_ORIGIN = (process.env.LEGACY_ORIGIN ?? "https://dralirazajafri.com").replace(/\/$/, "");
 
+/** Routes rendered by this app. Headers are applied to these only, so the
+ *  legacy checkout keeps its own CSP and Permissions-Policy (Safepay iframe). */
+const OWNED_ROUTES = [
+  "/",
+  "/courses",
+  "/courses/:slug",
+  "/instructors/:slug",
+  "/about",
+  "/faq",
+  "/contact",
+  "/teach",
+  "/pricing",
+  "/terms",
+  "/privacy",
+  "/refunds",
+  "/returns",
+  "/shipping",
+  "/service-policy",
+];
+
+const securityHeaders = [
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Frame-Options", value: "DENY" },
+];
+
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   images: {
@@ -23,17 +49,7 @@ const nextConfig: NextConfig = {
     };
   },
   async headers() {
-    return [
-      {
-        source: "/((?!api/).*)",
-        headers: [
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "X-Frame-Options", value: "DENY" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-        ],
-      },
-    ];
+    return OWNED_ROUTES.map((source) => ({ source, headers: securityHeaders }));
   },
 };
 
