@@ -101,3 +101,18 @@ export function dashboardFor(role: string) {
   if (role === "TEACHER") return "/teacher";
   return legacyRoutes.learn;
 }
+
+/**
+ * Ends a video session the way the platform's player does: only when signed in,
+ * with keepalive so it survives the page closing.
+ */
+export function endVideoSession(sessionId: string) {
+  const token = readAccessToken();
+  if (!token) return;
+  fetch(`/api/videos/sessions/${sessionId}/end`, {
+    method: "POST",
+    keepalive: true,
+    credentials: "include",
+    headers: { Authorization: `Bearer ${token}` },
+  }).catch(() => {});
+}

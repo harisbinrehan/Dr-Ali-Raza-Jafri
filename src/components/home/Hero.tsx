@@ -72,8 +72,8 @@ export function Hero({ featured, stats }: HeroProps) {
                 sizes="(min-width: 1024px) 38vw, 92vw"
                 className="object-cover object-[61%_40%]"
               />
-              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent" />
-              <figcaption className="eyebrow absolute bottom-4 left-4 right-4 text-white/75">Still from Diagnosis and Treatment Planning</figcaption>
+              <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-ink/30" />
+              <figcaption className="eyebrow absolute left-4 right-4 top-4 text-white/80">Still from Diagnosis and Treatment Planning</figcaption>
             </figure>
           </Parallax>
 

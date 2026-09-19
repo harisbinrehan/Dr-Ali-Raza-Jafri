@@ -54,7 +54,7 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
         <div data-reveal style={revealDelay(240)} className="mt-auto pt-9">
           <p className="font-mono text-xs text-muted">{meta.join(" · ")}</p>
           <div className="mt-4 flex items-center justify-between gap-4 border-t border-line pt-5">
-            <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} className="[&>span:first-child]:text-xl" />
+            <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} />
             <span className={buttonClasses({ className: "relative z-10 pointer-events-none" })}>
               View course
               <ArrowRight className="size-4 transition-transform duration-500 ease-(--ease-out-expo) group-hover:translate-x-1" />

@@ -42,6 +42,11 @@ export function SiteHeader({ contact }: { contact: Contact }) {
     };
   }, []);
 
+  // Lets sticky page elements (catalogue filters, the enrol card) sit just below the bar.
+  useEffect(() => {
+    document.documentElement.style.setProperty("--header-offset", hidden && !menuOpen ? "0px" : "4.5rem");
+  }, [hidden, menuOpen]);
+
   const overDark = DARK_TOP.some((re) => re.test(pathname)) && !scrolled;
   const tone = overDark ? "dark" : "light";
 
