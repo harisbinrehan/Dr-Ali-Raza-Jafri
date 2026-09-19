@@ -78,8 +78,11 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
   return (
     <>
       <article className="container-x grid pb-24 lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
+        {/* A real dark backing for the whole hero row on desktop (the enrol card overlaps it). */}
+        <div aria-hidden="true" className="bleed-ink hidden lg:col-span-12 lg:col-start-1 lg:row-start-1 lg:block" />
+
         {/* Hero */}
-        <header className="bleed-ink relative pb-12 pt-32 text-white sm:pt-36 lg:col-span-8 lg:row-start-1 lg:pb-16">
+        <header className="bleed-ink relative pb-12 pt-32 text-white sm:pt-36 lg:col-span-8 lg:col-start-1 lg:row-start-1 lg:pb-16">
           <Breadcrumb
             tone="dark"
             items={[{ label: "Courses", href: "/courses" }, ...(course.category ? [{ label: course.category.name, href: `/courses?category=${course.category.slug}` }] : []), { label: title }]}
@@ -122,7 +125,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
         </aside>
 
         {/* Body */}
-        <div className="space-y-16 pt-16 lg:col-span-8 lg:row-start-2">
+        <div className="space-y-16 pt-16 lg:col-span-8 lg:col-start-1 lg:row-start-2">
           {course.learningObjectives.length > 0 && (
             <CourseSection id="learn" title="What you will learn">
               <LearningOutcomes items={course.learningObjectives} />
