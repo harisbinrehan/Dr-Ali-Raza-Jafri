@@ -16,8 +16,8 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
   const year = new Date().getFullYear();
   return (
     <footer className="bg-deep text-on-deep">
-      <div className="container-x pb-10 pt-24 sm:pt-28">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
+      <div className="container-x pb-8 pt-14 sm:pt-16">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <BrandLockup tone="deep" />
             <p className="mt-8 max-w-xs text-[0.9375rem] leading-relaxed text-on-deep-muted">{site.tagline}</p>
@@ -72,7 +72,7 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
           </div>
         </div>
 
-        <div className="mt-24 flex flex-col gap-5 border-t border-deep-line pt-8 text-[0.8125rem] text-on-deep-muted md:flex-row md:items-center md:justify-between">
+        <div className="mt-14 flex flex-col gap-5 border-t border-deep-line pt-6 text-[0.8125rem] text-on-deep-muted md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {site.name}
           </p>

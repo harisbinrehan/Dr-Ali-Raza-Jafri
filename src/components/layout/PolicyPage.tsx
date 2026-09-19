@@ -16,7 +16,7 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
     <>
       <PageHeader eyebrow="Policies" title={doc.title} lead={<RichText text={fillPolicy(doc.intro, policy)} />} />
 
-      <div className="container-x grid gap-12 pb-32 pt-16 lg:grid-cols-12 lg:gap-8 lg:pt-20">
+      <div className="container-x grid gap-8 pb-16 pt-8 lg:grid-cols-12 lg:gap-8 lg:pt-10">
         <nav aria-label="On this page" className="hidden lg:col-span-3 lg:block">
           <div className="sticky top-[calc(var(--header-offset,4rem)+2.5rem)] transition-[top] duration-700">
             <p className="label text-muted">On this page</p>
@@ -34,7 +34,7 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
 
         <div className="lg:col-span-7 lg:col-start-5">
           {doc.sections.map((s) => (
-            <section key={s.heading} id={anchor(s.heading)} aria-labelledby={`${anchor(s.heading)}-title`} className="grid scroll-mt-28 gap-4 border-t border-line py-10 first:border-t-0 first:pt-0 xl:grid-cols-[13rem_1fr] xl:gap-10">
+            <section key={s.heading} id={anchor(s.heading)} aria-labelledby={`${anchor(s.heading)}-title`} className="grid scroll-mt-20 gap-3 border-t border-line py-6 first:border-t-0 first:pt-0 xl:grid-cols-[13rem_1fr] xl:gap-10">
               <h2 id={`${anchor(s.heading)}-title`} className="font-display text-h4 text-ink">
                 {s.heading}
               </h2>
@@ -48,7 +48,7 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
             </section>
           ))}
 
-          <address className="mt-6 space-y-1 border-t border-line pt-10 text-[0.875rem] not-italic leading-relaxed text-muted">
+          <address className="mt-4 space-y-1 border-t border-line pt-6 text-[0.875rem] not-italic leading-relaxed text-muted">
             <p>
               {contact.name}
               {contact.address && `, ${contact.address}`}

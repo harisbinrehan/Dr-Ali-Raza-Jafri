@@ -25,7 +25,7 @@ export default async function AboutPage() {
     <>
       <PageHeader eyebrow="About us" title={about.title} lead={about.lead} />
 
-      <figure className="container-x pt-12 lg:pt-16">
+      <figure className="container-x pt-8 lg:pt-10">
         <div className="relative aspect-[4/3] overflow-hidden bg-canvas-alt sm:aspect-[21/9]">
           <Parallax speed={-0.06} className="absolute -inset-y-[10%] inset-x-0">
             <Image
@@ -42,7 +42,7 @@ export default async function AboutPage() {
       </figure>
 
       <section aria-label="Who we are" className="section-y">
-        <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
           <blockquote data-reveal className="lg:col-span-6">
             <p className="font-display text-h2 text-ink">
               <span aria-hidden="true" className="text-accent">“</span>
@@ -61,7 +61,7 @@ export default async function AboutPage() {
       </section>
 
       <section aria-labelledby="how-title" className="section-y bg-canvas-alt">
-        <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <RevealHeading id="how-title" className="text-h2 text-ink">
               {about.howItWorks.heading}
@@ -69,8 +69,8 @@ export default async function AboutPage() {
           </div>
           <ol className="lg:col-span-7 lg:col-start-6">
             {about.howItWorks.body.map((p, i) => (
-              <li key={i} data-reveal style={revealDelay(i * 110)} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-9 first:border-t-0 first:pt-0 sm:grid-cols-[4.5rem_1fr]">
-                <span className="font-display text-[2rem] leading-none text-accent">{String(i + 1).padStart(2, "0")}</span>
+              <li key={i} data-reveal style={revealDelay(i * 110)} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[4.5rem_1fr]">
+                <span className="font-display text-[1.625rem] leading-none text-accent">{String(i + 1).padStart(2, "0")}</span>
                 <p className="text-[1.0625rem] leading-[1.6] text-ink-soft">{p}</p>
               </li>
             ))}
@@ -84,7 +84,7 @@ export default async function AboutPage() {
             <RevealHeading id="teaching-title" className="text-h2 text-ink">
               {about.teaching.heading}
             </RevealHeading>
-            <p data-reveal className="prose-copy mt-8 max-w-lg">
+            <p data-reveal className="prose-copy mt-6 max-w-lg">
               <RichText text={about.teaching.body} />
             </p>
           </div>

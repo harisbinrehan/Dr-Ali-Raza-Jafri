@@ -15,15 +15,15 @@ export default async function NotFound() {
   return (
     <section className="relative isolate overflow-hidden bg-deep text-on-deep">
       <DarkBackdrop />
-      <div className="container-x flex min-h-[80vh] flex-col justify-center py-28">
-        <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
+      <div className="container-x flex min-h-[70vh] flex-col justify-center py-16">
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-7">
             <p className="label text-eyebrow-deep">Not found</p>
-            <h1 className="mt-6 max-w-2xl font-display text-h1 text-on-deep">That page is not available.</h1>
-            <p className="mt-8 max-w-lg text-lead text-on-deep-muted">
+            <h1 className="mt-4 max-w-2xl font-display text-h1 text-on-deep">That page is not available.</h1>
+            <p className="mt-5 max-w-lg text-lead text-on-deep-muted">
               It may have been renamed or unpublished. Every published course is in the catalogue.
             </p>
-            <div className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
               <ButtonLink href="/courses" variant="on-deep" size="lg" arrow>
                 Browse all courses
               </ButtonLink>

@@ -10,7 +10,7 @@ import { RevealHeading } from "@/components/ui/SectionHeading";
 export function InstructorIntro({ stats }: { stats: { value: string; label: string }[] }) {
   return (
     <section aria-labelledby="instructor-title" className="section-y bg-canvas-alt">
-      <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
+      <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-5">
           <figure className="lg:sticky lg:top-28">
             <div data-reveal="image" className="relative aspect-[4/5] overflow-hidden bg-canvas">
@@ -29,11 +29,11 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
           <RevealHeading id="instructor-title" className="mt-6 text-h2 text-ink">
             {site.instructorName}
           </RevealHeading>
-          <p data-reveal style={revealDelay(100)} className="mt-8 max-w-lg text-lead text-ink-soft">
+          <p data-reveal style={revealDelay(100)} className="mt-5 max-w-lg text-lead text-ink-soft">
             {about.lead}
           </p>
 
-          <blockquote data-reveal style={revealDelay(160)} className="mt-14 border-t border-line pt-10">
+          <blockquote data-reveal style={revealDelay(160)} className="mt-8 border-t border-line pt-6">
             <p className="font-display text-h3 text-ink">
               <span aria-hidden="true" className="text-accent">“</span>
               {about.pullQuote}
@@ -41,11 +41,11 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
             </p>
           </blockquote>
 
-          <p data-reveal style={revealDelay(220)} className="mt-10 max-w-lg leading-[1.6] text-muted">
+          <p data-reveal style={revealDelay(220)} className="mt-6 max-w-lg leading-[1.6] text-muted">
             {about.body[0]}
           </p>
 
-          <dl data-reveal style={revealDelay(260)} className="mt-14 grid grid-cols-3 border-y border-line">
+          <dl data-reveal style={revealDelay(260)} className="mt-8 grid grid-cols-3 border-y border-line">
             {stats.map((s, i) => (
               <div key={s.label} className={`flex flex-col-reverse py-6 ${i > 0 ? "border-l border-line pl-5" : ""}`}>
                 <dt className="mt-1.5 text-[0.8125rem] text-muted">{s.label}</dt>

@@ -22,15 +22,15 @@ type HeroProps = {
  */
 export function Hero({ featured, stats }: HeroProps) {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-12 pt-16 sm:pb-16">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-8 pt-10 sm:pb-10">
       <DarkBackdrop />
       <div className="container-x">
-        <div className="flex items-center justify-between border-b border-line pb-5 pt-10 lg:pt-14">
+        <div className="flex items-center justify-between border-b border-line pb-4 pt-6 lg:pt-8">
           <p className="label text-eyebrow animate-fade">{home.eyebrow}</p>
           <p className="label hidden text-muted animate-fade sm:block">Taught by {site.instructorName}</p>
         </div>
 
-        <h1 id="hero-title" className="mt-10 font-display text-hero text-ink lg:mt-14">
+        <h1 id="hero-title" className="mt-6 font-display text-hero text-ink lg:mt-8">
           <span className="mask">
             <span className="block animate-mask">{home.headline[0]}</span>
           </span>
@@ -39,10 +39,10 @@ export function Hero({ featured, stats }: HeroProps) {
           </span>
         </h1>
 
-        <div className="mt-12 grid gap-12 lg:mt-20 lg:grid-cols-12 lg:gap-8">
+        <div className="mt-8 grid gap-8 lg:mt-12 lg:grid-cols-12 lg:gap-8">
           <div className="flex flex-col lg:col-span-4">
             <p className="max-w-md text-lead text-ink-soft animate-rise [animation-delay:350ms]">{home.intro}</p>
-            <div className="mt-10 flex flex-col gap-3 animate-rise [animation-delay:480ms] sm:flex-row lg:flex-col xl:flex-row">
+            <div className="mt-6 flex flex-col gap-3 animate-rise [animation-delay:480ms] sm:flex-row lg:flex-col xl:flex-row">
               <ButtonLink href={home.primaryCta.href} size="lg" arrow>
                 {home.primaryCta.label}
               </ButtonLink>
@@ -84,7 +84,7 @@ export function Hero({ featured, stats }: HeroProps) {
           </div>
         </div>
 
-        <dl className="mt-16 grid gap-4 sm:gap-5 lg:mt-24" style={{ gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))` }}>
+        <dl className="mt-10 grid gap-3 sm:gap-4 lg:mt-14" style={{ gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))` }}>
           {stats.map((s) => (
             <div key={s.label} className="rounded-xl border border-line bg-surface px-4 py-5 sm:px-5 sm:py-6">
               <dd className="font-display text-[clamp(1.75rem,1.3rem+1.8vw,3rem)] leading-none tabular-nums text-ink">{s.value.toLocaleString("en-US")}</dd>

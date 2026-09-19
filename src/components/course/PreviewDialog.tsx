@@ -128,10 +128,10 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
       aria-labelledby="preview-title"
       className="m-auto w-[min(68rem,calc(100vw-2rem))] max-w-none overflow-hidden bg-[#0a0b0d] p-0 text-[#ece7de]"
     >
-      <div className="flex items-center gap-4 border-b border-white/10 px-6 py-5">
+      <div className="flex items-center gap-4 border-b border-white/10 px-5 py-4">
         <div className="min-w-0 flex-1">
           <p className="label text-[#7cc4b8]">Free preview · {courseTitle}</p>
-          <h2 id="preview-title" className="mt-2 truncate font-display text-[1.625rem] leading-tight">
+          <h2 id="preview-title" className="mt-1.5 truncate font-display text-[1.375rem] leading-tight">
             {lesson?.title}
           </h2>
         </div>

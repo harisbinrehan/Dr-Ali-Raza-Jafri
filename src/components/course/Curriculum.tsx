@@ -53,7 +53,7 @@ export function Curriculum({ sections: allSections, totalSeconds }: { sections: 
                 onToggle={() => toggle(section.id)}
                 summary={
                   <span className="grid grid-cols-[3rem_1fr] items-baseline gap-x-4 sm:grid-cols-[4.5rem_1fr]">
-                    <span className="font-display text-[1.75rem] leading-none tabular-nums text-accent sm:text-[2.25rem]">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="font-display text-[1.5rem] leading-none tabular-nums text-accent sm:text-[1.875rem]">{String(index + 1).padStart(2, "0")}</span>
                     <span>
                       <span className="block font-display text-h4 text-ink">{section.title}</span>
                       <span className="mt-1.5 block text-[0.8125rem] text-muted">{sectionMeta}</span>

@@ -12,11 +12,11 @@ import { RevealHeading } from "@/components/ui/SectionHeading";
 /** A course-page chapter: hairline, display heading, then content. */
 export function CourseSection({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section aria-labelledby={id} className="scroll-mt-28 border-t border-line pt-12 sm:pt-16">
+    <section aria-labelledby={id} className="scroll-mt-20 border-t border-line pt-8 sm:pt-10">
       <RevealHeading id={id} className="text-h3 text-ink">
         {title}
       </RevealHeading>
-      <div className="mt-10">{children}</div>
+      <div className="mt-6">{children}</div>
     </section>
   );
 }
@@ -120,19 +120,19 @@ export function Reviews({ reviews, average, count, instructor }: { reviews: Revi
   return (
     <div>
       <div className="flex items-baseline gap-5">
-        <span className="font-display text-[4rem] leading-none tabular-nums text-ink">{average.toFixed(1)}</span>
+        <span className="font-display text-[2.75rem] leading-none tabular-nums text-ink">{average.toFixed(1)}</span>
         <span>
           <Stars value={average} />
           <span className="mt-1.5 block text-[0.875rem] text-muted">{plural(count, "rating")}</span>
         </span>
       </div>
       {lead && (
-        <figure className="mt-12 border-t border-line pt-10">
+        <figure className="mt-8 border-t border-line pt-6">
           <blockquote className="font-display text-h3 text-ink">“{lead.comment}”</blockquote>
           <figcaption className="mt-5 text-[0.875rem] text-muted">{lead.author}</figcaption>
         </figure>
       )}
-      <ul className="mt-10">
+      <ul className="mt-6">
         {others.map((r) => (
           <li key={r.id} className="border-t border-line py-6">
             <div className="flex flex-wrap items-center gap-3">

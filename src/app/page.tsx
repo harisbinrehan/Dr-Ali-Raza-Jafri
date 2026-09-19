@@ -59,9 +59,9 @@ export default async function HomePage() {
             </div>
           </div>
 
-          <div className="mt-16 lg:mt-20">{featured && <FeaturedCourse course={featured} imageUrl={featuredImage} />}</div>
+          <div className="mt-10 lg:mt-12">{featured && <FeaturedCourse course={featured} imageUrl={featuredImage} />}</div>
 
-          <ul className="mt-24 grid gap-x-8 gap-y-20 border-t border-line pt-16 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-12 grid gap-x-6 gap-y-10 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-3">
             {gridCourses.map((course, i) => (
               <li key={course.id} data-reveal style={revealDelay((i % 3) * 110)}>
                 <CourseCard course={course} />
@@ -69,7 +69,7 @@ export default async function HomePage() {
             ))}
           </ul>
 
-          <div data-reveal className="mt-20 flex justify-center">
+          <div data-reveal className="mt-12 flex justify-center">
             <ButtonLink href="/courses" variant="outline" size="lg" arrow>
               View all {courses.length} courses
             </ButtonLink>
@@ -80,11 +80,11 @@ export default async function HomePage() {
       <Commitments />
 
       <section aria-labelledby="faq-title" className="section-y">
-        <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-32">
               <SectionIntro id="faq-title" title="Frequently asked questions" />
-              <p data-reveal className="prose-copy mt-8 text-muted">
+              <p data-reveal className="prose-copy mt-6 text-muted">
                 <RichText text="Something not answered here? [Ask us](/contact)." />
               </p>
             </div>

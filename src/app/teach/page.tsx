@@ -27,7 +27,7 @@ export default async function TeachPage() {
       <section aria-label="At a glance" className="section-y-sm">
         <ol className="container-x grid gap-x-8 md:grid-cols-3">
           {teach.highlights.map((h, i) => (
-            <li key={h.title} data-reveal style={revealDelay(i * 110)} className="border-t border-ink py-10 md:pr-6">
+            <li key={h.title} data-reveal style={revealDelay(i * 110)} className="border-t border-ink py-6 md:pr-6">
               <h2 className="font-display text-h3 text-ink">{fillPolicy(h.title, policy)}</h2>
               <p className="mt-5 leading-[1.6] text-muted">{fillPolicy(h.body, policy)}</p>
             </li>
@@ -35,10 +35,10 @@ export default async function TeachPage() {
         </ol>
       </section>
 
-      <div className="container-x grid gap-20 pb-32 pt-8 lg:grid-cols-12 lg:gap-8">
-        <div className="space-y-20 lg:col-span-7">
+      <div className="container-x grid gap-12 pb-16 pt-8 lg:grid-cols-12 lg:gap-8">
+        <div className="space-y-12 lg:col-span-7">
           {teach.sections.map((s) => (
-            <section key={s.heading} aria-labelledby={`teach-${s.heading}`} className="grid gap-6 border-t border-line pt-10 xl:grid-cols-[13rem_1fr] xl:gap-10">
+            <section key={s.heading} aria-labelledby={`teach-${s.heading}`} className="grid gap-4 border-t border-line pt-6 xl:grid-cols-[13rem_1fr] xl:gap-10">
               <RevealHeading as="h2" id={`teach-${s.heading}`} className="text-h3 text-ink">
                 {s.heading}
               </RevealHeading>
@@ -54,12 +54,12 @@ export default async function TeachPage() {
         </div>
 
         <aside aria-labelledby="apply-title" className="lg:col-span-4 lg:col-start-9">
-          <div data-reveal className="bg-deep p-9 text-on-deep sm:p-11 lg:sticky lg:top-[calc(var(--header-offset,4rem)+2.5rem)] lg:transition-[top] lg:duration-700">
+          <div data-reveal className="bg-deep p-6 text-on-deep sm:p-8 lg:sticky lg:top-[calc(var(--header-offset,4rem)+2.5rem)] lg:transition-[top] lg:duration-700">
             <h2 id="apply-title" className="font-display text-h3">
               {teach.apply.heading}
             </h2>
-            <p className="mt-5 leading-[1.6] text-on-deep-muted">{teach.apply.body}</p>
-            <div className="mt-10 flex flex-col gap-3">
+            <p className="mt-4 leading-[1.6] text-on-deep-muted">{teach.apply.body}</p>
+            <div className="mt-6 flex flex-col gap-3">
               <ButtonLink href={teach.apply.primary.href} variant="on-deep" size="lg" arrow>
                 {teach.apply.primary.label}
               </ButtonLink>

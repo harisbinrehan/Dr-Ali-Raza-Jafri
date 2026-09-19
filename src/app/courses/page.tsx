@@ -20,7 +20,7 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
   return (
     <div className="relative isolate">
       <DarkBackdrop />
-      <div className="container-x pb-24 pt-8">
+      <div className="container-x pb-16 pt-8">
         <header className="grid gap-4 pb-8 pt-4 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-12 lg:pt-8">
           <div className="lg:col-span-8">
             <p className="label text-eyebrow animate-fade">The courses</p>

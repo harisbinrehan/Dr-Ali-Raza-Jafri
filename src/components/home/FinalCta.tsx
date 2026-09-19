@@ -1,28 +1,26 @@
-import Image from "next/image";
 import type { Contact } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { RevealHeading } from "@/components/ui/SectionHeading";
 
-/** The closing frame: one photograph, the academy's own line, one clear action. */
+/** The closing frame: a sleek glowing background, the academy's own line, one clear action. */
 export function FinalCta({ contact, courseCount }: { contact: Contact; courseCount: number }) {
   return (
     <section aria-labelledby="final-cta-title" className="relative isolate overflow-hidden bg-deep text-on-deep">
-      <div data-reveal="image" className="absolute inset-0 -z-10">
-        <div className="absolute inset-0">
-          <Image src="/images/teaching-whiteboard.jpg" alt="" fill sizes="100vw" className="object-cover object-[62%_35%] opacity-45 dark:opacity-35" />
-        </div>
+      {/* Ambient background glow to make the dark theme look premium */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -left-1/4 -top-1/4 aspect-square w-[70%] rounded-full bg-[radial-gradient(closest-side,var(--color-deep-accent),transparent)] opacity-[0.15]" />
+        <div className="absolute -bottom-1/4 -right-1/4 aspect-square w-[60%] rounded-full bg-[radial-gradient(closest-side,var(--color-deep-accent),transparent)] opacity-[0.15]" />
       </div>
-      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-deep via-deep/80 to-deep/20" />
 
-      <div className="container-x flex min-h-[min(46rem,92svh)] flex-col justify-end py-20 sm:py-28">
+      <div className="container-x py-16 sm:py-20">
         <p data-reveal className="label text-eyebrow-deep">
           {site.name}
         </p>
-        <RevealHeading id="final-cta-title" className="mt-6 max-w-3xl text-h2 text-on-deep">
+        <RevealHeading id="final-cta-title" className="mt-4 max-w-3xl text-h2 text-on-deep">
           {site.tagline}
         </RevealHeading>
-        <div data-reveal className="mt-12 flex flex-wrap gap-3">
+        <div data-reveal className="mt-8 flex flex-wrap gap-3">
           <ButtonLink href="/courses" variant="on-deep" size="lg" arrow>
             Browse {courseCount} courses
           </ButtonLink>
@@ -30,7 +28,7 @@ export function FinalCta({ contact, courseCount }: { contact: Contact; courseCou
             Contact us
           </ButtonLink>
         </div>
-        <p data-reveal className="mt-14 flex flex-wrap gap-x-8 gap-y-2 border-t border-deep-line pt-6 text-[0.875rem] text-on-deep-muted">
+        <p data-reveal className="mt-8 flex flex-wrap gap-x-8 gap-y-2 border-t border-deep-line pt-5 text-[0.875rem] text-on-deep-muted">
           {contact.phone && (
             <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="link-line text-on-deep">
               {contact.phone}

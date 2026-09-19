@@ -26,12 +26,12 @@ export default async function ContactPage() {
     <>
       <PageHeader eyebrow="Get help" title={contactPage.title} lead={contactPage.lead} />
 
-      <div className="container-x grid gap-20 pb-32 pt-16 lg:grid-cols-12 lg:gap-8 lg:pt-20">
+      <div className="container-x grid gap-12 pb-16 pt-6 lg:grid-cols-12 lg:gap-8 lg:pt-8">
         <section aria-labelledby="where-title" className="lg:col-span-5">
           <h2 id="where-title" className="font-display text-h3 text-ink">
             {contactPage.locationHeading}
           </h2>
-          <dl className="mt-10">
+          <dl className="mt-6">
             {details.map(({ label, value, href }) => (
               <div key={label} data-reveal className="grid gap-1 border-t border-line py-6 sm:grid-cols-[7rem_1fr] sm:gap-6">
                 <dt className="text-[0.8125rem] text-muted sm:pt-1.5">{label}</dt>

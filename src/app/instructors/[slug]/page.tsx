@@ -53,21 +53,21 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
 
   return (
     <>
-      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-16">
+      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-8">
         <DarkBackdrop />
-        <div className="container-x grid gap-14 pb-20 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-28 lg:pt-20">
+        <div className="container-x grid gap-10 pb-12 pt-6 lg:grid-cols-12 lg:gap-8 lg:pb-16 lg:pt-10">
           <div className="flex flex-col lg:col-span-7">
             <p className="label text-eyebrow animate-fade">{home.instructor.eyebrow}</p>
-            <h1 id="instructor-name" className="mt-8 font-display text-hero text-ink">
+            <h1 id="instructor-name" className="mt-5 font-display text-hero text-ink">
               <span className="mask">
                 <span className="block animate-mask">{instructor.name}</span>
               </span>
             </h1>
             {(instructor.headline || isLead) && (
-              <p className="mt-10 max-w-lg text-lead text-ink-soft animate-rise [animation-delay:250ms]">{instructor.headline ?? about.lead}</p>
+              <p className="mt-6 max-w-lg text-lead text-ink-soft animate-rise [animation-delay:250ms]">{instructor.headline ?? about.lead}</p>
             )}
 
-            <dl className="mt-auto grid grid-cols-2 border-t border-line pt-2 animate-rise [animation-delay:350ms] sm:grid-cols-4 lg:mt-16">
+            <dl className="mt-auto grid grid-cols-2 border-t border-line pt-2 animate-rise [animation-delay:350ms] sm:grid-cols-4 lg:mt-10">
               {stats.map((s) => (
                 <div key={s.label} className="flex flex-col-reverse py-5">
                   <dt className="mt-1.5 text-[0.8125rem] text-muted">{s.label}</dt>
@@ -92,7 +92,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
 
       {(instructor.bio || isLead) && (
         <section aria-label="About" className="section-y bg-canvas-alt">
-          <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
+          <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
             {isLead && (
               <blockquote data-reveal className="lg:col-span-6">
                 <p className="font-display text-h2 text-ink">
@@ -117,7 +117,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
                 )}
               </div>
               {subjects.length > 0 && (
-                <div data-reveal className="mt-10 border-t border-line pt-6">
+                <div data-reveal className="mt-6 border-t border-line pt-5">
                   <p className="text-[0.8125rem] text-muted">Teaches</p>
                   <ul className="mt-3 text-[0.9375rem] leading-[1.6] text-ink">
                     {subjects.map((s, i) => (
@@ -146,14 +146,14 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
               {plural(theirs.length, "course")}
             </p>
           </div>
-          <ul className="mt-14 grid gap-x-8 gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             {theirs.map((course, i) => (
               <li key={course.id} data-reveal style={revealDelay((i % 3) * 110)}>
                 <CourseCard course={course} />
               </li>
             ))}
           </ul>
-          <div data-reveal className="mt-20 flex justify-center">
+          <div data-reveal className="mt-12 flex justify-center">
             <ArrowLink href="/courses">Search and filter</ArrowLink>
           </div>
         </div>

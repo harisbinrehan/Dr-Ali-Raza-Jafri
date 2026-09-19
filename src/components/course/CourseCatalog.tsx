@@ -97,14 +97,14 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
           <label htmlFor="catalog-search" className="sr-only">
             Search courses
           </label>
-          <Search className="pointer-events-none absolute left-0 top-1/2 size-5 -translate-y-1/2 text-muted" />
+          <Search className="pointer-events-none absolute left-0 top-1/2 size-4 -translate-y-1/2 text-muted" />
           <input
             id="catalog-search"
             type="search"
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             placeholder="Search courses"
-            className="h-16 w-full border-b border-line-strong bg-transparent pl-9 font-display text-[1.75rem] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink sm:text-[2rem]"
+            className="h-12 w-full border-b border-line-strong bg-transparent pl-7 font-display text-[1.375rem] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink sm:text-[1.5rem]"
           />
         </div>
         <div className="flex items-center justify-between gap-4 lg:col-span-4 lg:justify-end">
@@ -177,7 +177,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
       </div>
 
       {results.length > 0 ? (
-        <ul className="mt-12 grid gap-x-8 gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((course, i) => (
             <li key={course.id} className="animate-rise" style={{ animationDelay: `${Math.min(i, 8) * 60}ms` }}>
               <CourseCard course={course} preload={i < 3} headingLevel="h2" />
@@ -185,7 +185,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
           ))}
         </ul>
       ) : (
-        <div className="mt-12 border-t border-line py-24">
+        <div className="mt-8 border-t border-line py-14">
           <p className="font-display text-h3 text-ink">No course matches that yet.</p>
           <p className="mt-4 max-w-md text-muted">Try another word, or clear the filters to see all {plural(courses.length, "course")}.</p>
           <button type="button" onClick={clearFilters} className="link-quiet mt-6 text-[0.875rem] font-semibold text-ink">
