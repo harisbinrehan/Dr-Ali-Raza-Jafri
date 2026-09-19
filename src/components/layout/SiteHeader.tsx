@@ -33,7 +33,7 @@ export function SiteHeader() {
       <a href="#main" className="fixed left-4 top-3 z-[60] -translate-y-24 rounded-lg bg-btn px-4 py-2.5 text-sm font-medium text-btn-fg transition-transform focus:translate-y-0">
         Skip to content
       </a>
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-canvas/95 backdrop-blur supports-[backdrop-filter]:bg-canvas/80">
+      <header className="fixed inset-x-0 top-0 z-50 bg-canvas/95 backdrop-blur supports-[backdrop-filter]:bg-canvas/80">
         <div className="mx-auto flex h-16 max-w-[1360px] items-center justify-between gap-3 px-[clamp(1.25rem,4.5vw,4rem)]">
           <BrandLockup />
 
