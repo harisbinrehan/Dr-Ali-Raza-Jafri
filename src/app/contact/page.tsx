@@ -26,8 +26,8 @@ export default async function ContactPage() {
     <>
       <PageHeader eyebrow="Get help" title={contactPage.title} lead={contactPage.lead} />
 
-      <div className="container-x grid gap-12 pb-16 pt-6 lg:grid-cols-12 lg:gap-8 lg:pt-8">
-        <section aria-labelledby="where-title" className="lg:col-span-5">
+      <div className="container-x grid gap-12 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8">
+        <section aria-labelledby="where-title" className="md:col-span-5 lg:col-span-5">
           <h2 id="where-title" className="font-display text-h3 text-ink">
             {contactPage.locationHeading}
           </h2>
@@ -49,7 +49,7 @@ export default async function ContactPage() {
           </dl>
         </section>
 
-        <section aria-label="Send a message" className="lg:col-span-5 lg:col-start-8">
+        <section aria-label="Send a message" className="md:col-span-5 lg:col-span-5 md:col-start-8 lg:col-start-8">
           <ContactForm />
         </section>
       </div>

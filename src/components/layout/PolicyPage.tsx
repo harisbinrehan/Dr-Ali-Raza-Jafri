@@ -16,8 +16,8 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
     <>
       <PageHeader eyebrow="Policies" title={doc.title} lead={<RichText text={fillPolicy(doc.intro, policy)} />} />
 
-      <div className="container-x grid gap-8 pb-16 pt-8 lg:grid-cols-12 lg:gap-8 lg:pt-10">
-        <nav aria-label="On this page" className="hidden lg:col-span-3 lg:block">
+      <div className="container-x grid gap-8 pb-16 pt-8 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-10">
+        <nav aria-label="On this page" className="hidden md:col-span-3 lg:col-span-3 lg:block">
           <div className="sticky top-[calc(var(--header-offset,4rem)+2.5rem)] transition-[top] duration-700">
             <p className="label text-muted">On this page</p>
             <ol className="mt-6 space-y-1">
@@ -32,7 +32,7 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
           </div>
         </nav>
 
-        <div className="lg:col-span-7 lg:col-start-5">
+        <div className="md:col-span-7 lg:col-span-7 md:col-start-5 lg:col-start-5">
           {doc.sections.map((s) => (
             <section key={s.heading} id={anchor(s.heading)} aria-labelledby={`${anchor(s.heading)}-title`} className="grid scroll-mt-20 gap-3 border-t border-line py-6 first:border-t-0 first:pt-0 xl:grid-cols-[13rem_1fr] xl:gap-10">
               <h2 id={`${anchor(s.heading)}-title`} className="font-display text-h4 text-ink">

@@ -42,15 +42,15 @@ export default async function AboutPage() {
       </figure>
 
       <section aria-label="Who we are" className="section-y">
-        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <blockquote data-reveal className="lg:col-span-6">
+        <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+          <blockquote data-reveal className="md:col-span-6 lg:col-span-6">
             <p className="font-display text-h2 text-ink">
               <span aria-hidden="true" className="text-accent">“</span>
               {about.pullQuote}
               <span aria-hidden="true" className="text-accent">”</span>
             </p>
           </blockquote>
-          <div className="prose-copy lg:col-span-4 lg:col-start-9 lg:pt-3">
+          <div className="prose-copy md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9 lg:pt-3">
             {about.body.map((p, i) => (
               <p key={i} data-reveal style={revealDelay(i * 100)}>
                 {p}
@@ -61,13 +61,13 @@ export default async function AboutPage() {
       </section>
 
       <section aria-labelledby="how-title" className="section-y bg-canvas-alt">
-        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+        <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+          <div className="md:col-span-4 lg:col-span-4">
             <RevealHeading id="how-title" className="text-h2 text-ink">
               {about.howItWorks.heading}
             </RevealHeading>
           </div>
-          <ol className="lg:col-span-7 lg:col-start-6">
+          <ol className="md:col-span-7 lg:col-span-7 md:col-start-6 lg:col-start-6">
             {about.howItWorks.body.map((p, i) => (
               <li key={i} data-reveal style={revealDelay(i * 110)} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[4.5rem_1fr]">
                 <span className="font-display text-[1.625rem] leading-none text-accent">{String(i + 1).padStart(2, "0")}</span>
@@ -79,8 +79,8 @@ export default async function AboutPage() {
       </section>
 
       <section aria-labelledby="teaching-title" className="section-y">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-8">
-          <div className="lg:col-span-6">
+        <div className="container-x grid gap-12 md:grid-cols-12 lg:grid-cols-12 lg:items-end lg:gap-8">
+          <div className="md:col-span-6 lg:col-span-6">
             <RevealHeading id="teaching-title" className="text-h2 text-ink">
               {about.teaching.heading}
             </RevealHeading>
@@ -88,7 +88,7 @@ export default async function AboutPage() {
               <RichText text={about.teaching.body} />
             </p>
           </div>
-          <div data-reveal className="flex flex-wrap items-center gap-x-8 gap-y-4 lg:col-span-5 lg:col-start-8 lg:justify-end">
+          <div data-reveal className="flex flex-wrap items-center gap-x-8 gap-y-4 md:col-span-5 lg:col-span-5 md:col-start-8 lg:col-start-8 lg:justify-end">
             <ButtonLink href="/courses" size="lg" arrow>
               Browse {courses.length} courses
             </ButtonLink>

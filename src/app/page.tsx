@@ -80,8 +80,8 @@ export default async function HomePage() {
       <Commitments />
 
       <section aria-labelledby="faq-title" className="section-y">
-        <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+        <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+          <div className="md:col-span-4 lg:col-span-4">
             <div className="lg:sticky lg:top-32">
               <SectionIntro id="faq-title" title="Frequently asked questions" />
               <p data-reveal className="prose-copy mt-6 text-muted">
@@ -89,7 +89,7 @@ export default async function HomePage() {
               </p>
             </div>
           </div>
-          <div data-reveal className="lg:col-span-7 lg:col-start-6">
+          <div data-reveal className="md:col-span-7 lg:col-span-7 md:col-start-6 lg:col-start-6">
             <FaqAccordion items={faqsWithPolicy(faqs, policy, purchaseFaqIds.slice(0, 5))} firstOpen />
             <div className="mt-8">
               <ArrowLink href="/faq">{home.promise.moreLabel}</ArrowLink>

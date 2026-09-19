@@ -35,8 +35,8 @@ export default async function TeachPage() {
         </ol>
       </section>
 
-      <div className="container-x grid gap-12 pb-16 pt-8 lg:grid-cols-12 lg:gap-8">
-        <div className="space-y-12 lg:col-span-7">
+      <div className="container-x grid gap-12 pb-16 pt-8 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+        <div className="space-y-12 md:col-span-7 lg:col-span-7">
           {teach.sections.map((s) => (
             <section key={s.heading} aria-labelledby={`teach-${s.heading}`} className="grid gap-4 border-t border-line pt-6 xl:grid-cols-[13rem_1fr] xl:gap-10">
               <RevealHeading as="h2" id={`teach-${s.heading}`} className="text-h3 text-ink">
@@ -53,7 +53,7 @@ export default async function TeachPage() {
           ))}
         </div>
 
-        <aside aria-labelledby="apply-title" className="lg:col-span-4 lg:col-start-9">
+        <aside aria-labelledby="apply-title" className="md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9">
           <div data-reveal className="bg-deep p-6 text-on-deep sm:p-8 lg:sticky lg:top-[calc(var(--header-offset,4rem)+2.5rem)] lg:transition-[top] lg:duration-700">
             <h2 id="apply-title" className="font-display text-h3">
               {teach.apply.heading}

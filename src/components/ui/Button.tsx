@@ -8,12 +8,12 @@ type Variant = "primary" | "outline" | "ghost" | "on-deep" | "outline-deep";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform] duration-500 ease-(--ease-editorial) active:translate-y-px disabled:pointer-events-none disabled:opacity-40";
+  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform,box-shadow] duration-500 ease-(--ease-editorial) active:translate-y-px disabled:pointer-events-none disabled:opacity-40";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-btn text-btn-fg hover:bg-btn-hover",
+  primary: "bg-btn text-btn-fg shadow-[0_1px_2px_rgb(0_0_0/0.06),0_8px_20px_-8px_rgb(15_107_97/0.45)] hover:bg-btn-hover hover:-translate-y-px hover:shadow-[0_2px_4px_rgb(0_0_0/0.08),0_12px_24px_-8px_rgb(15_107_97/0.5)]",
   outline: "border-ink/25 bg-ink/[0.04] text-ink hover:border-ink/45 hover:bg-ink/[0.08]",
-  "on-deep": "bg-btn-deep text-btn-deep-fg hover:bg-btn-deep-hover",
+  "on-deep": "bg-btn-deep text-btn-deep-fg shadow-[0_1px_2px_rgb(0_0_0/0.1),0_8px_20px_-8px_rgb(0_0_0/0.35)] hover:bg-btn-deep-hover hover:-translate-y-px",
   ghost: "text-ink/80 hover:bg-ink/[0.06] hover:text-ink",
   "outline-deep": "border-deep-line bg-on-deep/[0.04] text-on-deep hover:border-on-deep/40 hover:bg-on-deep/[0.08]",
 };

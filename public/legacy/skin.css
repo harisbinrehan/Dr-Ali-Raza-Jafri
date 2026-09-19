@@ -26,22 +26,22 @@
   --color-slate-800: #26272c;
   --color-slate-900: #17181c;
 
-  --color-accent-400: #b07a45;
-  --color-accent-500: #8a5a2e;
-  --color-accent-600: #8a5a2e;
-  --color-brand-500: #b98552;
+  --color-accent-400: #158f83;
+  --color-accent-500: #0f6b61;
+  --color-accent-600: #0f6b61;
+  --color-brand-500: #0f6b61;
   --color-success-500: #3f6b52;
   --color-dash-primary: #17181c;
 
-  --radius-control: 8px;
-  --radius-card: 2px;
-  --radius-panel: 2px;
-  --radius-panel-lg: 2px;
-  --radius-pill: 2px;
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-panel: 16px;
+  --radius-panel-lg: 20px;
+  --radius-pill: 999px;
 
-  --skin-button: #e27b22;
-  --skin-button-text: #17181c;
-  --skin-button-hover: #ec8b37;
+  --skin-button: #0f6b61;
+  --skin-button-text: #f7f4ee;
+  --skin-button-hover: #158f83;
   --skin-input: #fbf9f5;
 }
 
@@ -108,7 +108,15 @@ main h3.text-title-sm {
   display: none;
 }
 
-/* Primary actions: the brand orange, in both themes. */
+/* Video embeds (lesson previews, YouTube fallbacks): rounded to match the
+ * public site's cards instead of sitting square-cornered against them. */
+.aspect-video,
+iframe {
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+/* Primary actions: the brand teal, in both themes. */
 .bg-slate-900.text-white,
 .bg-accent-600.text-white {
   background-color: var(--skin-button) !important;
@@ -167,6 +175,11 @@ footer a {
   padding-block: 0.25rem;
 }
 
+/* Hide the profile avatar circle in the legacy header to perfectly match the native site's header */
+header .rounded-full.size-9 {
+  display: none !important;
+}
+
 /* ------------------------------------------------------------ Responsive fixes
  * The platform's single-column grids size to their content on phones, so two
  * side-by-side inputs push checkout wider than the screen. */
@@ -193,7 +206,7 @@ textarea {
 }
 
 /* ------------------------------------------------------------ Dark
- * Deep ink navy with a teal glow; orange actions. Applied on the student-facing pages; the
+ * Deep ink navy with a teal glow; teal actions. Applied on the student-facing pages; the
  * teacher and admin dashboards stay light (see theme.js). */
 html[data-theme="dark"] {
   color-scheme: dark;
@@ -209,10 +222,10 @@ html[data-theme="dark"] {
   --color-slate-800: #eceef1;
   --color-slate-900: #f7f4ee;
 
-  --color-accent-400: #f29a4a;
-  --color-accent-500: #f29a4a;
-  --color-accent-600: #e27b22;
-  --color-brand-500: #f29a4a;
+  --color-accent-400: #7cc4b8;
+  --color-accent-500: #0f6b61;
+  --color-accent-600: #0f6b61;
+  --color-brand-500: #7cc4b8;
 
   --color-green-50: rgb(63 107 82 / 0.22);
   --color-green-200: rgb(120 190 150 / 0.35);
@@ -234,9 +247,9 @@ html[data-theme="dark"] {
   --color-violet-50: rgb(140 110 210 / 0.2);
   --color-violet-800: #d4c8f5;
 
-  --skin-button: #e27b22;
-  --skin-button-text: #0b1220;
-  --skin-button-hover: #f29a4a;
+  --skin-button: #0f6b61;
+  --skin-button-text: #f7f4ee;
+  --skin-button-hover: #158f83;
   --skin-input: #0f1829;
 }
 html[data-theme="dark"] body {

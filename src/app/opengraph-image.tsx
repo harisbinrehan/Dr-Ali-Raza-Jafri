@@ -48,7 +48,7 @@ export default async function OpenGraphImage() {
           </div>
           <div style={{ display: "flex", flexDirection: "column", fontFamily: display }}>
             <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -2, fontWeight: 700 }}>{HEADLINE[0]}</span>
-            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -2, fontWeight: 700, color: "#0f6b61" }}>{HEADLINE[1]}</span>
+            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -2, fontWeight: 700 }}>{HEADLINE[1]}</span>
           </div>
           <div style={{ display: "flex", borderTop: "1px solid rgba(23,24,28,0.2)", paddingTop: 22, fontSize: 22, color: "#3a3c42" }}>{site.tagline}</div>
         </div>

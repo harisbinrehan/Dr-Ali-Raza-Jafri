@@ -107,9 +107,9 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
     <>
       <div className="relative isolate">
         <DarkBackdrop />
-        <article className="container-x grid pb-6 pt-16 lg:grid-cols-12 lg:gap-x-8">
+        <article className="container-x grid pb-6 pt-16 md:grid-cols-12 lg:grid-cols-12 lg:gap-x-8">
           {/* Hero */}
-          <header className="pb-8 pt-6 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pb-12 lg:pt-8">
+          <header className="pb-8 pt-6 md:col-span-7 lg:col-span-7 md:col-start-1 lg:col-start-1 lg:row-start-1 lg:pb-12 lg:pt-8">
             <Breadcrumb
               items={[
                 { label: "Courses", href: "/courses" },
@@ -131,7 +131,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
           </header>
 
           {/* Enrolment: sticky beside the whole course on desktop, straight after the hero on mobile */}
-          <aside aria-label="Enrol" className="relative z-10 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:pt-8">
+          <aside aria-label="Enrol" className="relative z-10 md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:pt-8">
             <div className="animate-rise [animation-delay:240ms] lg:sticky lg:top-[calc(var(--header-offset,4rem)+1.5rem)] lg:transition-[top] lg:duration-700">
               <EnrolPanel
                 courseId={course.id}
@@ -147,7 +147,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
           </aside>
 
           {/* Body */}
-          <div className="space-y-12 pt-8 sm:space-y-14 lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:pt-0">
+          <div className="space-y-12 pt-8 sm:space-y-14 md:col-span-7 lg:col-span-7 md:col-start-1 lg:col-start-1 lg:row-start-2 lg:pt-0">
             {course.learningObjectives.length > 0 && (
               <CourseSection id="learn" title="What you will learn">
                 <LearningOutcomes items={course.learningObjectives} />
@@ -201,15 +201,15 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
 
       {/* Closing enrolment */}
       <section aria-labelledby="enrol-title" className="mt-14 bg-deep text-on-deep">
-        <div className="container-x grid gap-8 py-12 sm:py-14 lg:grid-cols-12 lg:items-end lg:gap-8">
-          <div className="lg:col-span-7">
+        <div className="container-x grid gap-8 py-12 sm:py-14 md:grid-cols-12 lg:grid-cols-12 lg:items-end lg:gap-8">
+          <div className="md:col-span-7 lg:col-span-7">
             <p className="label text-eyebrow-deep">{course.category?.name ?? site.name}</p>
             <h2 id="enrol-title" className="mt-5 font-display text-h2 text-on-deep">
               {title}
             </h2>
             <p className="mt-5 text-[0.9375rem] text-on-deep-muted">{includes.slice(0, 3).map((i) => i.label).join(" · ")}</p>
           </div>
-          <div className="flex flex-col items-start gap-6 lg:col-span-4 lg:col-start-9 lg:items-end">
+          <div className="flex flex-col items-start gap-6 md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9 lg:items-end">
             <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} size="lg" tone="deep" />
             <EnrolButton courseId={course.id} free={free} tone="deep" />
           </div>

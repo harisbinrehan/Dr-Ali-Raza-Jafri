@@ -16,8 +16,8 @@ export default async function NotFound() {
     <section className="relative isolate overflow-hidden bg-deep text-on-deep">
       <DarkBackdrop />
       <div className="container-x flex min-h-[70vh] flex-col justify-center py-16">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-7">
+        <div className="grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+          <div className="md:col-span-7 lg:col-span-7">
             <p className="label text-eyebrow-deep">Not found</p>
             <h1 className="mt-4 max-w-2xl font-display text-h1 text-on-deep">That page is not available.</h1>
             <p className="mt-5 max-w-lg text-lead text-on-deep-muted">
@@ -34,9 +34,9 @@ export default async function NotFound() {
           </div>
 
           {featured && (
-            <div className="lg:col-span-4 lg:col-start-9">
+            <div className="md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9">
               <p className="label text-on-deep-muted">While you&rsquo;re here</p>
-              <article className="group relative mt-5 overflow-hidden rounded-2xl border border-deep-line">
+              <article className="group relative mt-5 overflow-hidden rounded-2xl border border-deep-line transition-[transform,box-shadow] duration-500 ease-(--ease-editorial) hover:-translate-y-1 hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.4)]">
                 <div className="relative">
                   <CourseImage src={featuredImage} title={displayTitle(featured.title)} sizes="(min-width: 1024px) 320px, 90vw" />
                 </div>

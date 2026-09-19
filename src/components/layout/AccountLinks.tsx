@@ -35,6 +35,9 @@ const dashboardLabel = (viewer: NonNullable<Viewer>) => (viewer.role === "ADMIN"
 /** Navbar: ghost "Sign in" and the orange primary action. */
 export function AccountLinks({ viewer, className }: { viewer: Viewer | undefined; className?: string }) {
   if (viewer) {
+    if (viewer.role !== "ADMIN" && viewer.role !== "TEACHER") {
+      return null;
+    }
     return (
       <a href={dashboardFor(viewer.role)} className={buttonClasses({ size: "sm", className })}>
         {dashboardLabel(viewer)}

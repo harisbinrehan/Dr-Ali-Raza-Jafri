@@ -23,12 +23,12 @@ export default async function FaqPage() {
     <>
       <PageHeader eyebrow="Get help" title="Frequently asked questions" />
 
-      <div className="container-x grid gap-10 pb-16 pt-6 lg:grid-cols-12 lg:gap-8 lg:pt-8">
-        <div className="lg:col-span-7">
+      <div className="container-x grid gap-10 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8">
+        <div className="md:col-span-7 lg:col-span-7">
           <FaqAccordion items={items} headingLevel={2} firstOpen />
         </div>
 
-        <aside aria-labelledby="ask-title" className="lg:col-span-4 lg:col-start-9">
+        <aside aria-labelledby="ask-title" className="md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9">
           <div className="border-t border-ink pt-8 lg:sticky lg:top-[calc(var(--header-offset,4rem)+2.5rem)] lg:transition-[top] lg:duration-700">
             <h2 id="ask-title" className="font-display text-h3 text-ink [&_a]:text-accent [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-[0.2em]">
               <RichText text="Something not answered here? [Ask us](/contact)." />

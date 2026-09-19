@@ -21,8 +21,8 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
     <div className="relative isolate">
       <DarkBackdrop />
       <div className="container-x pb-16 pt-16">
-        <header className="grid gap-4 pb-8 pt-4 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-12 lg:pt-8">
-          <div className="lg:col-span-8">
+        <header className="grid gap-4 pb-8 pt-4 md:grid-cols-12 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-12 lg:pt-8">
+          <div className="md:col-span-8 lg:col-span-8">
             <p className="label text-eyebrow animate-fade">The courses</p>
             <h1 className="mt-4 font-display text-h1 text-ink">
               <span className="mask">
@@ -30,7 +30,7 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
               </span>
             </h1>
           </div>
-          <p className="text-lead text-muted animate-rise [animation-delay:200ms] lg:col-span-4 lg:text-right">{plural(courses.length, "course")} available</p>
+          <p className="text-lead text-muted animate-rise [animation-delay:200ms] md:col-span-4 lg:col-span-4 lg:text-right">{plural(courses.length, "course")} available</p>
         </header>
 
         <CourseCatalog key={`${initial.category}|${initial.query}|${initial.sort}`} courses={courses} categories={categories} initial={initial} />

@@ -10,8 +10,8 @@ import { RevealHeading } from "@/components/ui/SectionHeading";
 export function InstructorIntro({ stats }: { stats: { value: string; label: string }[] }) {
   return (
     <section aria-labelledby="instructor-title" className="section-y bg-canvas-alt">
-      <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-5">
+      <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+        <div className="md:col-span-5 lg:col-span-5">
           <figure className="lg:sticky lg:top-28">
             <div data-reveal="image" className="relative aspect-[4/5] overflow-hidden bg-canvas">
               <Parallax speed={-0.04} className="absolute -inset-y-[6%] inset-x-0">
@@ -22,7 +22,7 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
           </figure>
         </div>
 
-        <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
+        <div className="md:col-span-6 lg:col-span-6 md:col-start-7 lg:col-start-7 lg:pt-8">
           <p data-reveal className="label text-eyebrow">
             {home.instructor.eyebrow}
           </p>

@@ -7,7 +7,9 @@ import { JsonLd, organizationSchema } from "@/lib/schema";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { BottomNav } from "@/components/layout/BottomNav";
 import { RevealObserver } from "@/components/layout/RevealObserver";
+import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
 // Headings: Plus Jakarta Sans (600–700). Text: Inter (400–500).
 const heading = Plus_Jakarta_Sans({ variable: "--font-heading", subsets: ["latin"], weight: ["600", "700"], display: "swap" });
@@ -50,7 +52,9 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
             {children}
           </main>
           <SiteFooter contact={contact} categories={categories} />
+          <BottomNav />
           <RevealObserver />
+          <ScrollToTop />
         </ThemeProvider>
         <JsonLd data={organizationSchema(contact)} />
       </body>

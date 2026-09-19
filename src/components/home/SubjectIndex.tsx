@@ -10,8 +10,8 @@ import { ArrowRight } from "@/components/ui/Icons";
 export function SubjectIndex({ categories }: { categories: Category[] }) {
   return (
     <section aria-labelledby="subjects-title" className="pt-[clamp(1.5rem,1rem+3vw,3rem)] pb-[clamp(3rem,2rem+5vw,6.5rem)]">
-      <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-4">
+      <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+        <div className="md:col-span-4 lg:col-span-4">
           <div className="lg:sticky lg:top-32">
             <SectionIntro id="subjects-title" title={home.subjects.heading} body={home.subjects.body} />
             <p data-reveal className="mt-6 text-[0.8125rem] text-muted">
@@ -20,7 +20,7 @@ export function SubjectIndex({ categories }: { categories: Category[] }) {
           </div>
         </div>
 
-        <ol className="lg:col-span-7 lg:col-start-6">
+        <ol className="md:col-span-7 lg:col-span-7 md:col-start-6 lg:col-start-6">
           {categories.map((c, i) => (
             <li key={c.id} data-reveal style={revealDelay(Math.min(i, 6) * 50)} className="border-b border-line first:border-t">
               <Link href={`/courses?category=${c.slug}`} className="group flex items-baseline gap-4 py-4 sm:py-5">

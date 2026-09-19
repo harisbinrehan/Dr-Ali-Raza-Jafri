@@ -16,14 +16,14 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
   const year = new Date().getFullYear();
   return (
     <footer className="bg-deep text-on-deep">
-      <div className="container-x pb-8 pt-14 sm:pt-16">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-4">
+      <div className="container-x pb-24 pt-14 sm:pt-16 lg:pb-8">
+        <div className="grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+          <div className="md:col-span-4 lg:col-span-4">
             <BrandLockup tone="deep" />
             <p className="mt-8 max-w-xs text-[0.9375rem] leading-relaxed text-on-deep-muted">{site.tagline}</p>
           </div>
 
-          <nav aria-label="Get help" className="lg:col-span-2 lg:col-start-6">
+          <nav aria-label="Get help" className="md:col-span-2 lg:col-span-2 md:col-start-6 lg:col-start-6">
             <h2 className="label text-on-deep-muted">Get help</h2>
             <ul className="mt-6 space-y-1.5 text-[0.9375rem]">
               {helpLinks.map((l) => (
@@ -36,7 +36,7 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
             </ul>
           </nav>
 
-          <nav aria-label="Subjects" className="lg:col-span-3">
+          <nav aria-label="Subjects" className="md:col-span-3 lg:col-span-3">
             <h2 className="label text-on-deep-muted">Subjects</h2>
             <ul className="mt-6 space-y-1.5 text-[0.9375rem]">
               {categories.map((c) => (
@@ -49,7 +49,7 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
             </ul>
           </nav>
 
-          <div className="lg:col-span-2">
+          <div className="md:col-span-2 lg:col-span-2">
             <h2 className="label text-on-deep-muted">Contact us</h2>
             <address className="mt-6 space-y-3 text-[0.9375rem] not-italic leading-relaxed text-on-deep/80">
               {contact.address && <p>{contact.address}</p>}

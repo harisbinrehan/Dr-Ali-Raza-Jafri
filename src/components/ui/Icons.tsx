@@ -141,3 +141,17 @@ export const Refresh = (p: IconProps) => (
     <path d="M18 3v4h-4M6 21v-4h4" />
   </Icon>
 );
+
+export const Home = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 11.5 12 4l8 7.5" />
+    <path d="M6 9.8V19a1 1 0 0 0 1 1h3v-5.5h4V20h3a1 1 0 0 0 1-1V9.8" />
+  </Icon>
+);
+
+export const BookOpen = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M12 6.5c-2-1.3-4.8-1.5-7.5-.7v12.7c2.7-.8 5.5-.6 7.5.7 2-1.3 4.8-1.5 7.5-.7V5.8c-2.7-.8-5.5-.6-7.5.7Z" />
+    <path d="M12 6.5v12.7" />
+  </Icon>
+);

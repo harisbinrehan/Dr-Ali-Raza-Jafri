@@ -13,8 +13,8 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
   const meta = [plural(course.lessonCount, "lesson"), formatDuration(course.totalDurationSeconds), levelLabel[course.level]].filter(Boolean);
 
   return (
-    <article className="group relative grid gap-6 overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-12 lg:gap-0">
-      <div data-reveal="image" className="lg:col-span-7">
+    <article className="group relative grid gap-6 overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-editorial) md:grid-cols-12 lg:grid-cols-12 lg:gap-0 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]">
+      <div data-reveal="image" className="md:col-span-7 lg:col-span-7">
         <CourseImage
           src={imageUrl}
           title={displayTitle(course.title)}
@@ -23,7 +23,7 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
         />
       </div>
 
-      <div className="flex flex-col p-6 sm:p-8 lg:col-span-5 lg:col-start-8 lg:py-10">
+      <div className="flex flex-col p-6 sm:p-8 md:col-span-5 lg:col-span-5 md:col-start-8 lg:col-start-8 lg:py-10">
         <p data-reveal className="label text-eyebrow">
           Featured · {course.category?.name}
         </p>

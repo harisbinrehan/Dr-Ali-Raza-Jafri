@@ -92,8 +92,8 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
 
   return (
     <div>
-      <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-8">
-        <div className="relative lg:col-span-8">
+      <div className="grid gap-5 md:grid-cols-12 lg:grid-cols-12 lg:items-end lg:gap-8">
+        <div className="relative md:col-span-8 lg:col-span-8">
           <label htmlFor="catalog-search" className="sr-only">
             Search courses
           </label>
@@ -107,7 +107,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
             className="h-12 w-full border-b border-line-strong bg-transparent pl-7 font-display text-[1.375rem] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink sm:text-[1.5rem]"
           />
         </div>
-        <div className="flex items-center justify-between gap-4 lg:col-span-4 lg:justify-end">
+        <div className="flex items-center justify-between gap-4 md:col-span-4 lg:col-span-4 lg:justify-end">
           <label htmlFor="catalog-sort" className="text-[0.8125rem] text-muted">
             Sort by
           </label>

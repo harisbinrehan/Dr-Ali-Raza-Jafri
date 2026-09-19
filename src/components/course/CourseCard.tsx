@@ -24,7 +24,12 @@ export function CourseCard({ course, headingLevel: Heading = "h3", preload, clas
   const meta = [plural(course.lessonCount, "lesson"), formatDuration(course.totalDurationSeconds)].filter(Boolean).join(" · ");
 
   return (
-    <article className={cn("group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface", className)}>
+    <article
+      className={cn(
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-editorial) hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]",
+        className,
+      )}
+    >
       <CourseImage
         src={course.thumbnailUrl}
         title={displayTitle(course.title)}

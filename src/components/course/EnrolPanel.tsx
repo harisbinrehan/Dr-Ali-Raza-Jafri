@@ -80,7 +80,7 @@ export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePri
 
   return (
     <>
-      <div className="border border-line bg-surface">
+      <div className="overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-12px_rgb(0_0_0/0.12)]">
         <div className="relative">
           <CourseImage src={imageUrl} title={title} sizes="(min-width: 1024px) 400px, 100vw" preload />
           {firstPreview && (

@@ -39,10 +39,10 @@ export function Hero({ featured, stats }: HeroProps) {
           </span>
         </h1>
 
-        <div className="mt-8 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-8">
-          <div className="flex flex-col lg:col-span-4">
+        <div className="mt-8 grid gap-10 lg:mt-12 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
+          <div className="flex flex-col md:col-span-4 lg:col-span-4">
             <p className="max-w-md text-lead text-ink-soft animate-rise [animation-delay:350ms]">{home.intro}</p>
-            <div className="mt-6 flex flex-col gap-3 animate-rise [animation-delay:480ms] sm:flex-row lg:flex-col xl:flex-row">
+            <div className="mt-6 flex flex-col flex-wrap gap-3 animate-rise [animation-delay:480ms] sm:flex-row md:flex-col xl:flex-row">
               <ButtonLink href={home.primaryCta.href} size="lg" arrow>
                 {home.primaryCta.label}
               </ButtonLink>
@@ -54,10 +54,10 @@ export function Hero({ featured, stats }: HeroProps) {
           </div>
 
           {/* The featured course, given the room a photograph used to take. */}
-          <div className="lg:col-span-7 lg:col-start-6">
+          <div className="md:col-span-7 lg:col-span-7 md:col-start-6 lg:col-start-6">
             <Link
               href={`/courses/${featured.slug}`}
-              className="group block overflow-hidden rounded-2xl border border-line bg-surface animate-rise [animation-delay:400ms]"
+              className="group block overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-editorial) animate-rise [animation-delay:400ms] hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]"
             >
               <div data-reveal="image" className="relative">
                 <CourseImage
@@ -85,7 +85,7 @@ export function Hero({ featured, stats }: HeroProps) {
 
         <dl className="mt-10 grid gap-3 sm:gap-4 lg:mt-14" style={{ gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))` }}>
           {stats.map((s) => (
-            <div key={s.label} className="rounded-xl border border-line bg-surface px-4 py-5 sm:px-5 sm:py-6">
+            <div key={s.label} className="rounded-xl border border-line bg-surface px-4 py-5 shadow-[0_1px_2px_rgb(0_0_0/0.04)] sm:px-5 sm:py-6">
               <dd className="font-display text-[clamp(1.75rem,1.3rem+1.8vw,3rem)] leading-none tabular-nums text-ink">{s.value.toLocaleString("en-US")}</dd>
               <dt className="mt-2.5 text-[0.8125rem] text-muted">{s.label}</dt>
             </div>
