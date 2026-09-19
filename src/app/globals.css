@@ -2,6 +2,11 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
+/* Prevent unauthenticated links from flashing on initial load if we know the user is signed in */
+html.has-token .aa-unauth-links {
+  display: none !important;
+}
+
 /* ------------------------------------------------------------------
    Alignodontic Academy — design tokens
    Warm ivory, charcoal, and one restrained bronze (a mature take on the
@@ -159,6 +164,10 @@
     from { transform: scaleX(0); }
     to { transform: scaleX(1); }
   }
+  @keyframes skeleton-shimmer {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
+  }
 }
 
 /* ------------------------------------------------------------------ Base */
@@ -262,6 +271,25 @@
   opacity: 0.08;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Loading placeholders: a flat tint with a soft light sweep. Blend mode keeps
+   the sweep visible without hand-tuning a separate highlight colour per theme. */
+@utility skeleton {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background-color: var(--skeleton-bg, var(--line-strong));
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent);
+    mix-blend-mode: overlay;
+    animation: skeleton-shimmer 1.8s ease-in-out infinite;
+  }
 }
 
 /* Always-underlined text link that darkens its underline on hover. */

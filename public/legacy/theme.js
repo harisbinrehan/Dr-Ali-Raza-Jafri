@@ -11,6 +11,15 @@
   var root = document.documentElement;
   var dashboard = /^\/(teacher|admin)(\/|$)/.test(location.pathname);
 
+  // Hide "Sign in" and "Create account" links early if we have a token, to prevent flashing before JS hydration.
+  try {
+    if (localStorage.getItem("alignodontic.accessToken")) {
+      var style = document.createElement("style");
+      style.textContent = "header a[href*='/users/sign_in'], header a[href*='/login'], header a[href*='/users/sign_up'] { display: none !important; }";
+      document.documentElement.appendChild(style);
+    }
+  } catch (e) {}
+
   function resolveTheme() {
     var stored = null;
     try {

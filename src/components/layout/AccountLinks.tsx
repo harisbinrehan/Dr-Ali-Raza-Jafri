@@ -45,7 +45,7 @@ export function AccountLinks({ viewer, className }: { viewer: Viewer | undefined
     );
   }
   return (
-    <span className={cn("flex items-center gap-1", className)}>
+    <span className={cn("aa-unauth-links flex items-center gap-1", className)}>
       <a href={legacyRoutes.login} className={buttonClasses({ variant: "ghost", size: "sm", className: "hidden md:inline-flex" })}>
         Sign in
       </a>
