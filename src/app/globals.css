@@ -52,9 +52,9 @@
   --muted: #a7adbb;
   --line: rgb(255 255 255 / 0.1);
   --line-strong: rgb(255 255 255 / 0.24);
-  --accent: #7cc4b8;
-  --accent-soft: rgb(124 196 184 / 0.14);
-  --eyebrow: #7cc4b8;
+  --accent: #0f6b61;
+  --accent-soft: rgb(15 107 97 / 0.2);
+  --eyebrow: #0f6b61;
   --eyebrow-deep: #7cc4b8;
 
   --deep: #070b16;
@@ -63,14 +63,14 @@
   --deep-line: rgb(255 255 255 / 0.1);
   --deep-accent: #7cc4b8;
 
-  --btn-bg: #f7f4ee;
-  --btn-fg: #0b1222;
-  --btn-hover: #eee9e0;
+  --btn-bg: #0f6b61;
+  --btn-fg: #f7f4ee;
+  --btn-hover: #158f83;
   --btn-deep-bg: #7cc4b8;
   --btn-deep-fg: #0b1222;
   --btn-deep-hover: #9ad4c9;
 
-  --focus: #7cc4b8;
+  --focus: #0f6b61;
   color-scheme: dark;
 }
 
