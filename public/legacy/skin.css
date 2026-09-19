@@ -192,6 +192,96 @@ textarea {
   min-width: 0;
   max-width: 100%;
 }
+
+/* Disable sticky video player on mobile learning page to prevent it from covering course content */
+.sticky.top-0.z-20.rounded-t-panel {
+  position: static !important;
+  z-index: auto !important;
+}
+
+/* ------------------------------------------------------------ Bottom nav
+ * Injected by theme.js on every platform page (sign-in, cart, checkout,
+ * learning, account, dashboards), since they sit outside the Next.js app and
+ * never render its <BottomNav>. Same four destinations, same look. */
+.aa-bottom-nav {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 999990;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: var(--color-white);
+  border-top: 1px solid var(--color-slate-200);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@media (min-width: 1024px) {
+  .aa-bottom-nav {
+    display: none;
+  }
+}
+body:has(.aa-bottom-nav) {
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 1024px) {
+  body:has(.aa-bottom-nav) {
+    padding-bottom: 0;
+  }
+}
+.aa-bn-item {
+  display: flex;
+  justify-content: center;
+  padding-block: 0.625rem;
+  text-decoration: none;
+  color: var(--color-slate-500);
+}
+.aa-bn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+}
+.aa-bn-icon-wrap svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  display: block;
+}
+.aa-bn-icon-wrap {
+  position: relative;
+  display: block;
+}
+.aa-bn-bar {
+  margin-top: 0.125rem;
+  height: 2px;
+  width: 1.5rem;
+  border-radius: 999px;
+  background: transparent;
+}
+.aa-bn-item.is-active {
+  color: var(--color-accent-500);
+}
+.aa-bn-item.is-active .aa-bn-bar {
+  background-color: var(--color-accent-500);
+}
+.aa-bn-badge {
+  position: absolute;
+  top: -0.375rem;
+  right: -0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.0625rem;
+  height: 1.0625rem;
+  padding-inline: 0.1875rem;
+  border-radius: 999px;
+  background-color: var(--skin-button);
+  color: var(--skin-button-text);
+  font-size: 9px;
+  font-weight: 600;
+}
+
 @media (max-width: 1023px) {
   /* Only grids that are meant to be one column below lg. */
   .grid:not([class*="grid-cols-"]),

@@ -3,6 +3,8 @@
  * 1. Applies the visitor's light/dark choice (shared with the public site).
  * 2. Sends links to the redesigned public pages through a full page load, so
  *    the platform's own old versions of those pages are never shown.
+ * 3. Injects the public site's mobile tab bar (Home/Courses/Cart/Account),
+ *    since these pages sit outside the Next.js app and never see that component.
  * It does not touch sign-in, cart, checkout or payment behaviour.
  */
 (function () {
@@ -76,7 +78,107 @@
         location.assign(u.href);
         return;
       }
-      return original.apply(this, arguments);
+      var result = original.apply(this, arguments);
+      updateBottomNav();
+      return result;
     };
   });
+
+  // ---------------------------------------------------------------- Bottom nav
+  // The platform's own pages (sign-in, cart, checkout, learning, account,
+  // dashboards) are outside the Next.js app, so its <BottomNav> never renders
+  // there. This reproduces it: same four destinations, same active-state and
+  // cart-count logic as the public site (see AccountLinks.tsx, enrolment.ts).
+  var CART_KEY = "alignodontic.cart";
+  var TOKEN_KEY = "alignodontic.accessToken";
+  var ICONS = {
+    home: '<path d="M4 11.5 12 4l8 7.5"/><path d="M6 9.8V19a1 1 0 0 0 1 1h3v-5.5h4V20h3a1 1 0 0 0 1-1V9.8"/>',
+    book: '<path d="M12 6.5c-2-1.3-4.8-1.5-7.5-.7v12.7c2.7-.8 5.5-.6 7.5.7 2-1.3 4.8-1.5 7.5-.7V5.8c-2.7-.8-5.5-.6-7.5.7Z"/><path d="M12 6.5v12.7"/>',
+    cart: '<circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/>',
+    user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+  };
+
+  function icon(name) {
+    return '<span class="aa-bn-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + "</svg></span>";
+  }
+
+  function readCartCount() {
+    try {
+      var parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
+      return Array.isArray(parsed) ? parsed.length : 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  function accountHref(cb) {
+    var token = null;
+    try {
+      token = localStorage.getItem(TOKEN_KEY);
+    } catch (e) {}
+    if (!token) return cb("/login");
+    fetch("/api/auth/me", { headers: { Accept: "application/json", Authorization: "Bearer " + token }, credentials: "include" })
+      .then(function (res) {
+        return res.ok ? res.json() : null;
+      })
+      .then(function (body) {
+        var role = body && body.data && body.data.role;
+        if (role === "ADMIN") return cb("/admin");
+        if (role === "TEACHER") return cb("/teacher");
+        return cb("/learn");
+      })
+      .catch(function () {
+        cb("/login");
+      });
+  }
+
+  var bottomNav = null;
+  function buildBottomNav() {
+    if (bottomNav) return bottomNav;
+    var nav = document.createElement("nav");
+    nav.className = "aa-bottom-nav";
+    nav.setAttribute("aria-label", "Primary");
+    nav.innerHTML =
+      '<a class="aa-bn-item" data-key="home" href="/"><span class="aa-bn-content">' + icon("home") + "<span>Home</span><span class=\"aa-bn-bar\"></span></span></a>" +
+      '<a class="aa-bn-item" data-key="courses" href="/courses"><span class="aa-bn-content">' + icon("book") + "<span>Courses</span><span class=\"aa-bn-bar\"></span></span></a>" +
+      '<a class="aa-bn-item" data-key="cart" href="/cart"><span class="aa-bn-content">' + icon("cart") + '<span class="aa-bn-badge" hidden></span><span>Cart</span><span class="aa-bn-bar"></span></span></a>' +
+      '<a class="aa-bn-item" data-key="account" href="/login"><span class="aa-bn-content">' + icon("user") + "<span>Account</span><span class=\"aa-bn-bar\"></span></span></a>";
+    document.body.appendChild(nav);
+    bottomNav = nav;
+    return nav;
+  }
+
+  function updateBottomNav() {
+    var nav = buildBottomNav();
+    var path = location.pathname;
+    var activeKey = path === "/" ? "home" : path.indexOf("/courses") === 0 ? "courses" : path.indexOf("/cart") === 0 ? "cart" : path.indexOf("/checkout") === 0 ? "cart" : "account";
+    nav.querySelectorAll(".aa-bn-item").forEach(function (a) {
+      a.classList.toggle("is-active", a.getAttribute("data-key") === activeKey);
+    });
+
+    var badge = nav.querySelector(".aa-bn-badge");
+    var count = readCartCount();
+    if (count > 0) {
+      badge.hidden = false;
+      badge.textContent = count > 9 ? "9+" : String(count);
+    } else {
+      badge.hidden = true;
+    }
+
+    var accountLink = nav.querySelector('[data-key="account"]');
+    accountHref(function (href) {
+      accountLink.setAttribute("href", href);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateBottomNav);
+  } else {
+    updateBottomNav();
+  }
+  window.addEventListener("storage", function (e) {
+    if (e.key === CART_KEY) updateBottomNav();
+  });
+  window.addEventListener("pageshow", updateBottomNav);
+  window.addEventListener("popstate", updateBottomNav);
 })();

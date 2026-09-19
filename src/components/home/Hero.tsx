@@ -35,7 +35,7 @@ export function Hero({ featured, stats }: HeroProps) {
             <span className="block animate-mask">{home.headline[0]}</span>
           </span>
           <span className="mask lg:pl-[16%]">
-            <span className="block text-accent animate-mask [animation-delay:140ms]">{home.headline[1]}</span>
+            <span className="block animate-mask [animation-delay:140ms]">{home.headline[1]}</span>
           </span>
         </h1>
 
