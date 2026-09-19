@@ -48,12 +48,12 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
           </ul>
         )}
 
-        <div data-reveal style={revealDelay(240)} className="mt-auto flex items-end justify-between gap-6 pt-10">
+        <div data-reveal style={revealDelay(240)} className="mt-auto flex flex-wrap items-end justify-between gap-x-6 gap-y-3 pt-10">
           <div>
             <p className="text-[0.8125rem] text-muted">{meta.join(" · ")}</p>
             <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} className="mt-2" />
           </div>
-          <span className="inline-flex items-center gap-2.5 text-[0.875rem] font-semibold text-ink">
+          <span className="inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap text-[0.875rem] font-semibold text-ink">
             <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:100%_1px] bg-left-bottom bg-no-repeat pb-0.5">View course</span>
             <ArrowRight className="size-4 transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
           </span>
