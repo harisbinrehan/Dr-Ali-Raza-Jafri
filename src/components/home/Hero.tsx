@@ -22,7 +22,7 @@ type HeroProps = {
  */
 export function Hero({ featured, stats }: HeroProps) {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-8 pt-10 sm:pb-10">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-8 pt-16 sm:pb-10">
       <DarkBackdrop />
       <div className="container-x">
         <div className="flex items-center justify-between border-b border-line pb-4 pt-6 lg:pt-8">

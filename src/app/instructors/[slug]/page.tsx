@@ -53,7 +53,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
 
   return (
     <>
-      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-8">
+      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-16">
         <DarkBackdrop />
         <div className="container-x grid gap-10 pb-12 pt-6 lg:grid-cols-12 lg:gap-8 lg:pb-16 lg:pt-10">
           <div className="flex flex-col lg:col-span-7">

@@ -107,7 +107,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
     <>
       <div className="relative isolate">
         <DarkBackdrop />
-        <article className="container-x grid pb-6 pt-8 lg:grid-cols-12 lg:gap-x-8">
+        <article className="container-x grid pb-6 pt-16 lg:grid-cols-12 lg:gap-x-8">
           {/* Hero */}
           <header className="pb-8 pt-6 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pb-12 lg:pt-8">
             <Breadcrumb

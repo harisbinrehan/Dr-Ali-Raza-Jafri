@@ -76,18 +76,7 @@ export type EnrolPanelProps = {
 /** Price and enrolment, kept in view beside the course on desktop. */
 export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePriceCents, currency, includes, firstPreview }: EnrolPanelProps) {
   const { status, addToCart } = useEnrolment(courseId);
-  const [barVisible, setBarVisible] = useState(false);
-  const ctaRef = useRef<HTMLDivElement>(null);
   const free = effectivePriceCents === 0;
-
-  // The mobile bar takes over once the main button has scrolled out of view.
-  useEffect(() => {
-    const el = ctaRef.current;
-    if (!el) return;
-    const io = new IntersectionObserver(([entry]) => setBarVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0));
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
 
   return (
     <>
@@ -117,7 +106,7 @@ export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePri
             <PriceTag priceCents={priceCents} effectivePriceCents={effectivePriceCents} currency={currency} size="lg" />
           )}
 
-          <div ref={ctaRef} className="mt-7">
+          <div className="mt-7">
             <EnrolButton courseId={courseId} free={free} className="w-full" />
             {status === "idle" && (
               <button type="button" onClick={addToCart} className="link-quiet mt-3 w-full py-2 text-[0.875rem] text-ink/75 hover:text-ink">
@@ -144,24 +133,6 @@ export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePri
               </li>
             ))}
           </ul>
-        </div>
-      </div>
-
-      {/* Mobile: price and the same action, always within reach. */}
-      <div
-        aria-hidden={!barVisible}
-        inert={!barVisible}
-        className={cn(
-          "fixed inset-x-0 bottom-0 z-40 border-t border-line bg-canvas/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-xl transition-transform duration-700 ease-(--ease-editorial) lg:hidden",
-          barVisible ? "translate-y-0" : "translate-y-full",
-        )}
-      >
-        <div className="container-x flex items-center gap-4 py-3">
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-[0.8125rem] text-muted">{title}</p>
-            <p className="font-semibold tabular-nums text-ink">{status === "owned" ? "Owned" : formatPrice(effectivePriceCents, currency)}</p>
-          </div>
-          <EnrolButton courseId={courseId} free={free} size="md" className="shrink-0" />
         </div>
       </div>
     </>
