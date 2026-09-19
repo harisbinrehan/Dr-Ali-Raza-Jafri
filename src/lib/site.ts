@@ -37,3 +37,13 @@ export const legalNav = [
   { href: "/service-policy", label: "Service policy" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
+
+/** Top-level paths rendered by this app (must mirror OWNED_ROUTES in next.config.ts). */
+const OWNED_PREFIXES = ["/courses", "/instructors", "/about", "/faq", "/contact", "/teach", "/pricing", "/terms", "/privacy", "/refunds", "/returns", "/shipping", "/service-policy"];
+
+/** True when a link can use client-side navigation within this app. */
+export function isOwnedRoute(href: string) {
+  if (!href.startsWith("/")) return false;
+  const path = href.split(/[?#]/)[0];
+  return path === "/" || OWNED_PREFIXES.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
+}

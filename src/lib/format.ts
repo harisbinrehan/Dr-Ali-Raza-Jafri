@@ -71,3 +71,8 @@ export function displayTitle(title: string) {
     })
     .join("");
 }
+
+/** "[text](/href)" → "text", for places that need plain text (meta, JSON-LD). */
+export function stripLinks(text: string) {
+  return text.replace(/\[([^\]]+)\]\([^)\s]+\)/g, "$1");
+}
