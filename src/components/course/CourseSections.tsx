@@ -85,7 +85,7 @@ export function InstructorFeature({ name, slug, courseCount, bio }: InstructorFe
         </figure>
       )}
       <div className={isLead ? "" : "sm:col-span-2"}>
-        {isLead && <p className="label text-accent">{home.instructor.eyebrow}</p>}
+        {isLead && <p className="label text-eyebrow">{home.instructor.eyebrow}</p>}
         <p className="mt-4 font-display text-h3 text-ink">{name}</p>
         <p className="mt-2 text-[0.875rem] text-muted">{plural(courseCount, "course")}</p>
         {bio ? (

@@ -17,55 +17,60 @@
   --muted: #5f6068;
   --line: rgb(23 24 28 / 0.13);
   --line-strong: rgb(23 24 28 / 0.3);
-  --accent: #8a5a2e;
-  --accent-soft: rgb(138 90 46 / 0.1);
+  /* Section labels ("eyebrows") and the brand accent: the same clinical teal. */
+  --accent: #0f6b61;
+  --accent-soft: rgb(15 107 97 / 0.1);
+  --eyebrow: #0f6b61;
+  --eyebrow-deep: #7cc4b8;
 
   /* The deep bands (commitments, closing image, footer). */
   --deep: #15181e;
   --on-deep: #eee9e0;
   --on-deep-muted: rgb(238 233 224 / 0.66);
   --deep-line: rgb(238 233 224 / 0.14);
-  --deep-accent: #c9a075;
+  --deep-accent: #7cc4b8;
 
-  /* Buttons: the brand orange in both themes (as in the Amir Engineering build). */
-  --btn-bg: #e27b22;
-  --btn-fg: #17181c;
-  --btn-hover: #ec8b37;
+  /* Buttons: the brand teal in both themes. */
+  --btn-bg: #0f6b61;
+  --btn-fg: #f7f4ee;
+  --btn-hover: #158f83;
   --btn-deep-bg: #eee9e0;
   --btn-deep-fg: #15181e;
-  --btn-deep-hover: #c9a075;
+  --btn-deep-hover: #7cc4b8;
 
-  --focus: #8a5a2e;
+  --focus: #0f6b61;
   color-scheme: light;
 }
 
 [data-theme="dark"] {
-  /* The academy's own navy and orange, from the original build. */
-  --canvas: #0b1222;
-  --canvas-alt: #0f182b;
-  --surface: #111a2e;
+  /* Deep ink navy with a teal glow; orange stays on the actions. */
+  --canvas: #0b1220;
+  --canvas-alt: #0f1829;
+  --surface: #121b2c;
   --ink: #f7f4ee;
   --ink-soft: rgb(247 244 238 / 0.8);
   --muted: #a7adbb;
   --line: rgb(255 255 255 / 0.1);
   --line-strong: rgb(255 255 255 / 0.24);
-  --accent: #f29a4a;
-  --accent-soft: rgb(226 123 34 / 0.14);
+  --accent: #7cc4b8;
+  --accent-soft: rgb(124 196 184 / 0.14);
+  --eyebrow: #7cc4b8;
+  --eyebrow-deep: #7cc4b8;
 
   --deep: #070b16;
   --on-deep: #f7f4ee;
   --on-deep-muted: rgb(247 244 238 / 0.66);
   --deep-line: rgb(255 255 255 / 0.1);
-  --deep-accent: #f29a4a;
+  --deep-accent: #7cc4b8;
 
-  --btn-bg: #e27b22;
+  --btn-bg: #7cc4b8;
   --btn-fg: #0b1222;
-  --btn-hover: #f29a4a;
-  --btn-deep-bg: #e27b22;
+  --btn-hover: #9ad4c9;
+  --btn-deep-bg: #7cc4b8;
   --btn-deep-fg: #0b1222;
-  --btn-deep-hover: #f29a4a;
+  --btn-deep-hover: #9ad4c9;
 
-  --focus: #f29a4a;
+  --focus: #7cc4b8;
   color-scheme: dark;
 }
 
@@ -80,6 +85,8 @@
   --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-eyebrow: var(--eyebrow);
+  --color-eyebrow-deep: var(--eyebrow-deep);
   --color-deep: var(--deep);
   --color-on-deep: var(--on-deep);
   --color-on-deep-muted: var(--on-deep-muted);

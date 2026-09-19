@@ -23,7 +23,7 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
       <div className="container-x pb-32 pt-16">
         <header className="grid gap-6 pb-14 pt-12 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-20 lg:pt-20">
           <div className="lg:col-span-8">
-            <p className="label text-accent animate-fade">The courses</p>
+            <p className="label text-eyebrow animate-fade">The courses</p>
             <h1 className="mt-6 font-display text-h1 text-ink">
               <span className="mask">
                 <span className="block animate-mask">Browse courses</span>

@@ -57,7 +57,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
         <DarkBackdrop />
         <div className="container-x grid gap-14 pb-20 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-28 lg:pt-20">
           <div className="flex flex-col lg:col-span-7">
-            <p className="label text-accent animate-fade">{home.instructor.eyebrow}</p>
+            <p className="label text-eyebrow animate-fade">{home.instructor.eyebrow}</p>
             <h1 id="instructor-name" className="mt-8 font-display text-hero text-ink">
               <span className="mask">
                 <span className="block animate-mask">{instructor.name}</span>

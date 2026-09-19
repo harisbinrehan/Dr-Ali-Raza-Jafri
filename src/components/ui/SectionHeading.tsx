@@ -46,7 +46,7 @@ export function SectionIntro({ label, title, body, id, as = "h2", size = "h2", t
   return (
     <div className={cn("max-w-3xl", className)}>
       {label && (
-        <p data-reveal className={cn("label mb-6", deep ? "text-deep-accent" : "text-accent")}>
+        <p data-reveal className={cn("label mb-6", deep ? "text-eyebrow-deep" : "text-eyebrow")}>
           {label}
         </p>
       )}

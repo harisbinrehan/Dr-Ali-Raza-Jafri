@@ -16,7 +16,7 @@ export function FinalCta({ contact, courseCount }: { contact: Contact; courseCou
       <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-deep via-deep/80 to-deep/20" />
 
       <div className="container-x flex min-h-[min(46rem,92svh)] flex-col justify-end py-20 sm:py-28">
-        <p data-reveal className="label text-deep-accent">
+        <p data-reveal className="label text-eyebrow-deep">
           {site.name}
         </p>
         <RevealHeading id="final-cta-title" className="mt-6 max-w-3xl text-h2 text-on-deep">

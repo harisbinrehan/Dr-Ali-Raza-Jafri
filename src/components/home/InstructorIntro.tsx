@@ -23,7 +23,7 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
         </div>
 
         <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
-          <p data-reveal className="label text-accent">
+          <p data-reveal className="label text-eyebrow">
             {home.instructor.eyebrow}
           </p>
           <RevealHeading id="instructor-title" className="mt-6 text-h2 text-ink">

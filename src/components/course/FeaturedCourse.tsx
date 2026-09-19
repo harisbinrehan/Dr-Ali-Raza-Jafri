@@ -24,7 +24,7 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
       </div>
 
       <div className="flex flex-col lg:col-span-4 lg:col-start-9">
-        <p data-reveal className="label text-accent">
+        <p data-reveal className="label text-eyebrow">
           Featured · {course.category?.name}
         </p>
         <h3 data-reveal style={revealDelay(60)} className="mt-5 font-display text-h3 text-ink">

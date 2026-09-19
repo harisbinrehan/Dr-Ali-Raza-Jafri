@@ -193,13 +193,13 @@ textarea {
 }
 
 /* ------------------------------------------------------------ Dark
- * The academy's navy and orange. Applied on the student-facing pages; the
+ * Deep ink navy with a teal glow; orange actions. Applied on the student-facing pages; the
  * teacher and admin dashboards stay light (see theme.js). */
 html[data-theme="dark"] {
   color-scheme: dark;
-  --color-white: #0b1222;
-  --color-slate-50: #0f182b;
-  --color-slate-100: #111a2e;
+  --color-white: #0b1220;
+  --color-slate-50: #0f1829;
+  --color-slate-100: #121b2c;
   --color-slate-200: #1f2940;
   --color-slate-300: #2c3650;
   --color-slate-400: #7d8597;
@@ -235,23 +235,26 @@ html[data-theme="dark"] {
   --color-violet-800: #d4c8f5;
 
   --skin-button: #e27b22;
-  --skin-button-text: #0b1222;
+  --skin-button-text: #0b1220;
   --skin-button-hover: #f29a4a;
-  --skin-input: #0f182b;
+  --skin-input: #0f1829;
 }
 html[data-theme="dark"] body {
-  background-color: #0b1222;
+  background-color: #0b1220;
   background-image:
-    radial-gradient(42rem 42rem at calc(100% + 10rem) 0, rgb(226 123 34 / 0.16), transparent 70%),
+    radial-gradient(70% 60% at 85% 10%, rgb(26 138 124 / 0.22), transparent 60%),
+    radial-gradient(40% 40% at 0% 100%, rgb(184 146 74 / 0.1), transparent 60%),
     linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px);
   background-size:
+    100% 100%,
     100% 100%,
     calc((min(100vw, 1360px) - 2 * clamp(1.25rem, 4.5vw, 4rem)) / 6) 100%;
   background-position:
     0 0,
+    0 0,
     center top;
-  background-repeat: no-repeat, repeat;
-  background-attachment: fixed, scroll;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-attachment: fixed, fixed, scroll;
 }
 html[data-theme="dark"] .bg-white,
 html[data-theme="dark"] .bg-white\/95,

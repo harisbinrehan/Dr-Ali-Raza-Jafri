@@ -213,7 +213,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
       <section aria-labelledby="enrol-title" className="mt-24 bg-deep text-on-deep">
         <div className="container-x grid gap-10 py-20 sm:py-24 lg:grid-cols-12 lg:items-end lg:gap-8">
           <div className="lg:col-span-7">
-            <p className="label text-deep-accent">{course.category?.name ?? site.name}</p>
+            <p className="label text-eyebrow-deep">{course.category?.name ?? site.name}</p>
             <h2 id="enrol-title" className="mt-5 font-display text-h2 text-on-deep">
               {title}
             </h2>

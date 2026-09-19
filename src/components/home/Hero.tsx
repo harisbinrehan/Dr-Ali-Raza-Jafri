@@ -25,7 +25,7 @@ export function Hero({ featured, stats }: HeroProps) {
       <DarkBackdrop />
       <div className="container-x">
         <div className="flex items-center justify-between border-b border-line pb-5 pt-10 lg:pt-14">
-          <p className="label text-accent animate-fade">{home.eyebrow}</p>
+          <p className="label text-eyebrow animate-fade">{home.eyebrow}</p>
           <p className="label hidden text-muted animate-fade sm:block">Taught by {site.instructorName}</p>
         </div>
 
@@ -80,10 +80,10 @@ export function Hero({ featured, stats }: HeroProps) {
               >
                 <CourseImage src={featured.thumbnailUrl} title={displayTitle(featured.title)} sizes="320px" className="rounded-md" />
                 <div className="px-2 pb-1.5 pt-4">
-                  <p className="label text-[#a05a1c]">Featured</p>
+                  <p className="label text-[#0f6b61]">Featured</p>
                   <p className="mt-2 font-display text-h4 leading-snug">{displayTitle(featured.title)}</p>
                   <div className="mt-4 flex items-center justify-between border-t border-black/10 pt-3.5">
-                    <span className="text-[0.9375rem] font-semibold text-[#a05a1c]">{formatPrice(featured.effectivePriceCents, featured.currency)}</span>
+                    <span className="text-[0.9375rem] font-semibold text-[#0f6b61]">{formatPrice(featured.effectivePriceCents, featured.currency)}</span>
                     <ArrowRight className="size-4 transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
                   </div>
                 </div>
