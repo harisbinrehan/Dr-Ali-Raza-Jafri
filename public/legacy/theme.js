@@ -232,5 +232,125 @@
       }
     }
   });
-  cartObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+  // This script runs synchronously in <head>, before <body> exists yet — observing
+  // it immediately throws and aborts everything below (the mobile menu setup included).
+  function startCartObserver() {
+    if (!document.body) {
+      document.addEventListener("DOMContentLoaded", startCartObserver, { once: true });
+      return;
+    }
+    cartObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
+  }
+  startCartObserver();
+
+  // ---------------------------------------------------------------- Mobile Menu
+  // Intercept the platform's mobile menu toggle and show our own native-style sidebar instead.
+  function buildMobileMenu() {
+    var dialog = document.getElementById("aa-mobile-menu");
+    if (dialog) return dialog;
+
+    dialog = document.createElement("dialog");
+    dialog.id = "aa-mobile-menu";
+    
+    // Inline styles matching MobileMenu.tsx, using skin.css's own variable names
+    // (this page never sees the Next.js app's --surface/--ink/--line/etc.).
+    dialog.style.cssText = "position:fixed;top:0;bottom:0;left:auto;right:0;margin:0;height:100dvh;max-height:none;width:100%;max-width:24rem;display:none;flex-direction:column;border:none;border-left:1px solid var(--color-slate-200, #e5e7eb);background-color:var(--color-white, #fff);padding:0;color:var(--color-slate-900, #111827);box-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);z-index:999999;";
+
+    var header = document.createElement("div");
+    header.style.cssText = "position:relative;display:flex;height:4rem;flex-shrink:0;align-items:center;border-bottom:1px solid var(--color-slate-200, #e5e7eb);padding-left:1rem;padding-right:1rem;";
+    header.innerHTML = '<a href="/" aria-label="Home" style="display:flex;align-items:center;gap:0.625rem;text-decoration:none;color:inherit;"><img src="/apple-icon.png" width="32" height="32" alt="" style="border-radius:9999px;" /><span style="font-family:var(--font-display, sans-serif);font-weight:600;font-size:1.125rem;">Alignodontic Academy</span></a>' +
+                       '<button type="button" aria-label="Close menu" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:2rem;height:2rem;border-radius:0.5rem;background:transparent;border:none;color:inherit;cursor:pointer;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>';
+    dialog.appendChild(header);
+
+    var nav = document.createElement("nav");
+    nav.style.cssText = "display:flex;flex-direction:column;gap:0.25rem;overflow-y:auto;padding:1rem;";
+    var links = [
+      { href: "/courses", label: "Courses" },
+      { href: "/about", label: "About" },
+      { href: "/faq", label: "FAQ" },
+      { href: "/contact", label: "Contact" }
+    ];
+    links.forEach(function(l) {
+      var div = document.createElement("div");
+      div.style.cssText = "border-bottom:1px solid var(--color-slate-200, #e5e7eb);padding-top:0.25rem;padding-bottom:0.25rem;";
+      div.innerHTML = '<a href="' + l.href + '" style="display:block;padding-top:0.625rem;padding-bottom:0.625rem;font-size:0.875rem;font-weight:500;color:inherit;text-decoration:none;">' + l.label + '</a>';
+      nav.appendChild(div);
+    });
+    // Remove last border
+    nav.lastChild.style.borderBottom = "none";
+    dialog.appendChild(nav);
+
+    var footer = document.createElement("div");
+    footer.style.cssText = "margin-top:auto;border-top:1px solid var(--color-slate-200, #e5e7eb);padding:1rem;";
+    var footerContainer = document.createElement("div");
+    footerContainer.style.cssText = "display:flex;flex-direction:column;gap:0.5rem;";
+    footer.appendChild(footerContainer);
+
+    var token = null;
+    try { token = localStorage.getItem("alignodontic.accessToken"); } catch (e) {}
+
+    var btnOutline = "display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;white-space:nowrap;border-radius:var(--radius-control, 0.5rem);font-weight:500;border:1px solid var(--color-slate-300, #d1d5db);background-color:transparent;color:var(--color-slate-900, inherit);height:2.25rem;padding-left:0.75rem;padding-right:0.75rem;width:100%;font-size:0.875rem;text-decoration:none;box-sizing:border-box;";
+    var btnGhost = "display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;white-space:nowrap;border-radius:var(--radius-control, 0.5rem);font-weight:500;border:none;background-color:transparent;color:var(--color-slate-500, #6b7280);height:2.25rem;padding-left:0.75rem;padding-right:0.75rem;width:100%;font-size:0.875rem;text-decoration:none;box-sizing:border-box;";
+    var btnPrimary = "display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;white-space:nowrap;border-radius:var(--radius-control, 0.5rem);font-weight:500;border:none;background-color:var(--skin-button, #0f6b61);color:var(--skin-button-text, #fff);height:2.25rem;padding-left:0.75rem;padding-right:0.75rem;width:100%;font-size:0.875rem;text-decoration:none;box-sizing:border-box;";
+    var userIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem;height:1rem;"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>';
+
+    if (token) {
+      footerContainer.innerHTML = '<a href="/learn" id="aa-dashboard-link" style="' + btnOutline + '">' + userIcon + 'Dashboard</a>' +
+        '<a href="/learn/purchases" style="' + btnOutline + '">Purchases</a>' +
+        '<a href="/teach" style="' + btnOutline + '">Teach with us</a>' +
+        '<a href="/users/sign_out" id="aa-signout" style="' + btnGhost + '">Sign out</a>';
+      accountHref(function (href) {
+        var dashLink = footerContainer.querySelector("#aa-dashboard-link");
+        if (dashLink) dashLink.setAttribute("href", href);
+      });
+    } else {
+      footerContainer.innerHTML = '<a href="/login" style="' + btnOutline + '">' + userIcon + 'Sign in / My learning</a>' +
+        '<a href="/teach" style="' + btnOutline + '">Teach with us</a>' +
+        '<a href="/register" style="' + btnPrimary + '">Create account</a>';
+    }
+
+    dialog.appendChild(footer);
+    document.body.appendChild(dialog);
+
+    header.querySelector("button").addEventListener("click", function() { 
+      dialog.close(); 
+      dialog.style.display = "none";
+    });
+    dialog.addEventListener("click", function(e) { 
+      if (e.target === dialog) {
+        dialog.close(); 
+        dialog.style.display = "none";
+      }
+    });
+    
+    var signoutBtn = dialog.querySelector("#aa-signout");
+    if (signoutBtn) {
+       signoutBtn.addEventListener("click", function() {
+         localStorage.removeItem("alignodontic.accessToken");
+       });
+    }
+
+    // Since we can't reliably use backdrop CSS on legacy platform, polyfill backdrop styling
+    var style = document.createElement("style");
+    style.textContent = "dialog#aa-mobile-menu::backdrop { background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); }";
+    document.head.appendChild(style);
+
+    return dialog;
+  }
+
+  // Intercept clicks on the legacy hamburger menu. Its accessible name comes
+  // from a child sr-only span (no aria-label attribute), and its icon path
+  // doesn't match a guessed heuristic reliably — aria-controls="mobile-menu"
+  // is the one attribute confirmed present on the real button.
+  document.addEventListener("click", function(e) {
+    if (e.defaultPrevented) return;
+    var btn = e.target.closest('button[aria-controls="mobile-menu"]');
+    if (!btn) return;
+
+    e.preventDefault();
+    e.stopPropagation();
+    var menu = buildMobileMenu();
+    menu.style.display = "flex";
+    menu.showModal();
+  }, true);
 })();

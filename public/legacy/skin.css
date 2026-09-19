@@ -128,6 +128,11 @@ iframe {
   background-color: var(--skin-button-hover) !important;
 }
 
+/* "Start course" / "Continue" on the dashboard's course list was previously
+ * styled here by targeting a[href^="/learn/"], but this inadvertently targeted
+ * the course headings as well, turning them into green blocks.
+ * Reverting to the platform's native outline buttons to fix the headings. */
+
 input:not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
@@ -214,12 +219,12 @@ textarea {
  * These rules force the card to stay dark and style its internal elements.
  */
 html[data-theme="dark"] .rounded-panel.bg-slate-900 {
-  background-color: var(--surface) !important;
-  border-color: var(--line) !important;
+  background-color: var(--color-slate-50) !important;
+  border-color: var(--color-slate-200) !important;
 }
 /* Force all text inside the dark card to be light */
 html[data-theme="dark"] .rounded-panel.bg-slate-900 * {
-  color: var(--ink);
+  color: var(--color-slate-900);
 }
 /* Style the primary action button inside the card */
 html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-white {
@@ -233,7 +238,7 @@ html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-white * {
 }
 /* Style the progress bar track inside the card */
 html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-slate-100 {
-  background-color: var(--line-strong) !important;
+  background-color: var(--color-slate-200) !important;
 }
 
 /* ------------------------------------------------------------ Bottom nav
@@ -258,6 +263,12 @@ html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-slate-100 {
 }
 body:has(.aa-bottom-nav) {
   padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+/* Ensure the legacy footer itself extends behind the bottom nav so its content isn't covered */
+@media (max-width: 1023px) {
+  body:has(.aa-bottom-nav) footer {
+    padding-bottom: calc(5rem + env(safe-area-inset-bottom)) !important;
+  }
 }
 /* Pages built to exactly fill the viewport (sign-in, register) would
  * otherwise overshoot by the bottom nav's height and gain a scrollbar that
@@ -421,4 +432,12 @@ html[data-theme="dark"] .min-h-screen.bg-white {
 }
 html[data-theme="dark"] .bg-\[\#101828\] {
   background-color: #070b16 !important;
+}
+
+/* ------------------------------------------------------------ Mobile drawer
+ * theme.js intercepts the hamburger button and shows its own dialog
+ * (#aa-mobile-menu, inline-styled to match MobileMenu.tsx) instead of this.
+ * Hidden here only as a backstop, in case the interception ever misses. */
+#mobile-menu {
+  display: none !important;
 }

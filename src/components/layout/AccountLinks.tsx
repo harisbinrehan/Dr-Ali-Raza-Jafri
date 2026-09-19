@@ -75,13 +75,31 @@ export function CartButton() {
 export function DrawerAccountLinks({ viewer, onNavigate }: { viewer: Viewer | undefined; onNavigate: () => void }) {
   return (
     <div className="flex flex-col gap-2">
-      <a href={viewer ? dashboardFor(viewer.role) : legacyRoutes.login} onClick={onNavigate} className={buttonClasses({ variant: "outline", size: "sm", className: "w-full" })}>
-        <User className="size-4" />
-        {viewer ? dashboardLabel(viewer) : "Sign in / My learning"}
-      </a>
+      {viewer && (
+        <>
+          <a href={dashboardFor(viewer.role)} onClick={onNavigate} className={buttonClasses({ variant: "outline", size: "sm", className: "w-full" })}>
+            <User className="size-4" />
+            {dashboardLabel(viewer)}
+          </a>
+          <a href={legacyRoutes.purchases} onClick={onNavigate} className={buttonClasses({ variant: "outline", size: "sm", className: "w-full" })}>
+            Purchases
+          </a>
+        </>
+      )}
+      {!viewer && (
+        <a href={legacyRoutes.login} onClick={onNavigate} className={buttonClasses({ variant: "outline", size: "sm", className: "w-full" })}>
+          <User className="size-4" />
+          Sign in / My learning
+        </a>
+      )}
       <Link href="/teach" onClick={onNavigate} className={buttonClasses({ variant: "outline", size: "sm", className: "w-full" })}>
         Teach with us
       </Link>
+      {viewer && (
+        <a href="/users/sign_out" onClick={() => localStorage.removeItem("alignodontic.accessToken")} className={buttonClasses({ variant: "ghost", size: "sm", className: "w-full text-muted hover:text-ink" })}>
+          Sign out
+        </a>
+      )}
       {!viewer && (
         <a href={legacyRoutes.register} onClick={onNavigate} className={buttonClasses({ size: "sm", className: "w-full" })}>
           Create account

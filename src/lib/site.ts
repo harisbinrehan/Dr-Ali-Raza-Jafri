@@ -19,6 +19,7 @@ export const legacyRoutes = {
   checkout: "/checkout",
   learn: "/learn",
   learnCourse: (courseId: string) => `/learn/${courseId}`,
+  purchases: "/learn/purchases",
   accountDelete: "/account/delete",
 } as const;
 
