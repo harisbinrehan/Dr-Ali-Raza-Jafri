@@ -28,54 +28,39 @@ function useCartCount() {
   );
 }
 
-type AccountLinksProps = { tone: "light" | "dark"; layout?: "inline" | "stacked" };
+const textLink = "link-line py-2 text-[0.875rem] font-medium text-ink/75 transition-colors hover:text-ink";
 
-export function AccountLinks({ tone, layout = "inline" }: AccountLinksProps) {
+export function AccountLinks({ layout = "inline" }: { layout?: "inline" | "stacked" }) {
   const viewer = useViewer();
   const cartCount = useCartCount();
-  const dark = tone === "dark";
   const stacked = layout === "stacked";
 
   const cart =
     cartCount > 0 ? (
-      <a
-        href={legacyRoutes.cart}
-        className={cn(
-          "text-[0.9375rem] font-medium transition-colors",
-          stacked ? buttonClasses({ variant: dark ? "outline-light" : "outline", className: "w-full" }) : dark ? "text-white/80 hover:text-white" : "text-ink/75 hover:text-ink",
-        )}
-      >
-        Cart <span className="ml-1 rounded-full bg-accent px-1.5 py-px font-mono text-xs text-ink tabular-nums">{cartCount}</span>
+      <a href={legacyRoutes.cart} className={stacked ? buttonClasses({ variant: "outline", size: "lg", className: "w-full" }) : textLink}>
+        Cart <span className="ml-1 tabular-nums text-accent">({cartCount})</span>
       </a>
     ) : null;
 
-  if (viewer) {
-    return (
-      <div className={cn("flex items-center gap-5", stacked && "flex-col items-stretch gap-3")}>
-        {cart}
-        <a href={dashboardFor(viewer.role)} className={buttonClasses({ variant: dark ? "outline-light" : "primary", className: stacked ? "w-full" : "" })}>
-          {viewer.role === "ADMIN" || viewer.role === "TEACHER" ? "Dashboard" : "My learning"}
-        </a>
-      </div>
-    );
-  }
+  const primary = viewer ? (
+    <a href={dashboardFor(viewer.role)} className={buttonClasses({ size: stacked ? "lg" : "md", className: cn(stacked && "w-full", !stacked && "h-10 px-4") })}>
+      {viewer.role === "ADMIN" || viewer.role === "TEACHER" ? "Dashboard" : "My learning"}
+    </a>
+  ) : (
+    <a href={legacyRoutes.register} className={buttonClasses({ size: stacked ? "lg" : "md", className: cn(stacked && "w-full", !stacked && "h-10 px-4") })}>
+      Create account
+    </a>
+  );
 
   return (
-    <div className={cn("flex items-center gap-5", stacked && "flex-col items-stretch gap-3")}>
+    <div className={cn("flex items-center gap-6", stacked && "flex-col items-stretch gap-3")}>
       {cart}
-      <a
-        href={legacyRoutes.login}
-        className={cn(
-          stacked
-            ? buttonClasses({ variant: dark ? "outline-light" : "outline", className: "w-full" })
-            : cn("link-underline text-[0.9375rem] font-medium transition-colors", dark ? "text-white/80 hover:text-white" : "text-ink/75 hover:text-ink"),
-        )}
-      >
-        Sign in
-      </a>
-      <a href={legacyRoutes.register} className={buttonClasses({ variant: dark ? "accent" : "primary", className: stacked ? "w-full" : "" })}>
-        Create account
-      </a>
+      {!viewer && (
+        <a href={legacyRoutes.login} className={stacked ? buttonClasses({ variant: "outline", size: "lg", className: "w-full" }) : textLink}>
+          Sign in
+        </a>
+      )}
+      {primary}
     </div>
   );
 }

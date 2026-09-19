@@ -1,39 +1,29 @@
 import { home, promises } from "@/content/pages";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
-import { Certificate, Infinity, Refund } from "@/components/ui/Icons";
+import { revealDelay } from "@/lib/motion";
+import { ArrowLink } from "@/components/ui/Button";
+import { SectionIntro } from "@/components/ui/SectionHeading";
+import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
-const icons = [Infinity, Certificate, Refund];
-
-/** "What you get for the money" — the three commitments behind every course. */
+/** "What you get for the money" — three commitments, set as an editorial list. */
 export function Commitments() {
   return (
-    <section aria-labelledby="promise-title" className="section-y grain relative overflow-hidden bg-ink text-white">
-      <div aria-hidden="true" className="column-rules absolute inset-0" />
-      <div className="container-x relative">
-        <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
-          <SectionHeading id="promise-title" tone="dark" title={home.promise.heading} />
-          <div data-reveal>
-            <ButtonLink href="/faq" variant="outline-light" arrow>
-              {home.promise.moreLabel}
-            </ButtonLink>
+    <section aria-labelledby="promise-title" className="section-y relative isolate overflow-hidden bg-deep text-on-deep">
+      <DarkBackdrop glow={false} />
+      <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-5">
+          <SectionIntro id="promise-title" tone="deep" title={home.promise.heading} />
+          <div data-reveal className="mt-10 text-on-deep">
+            <ArrowLink href="/faq">{home.promise.moreLabel}</ArrowLink>
           </div>
         </div>
 
-        <ol data-reveal className="mt-16 grid gap-px overflow-hidden rounded-md bg-ink-line md:grid-cols-3">
-          {promises.map((p, i) => {
-            const Icon = icons[i];
-            return (
-              <li key={p.title} className="flex flex-col bg-ink p-8 sm:p-10">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-accent-bright">{String(i + 1).padStart(2, "0")}</span>
-                  <Icon className="size-7 text-white/40" />
-                </div>
-                <h3 className="mt-14 font-display text-[1.75rem] leading-tight">{p.title}</h3>
-                <p className="mt-4 leading-relaxed text-ink-muted">{p.body}</p>
-              </li>
-            );
-          })}
+        <ol className="lg:col-span-6 lg:col-start-7">
+          {promises.map((p, i) => (
+            <li key={p.title} data-reveal style={revealDelay(i * 110)} className="grid gap-4 border-t border-deep-line py-10 first:border-t-0 first:pt-2 sm:grid-cols-[1fr_1.15fr] sm:gap-10">
+              <h3 className="font-display text-h3 text-on-deep">{p.title}</h3>
+              <p className="leading-[1.8] text-on-deep-muted sm:pt-2">{p.body}</p>
+            </li>
+          ))}
         </ol>
       </div>
     </section>

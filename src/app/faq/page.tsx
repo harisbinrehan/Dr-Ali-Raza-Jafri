@@ -6,7 +6,6 @@ import { faqSchema, JsonLd } from "@/lib/schema";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { RichText } from "@/components/ui/RichText";
-import { Clock, Mail, Phone } from "@/components/ui/Icons";
 
 export const revalidate = 300;
 
@@ -24,31 +23,38 @@ export default async function FaqPage() {
     <>
       <PageHeader eyebrow="Get help" title="Frequently asked questions" />
 
-      <div className="container-x grid gap-14 border-t border-line pb-28 pt-12 lg:grid-cols-12">
-        <div className="lg:col-span-8">
+      <div className="container-x grid gap-16 pb-32 pt-12 lg:grid-cols-12 lg:gap-8 lg:pt-16">
+        <div className="lg:col-span-7">
           <FaqAccordion items={items} headingLevel={2} firstOpen />
         </div>
 
-        <aside aria-labelledby="ask-title" className="lg:col-span-4">
-          <div className="rounded-lg bg-ink p-8 text-white lg:sticky lg:top-[calc(var(--header-offset,4.5rem)+2rem)] lg:transition-[top] lg:duration-500">
-            <h2 id="ask-title" className="font-display text-2xl leading-snug [&_a]:text-accent-bright [&_a]:underline [&_a]:underline-offset-4">
+        <aside aria-labelledby="ask-title" className="lg:col-span-4 lg:col-start-9">
+          <div className="border-t border-ink pt-8 lg:sticky lg:top-[calc(var(--header-offset,4.75rem)+2.5rem)] lg:transition-[top] lg:duration-700">
+            <h2 id="ask-title" className="font-display text-h3 text-ink [&_a]:italic [&_a]:text-accent [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-[0.2em]">
               <RichText text="Something not answered here? [Ask us](/contact)." />
             </h2>
-            <address className="mt-8 space-y-4 border-t border-ink-line pt-6 text-sm not-italic">
+            <address className="mt-10 space-y-5 text-[0.9375rem] not-italic">
               {contact.phone && (
-                <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="flex items-center gap-3 text-white/85 hover:text-white">
-                  <Phone className="size-4 text-accent-bright" /> {contact.phone}
-                </a>
+                <div>
+                  <p className="text-[0.8125rem] text-muted">Phone</p>
+                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="link-line text-ink">
+                    {contact.phone}
+                  </a>
+                </div>
               )}
               {contact.email && (
-                <a href={`mailto:${contact.email}`} className="flex items-center gap-3 break-all text-white/85 hover:text-white">
-                  <Mail className="size-4 shrink-0 text-accent-bright" /> {contact.email}
-                </a>
+                <div>
+                  <p className="text-[0.8125rem] text-muted">Email</p>
+                  <a href={`mailto:${contact.email}`} className="link-line break-all text-ink">
+                    {contact.email}
+                  </a>
+                </div>
               )}
               {contact.hours && (
-                <p className="flex gap-3 leading-relaxed text-white/60">
-                  <Clock className="mt-0.5 size-4 shrink-0 text-accent-bright" /> {contact.hours}
-                </p>
+                <div>
+                  <p className="text-[0.8125rem] text-muted">Hours</p>
+                  <p className="leading-relaxed text-ink-soft">{contact.hours}</p>
+                </div>
               )}
             </address>
           </div>

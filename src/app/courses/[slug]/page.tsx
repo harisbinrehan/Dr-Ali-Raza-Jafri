@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { faqs, purchaseFaqIds } from "@/content/faq";
-import { courseIncludes } from "@/content/pages";
-import { getCourse, getCourses, getInstructor, getPolicy, upgradeThumbnail } from "@/lib/catalog";
+import { courseIncludes, promises } from "@/content/pages";
+import { getCourse, getCourses, getInstructor, getPolicy, upgradeThumbnail, type CourseDetail } from "@/lib/catalog";
 import { displayTitle, formatDuration, levelLabel, plural } from "@/lib/format";
 import { faqsWithPolicy, fillPolicy } from "@/lib/policy-text";
 import { revealDelay } from "@/lib/motion";
@@ -11,13 +11,15 @@ import { site } from "@/lib/site";
 import { breadcrumbSchema, courseSchema, JsonLd } from "@/lib/schema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { CourseText } from "@/components/ui/RichText";
-import { Certificate, Clock, Language, Level } from "@/components/ui/Icons";
-import { EnrolPanel, type EnrolPanelProps } from "@/components/course/EnrolPanel";
+import { ArrowLink } from "@/components/ui/Button";
+import { EnrolButton, EnrolPanel, type EnrolPanelProps } from "@/components/course/EnrolPanel";
 import { Curriculum } from "@/components/course/Curriculum";
 import { PreviewDialog, type PreviewLesson } from "@/components/course/PreviewDialog";
 import { CourseCard } from "@/components/course/CourseCard";
-import { CourseSection, InstructorCard, LearningOutcomes, Requirements, Reviews } from "@/components/course/CourseSections";
+import { PriceTag } from "@/components/course/PriceTag";
+import { CourseSection, HowItWorks, InstructorFeature, LearningOutcomes, Requirements, Reviews } from "@/components/course/CourseSections";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
+import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 export const revalidate = 300;
 
@@ -41,6 +43,21 @@ export async function generateMetadata({ params }: PageProps<"/courses/[slug]">)
   };
 }
 
+/** "7 video lessons, 1 quiz" — the course's own format, counted from its lessons. */
+function formatSummary(course: CourseDetail) {
+  const counts = new Map<string, number>();
+  for (const s of course.sections) for (const l of s.lessons) counts.set(l.type, (counts.get(l.type) ?? 0) + 1);
+  const videos = (counts.get("VIDEO") ?? 0) + (counts.get("EXTERNAL_VIDEO") ?? 0);
+  const parts = [
+    videos && plural(videos, "video lesson"),
+    counts.get("QUIZ") && plural(counts.get("QUIZ")!, "quiz", "quizzes"),
+    counts.get("FLASHCARDS") && plural(counts.get("FLASHCARDS")!, "flashcard set"),
+    counts.get("ASSIGNMENT") && plural(counts.get("ASSIGNMENT")!, "assignment"),
+  ].filter(Boolean);
+  const duration = formatDuration(course.totalDurationSeconds);
+  return `${parts.join(", ")}${duration ? ` — ${duration} in total` : ""}.`;
+}
+
 export default async function CoursePage({ params }: PageProps<"/courses/[slug]">) {
   const { slug } = await params;
   const [course, courses, policy] = await Promise.all([getCourse(slug), getCourses(), getPolicy()]);
@@ -51,6 +68,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
   const title = displayTitle(course.title);
   const url = `${site.url}/courses/${course.slug}`;
   const duration = formatDuration(course.totalDurationSeconds);
+  const free = course.effectivePriceCents === 0;
   const paragraphs = course.description?.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean) ?? [];
   const previews: PreviewLesson[] = course.sections.flatMap((s) =>
     s.lessons.flatMap((l) => (l.previewAssetId ? [{ id: l.id, title: l.title, previewAssetId: l.previewAssetId }] : [])),
@@ -58,134 +76,168 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
   const instructorCourseCount = courses.filter((c) => c.instructorSlug === course.instructorSlug).length;
 
   const includes: EnrolPanelProps["includes"] = [
-    { icon: "lessons", label: [plural(course.lessonCount, "lesson"), duration].filter(Boolean).join(", ") },
-    { icon: "keep", label: courseIncludes.keep },
-    { icon: "refund", label: fillPolicy(courseIncludes.refund, policy), href: "/refunds" },
-    ...(course.certificateEnabled ? [{ icon: "certificate" as const, label: courseIncludes.certificate }] : []),
-    { icon: "level", label: course.level === "ALL_LEVELS" ? levelLabel.ALL_LEVELS : `${levelLabel[course.level]} level` },
+    { label: [plural(course.lessonCount, "lesson"), duration].filter(Boolean).join(", ") },
+    { label: courseIncludes.keep },
+    { label: fillPolicy(courseIncludes.refund, policy), href: "/refunds" },
+    ...(course.certificateEnabled ? [{ label: courseIncludes.certificate }] : []),
+    { label: course.level === "ALL_LEVELS" ? levelLabel.ALL_LEVELS : `${levelLabel[course.level]} level` },
+  ];
+
+  const facts = [
+    { label: "Lessons", value: String(course.lessonCount) },
+    ...(duration ? [{ label: "Duration", value: duration }] : []),
+    { label: "Level", value: levelLabel[course.level] },
+    { label: "Language", value: course.language === "en" ? "English" : course.language.toUpperCase() },
+    ...(course.certificateEnabled ? [{ label: "Certificate", value: "On completion" }] : []),
+  ];
+
+  const [keepPromise, certificatePromise, refundPromise] = promises;
+  const howItWorks = [
+    ...(course.sections.length > 0 ? [{ title: "Format", body: formatSummary(course) }] : []),
+    { title: keepPromise.title, body: keepPromise.body },
+    ...(course.certificateEnabled ? [{ title: certificatePromise.title, body: certificatePromise.body }] : []),
+    { title: refundPromise.title, body: `${refundPromise.body} [The refund policy](/refunds).` },
   ];
 
   const sameCategory = courses.filter((c) => c.id !== course.id && c.category?.slug === course.category?.slug);
   const related = [...sameCategory, ...courses.filter((c) => c.id !== course.id && !sameCategory.includes(c))].slice(0, 3);
 
-  const facts = [
-    { icon: Clock, label: [plural(course.lessonCount, "lesson"), duration].filter(Boolean).join(" · ") },
-    { icon: Level, label: levelLabel[course.level] },
-    { icon: Language, label: course.language === "en" ? "English" : course.language.toUpperCase() },
-    ...(course.certificateEnabled ? [{ icon: Certificate, label: "Certificate on completion" }] : []),
-  ];
-
   return (
     <>
-      <article className="container-x grid pb-24 lg:grid-cols-12 lg:gap-x-12 xl:gap-x-16">
-        {/* A real dark backing for the whole hero row on desktop (the enrol card overlaps it). */}
-        <div aria-hidden="true" className="bleed-ink hidden lg:col-span-12 lg:col-start-1 lg:row-start-1 lg:block" />
-
-        {/* Hero */}
-        <header className="bleed-ink relative pb-12 pt-32 text-white sm:pt-36 lg:col-span-8 lg:col-start-1 lg:row-start-1 lg:pb-16">
-          <Breadcrumb
-            tone="dark"
-            items={[{ label: "Courses", href: "/courses" }, ...(course.category ? [{ label: course.category.name, href: `/courses?category=${course.category.slug}` }] : []), { label: title }]}
-            className="animate-fade"
-          />
-          <h1 className="mt-7 font-display text-display-lg text-white animate-rise">{title}</h1>
-          {course.subtitle && <p className="mt-5 max-w-2xl text-lead text-ink-muted animate-rise [animation-delay:100ms]">{course.subtitle}</p>}
-
-          <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 animate-rise [animation-delay:180ms]">
-            {facts.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-2 text-sm text-white/75">
-                <Icon className="size-4 text-accent-bright" />
-                {label}
-              </li>
-            ))}
-          </ul>
-
-          <p className="mt-8 border-t border-ink-line pt-6 text-sm text-white/65 animate-rise [animation-delay:240ms]">
-            Taught by{" "}
-            <Link href={`/instructors/${course.instructorSlug}`} className="link-underline font-medium text-white">
-              {course.instructor}
-            </Link>
-          </p>
-        </header>
-
-        {/* Price and enrolment: sticky on desktop, straight after the hero on mobile */}
-        <aside aria-label="Enrol" className="relative z-10 pt-8 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:pt-32">
-          <div className="animate-rise [animation-delay:200ms] lg:sticky lg:top-[calc(var(--header-offset,4.5rem)+1.5rem)] lg:transition-[top] lg:duration-500">
-            <EnrolPanel
-              courseId={course.id}
-              title={title}
-              imageUrl={imageUrl}
-              priceCents={course.priceCents}
-              effectivePriceCents={course.effectivePriceCents}
-              currency={course.currency}
-              includes={includes}
-              firstPreview={previews[0] ?? null}
+      <div className="relative isolate">
+        <DarkBackdrop />
+        <article className="container-x grid pb-8 pt-[4.75rem] lg:grid-cols-12 lg:gap-x-8">
+          {/* Hero */}
+          <header className="pb-14 pt-10 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pb-20 lg:pt-14">
+            <Breadcrumb
+              items={[
+                { label: "Courses", href: "/courses" },
+                ...(course.category ? [{ label: course.category.name, href: `/courses?category=${course.category.slug}` }] : []),
+                { label: title },
+              ]}
+              className="animate-fade"
             />
+            <h1 className="mt-10 font-display text-h1 text-ink">
+              <span className="mask">
+                <span className="block animate-mask">{title}</span>
+              </span>
+            </h1>
+            {course.subtitle && <p className="mt-7 max-w-2xl text-lead text-ink-soft animate-rise [animation-delay:200ms]">{course.subtitle}</p>}
+            <p className="mt-6 text-[0.9375rem] text-muted animate-rise [animation-delay:260ms]">
+              Taught by{" "}
+              <Link href={`/instructors/${course.instructorSlug}`} className="link-quiet text-ink">
+                {course.instructor}
+              </Link>
+            </p>
+
+            <dl className="mt-12 grid grid-cols-2 border-t border-line animate-rise [animation-delay:320ms] sm:grid-cols-3 xl:grid-cols-5">
+              {facts.map((f) => (
+                <div key={f.label} className="border-b border-line py-5 pr-4 xl:border-b-0">
+                  <dt className="text-[0.8125rem] text-muted">{f.label}</dt>
+                  <dd className="mt-1 font-display text-[1.375rem] leading-tight text-ink">{f.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </header>
+
+          {/* Enrolment: sticky beside the whole course on desktop, straight after the hero on mobile */}
+          <aside aria-label="Enrol" className="relative z-10 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:pt-14">
+            <div className="animate-rise [animation-delay:240ms] lg:sticky lg:top-[calc(var(--header-offset,4.75rem)+1.5rem)] lg:transition-[top] lg:duration-700">
+              <EnrolPanel
+                courseId={course.id}
+                title={title}
+                imageUrl={imageUrl}
+                priceCents={course.priceCents}
+                effectivePriceCents={course.effectivePriceCents}
+                currency={course.currency}
+                includes={includes}
+                firstPreview={previews[0] ?? null}
+              />
+            </div>
+          </aside>
+
+          {/* Body */}
+          <div className="space-y-20 pt-16 sm:space-y-24 lg:col-span-7 lg:col-start-1 lg:row-start-2 lg:pt-0">
+            {course.learningObjectives.length > 0 && (
+              <CourseSection id="learn" title="What you will learn">
+                <LearningOutcomes items={course.learningObjectives} />
+              </CourseSection>
+            )}
+
+            <CourseSection id="how" title="How the course works">
+              <HowItWorks rows={howItWorks} />
+            </CourseSection>
+
+            {paragraphs.length > 0 && (
+              <CourseSection id="description" title="Course description">
+                <div className="prose-copy max-w-[62ch]">
+                  {paragraphs.map((p, i) => (
+                    <p key={i} data-reveal style={revealDelay(i * 60)} className="whitespace-pre-line">
+                      <CourseText text={p} />
+                    </p>
+                  ))}
+                </div>
+              </CourseSection>
+            )}
+
+            {course.sections.length > 0 && (
+              <CourseSection id="curriculum" title="Curriculum">
+                <Curriculum sections={course.sections} totalSeconds={course.totalDurationSeconds} />
+              </CourseSection>
+            )}
+
+            {course.requirements.length > 0 && (
+              <CourseSection id="requirements" title="Requirements">
+                <Requirements items={course.requirements} />
+              </CourseSection>
+            )}
+
+            <CourseSection id="instructor" title="Who teaches it">
+              <InstructorFeature name={course.instructor} slug={course.instructorSlug} courseCount={instructorCourseCount} bio={instructor?.bio ?? null} />
+            </CourseSection>
+
+            {course.reviews.length > 0 && (
+              <CourseSection id="reviews" title="What learners said">
+                <Reviews reviews={course.reviews} average={course.ratingAverage} count={course.ratingCount} instructor={course.instructor} />
+              </CourseSection>
+            )}
+
+            <CourseSection id="questions" title="Before you enrol">
+              <FaqAccordion items={faqsWithPolicy(faqs, policy, purchaseFaqIds)} />
+            </CourseSection>
           </div>
-        </aside>
+        </article>
+      </div>
 
-        {/* Body */}
-        <div className="space-y-16 pt-16 lg:col-span-8 lg:col-start-1 lg:row-start-2">
-          {course.learningObjectives.length > 0 && (
-            <CourseSection id="learn" title="What you will learn">
-              <LearningOutcomes items={course.learningObjectives} />
-            </CourseSection>
-          )}
-
-          {paragraphs.length > 0 && (
-            <CourseSection id="description" title="Course description">
-              <div className="prose-copy max-w-2xl">
-                {paragraphs.map((p, i) => (
-                  <p key={i} data-reveal style={revealDelay(i * 60)} className="whitespace-pre-line">
-                    <CourseText text={p} />
-                  </p>
-                ))}
-              </div>
-            </CourseSection>
-          )}
-
-          {course.sections.length > 0 && (
-            <CourseSection id="curriculum" title="Curriculum">
-              <Curriculum sections={course.sections} totalSeconds={course.totalDurationSeconds} />
-            </CourseSection>
-          )}
-
-          {course.requirements.length > 0 && (
-            <CourseSection id="requirements" title="Requirements">
-              <Requirements items={course.requirements} />
-            </CourseSection>
-          )}
-
-          <CourseSection id="instructor" title="Who teaches it">
-            <InstructorCard name={course.instructor} slug={course.instructorSlug} courseCount={instructorCourseCount} bio={instructor?.bio ?? null} />
-          </CourseSection>
-
-          {course.reviews.length > 0 && (
-            <CourseSection id="reviews" title="What learners said">
-              <Reviews reviews={course.reviews} average={course.ratingAverage} count={course.ratingCount} instructor={course.instructor} />
-            </CourseSection>
-          )}
-
-          <CourseSection id="questions" title="Before you enrol">
-            <FaqAccordion items={faqsWithPolicy(faqs, policy, purchaseFaqIds)} />
-          </CourseSection>
+      {/* Closing enrolment */}
+      <section aria-labelledby="enrol-title" className="mt-24 bg-deep text-on-deep">
+        <div className="container-x grid gap-10 py-20 sm:py-24 lg:grid-cols-12 lg:items-end lg:gap-8">
+          <div className="lg:col-span-7">
+            <p className="label text-deep-accent">{course.category?.name ?? site.name}</p>
+            <h2 id="enrol-title" className="mt-5 font-display text-h2 text-on-deep">
+              {title}
+            </h2>
+            <p className="mt-5 text-[0.9375rem] text-on-deep-muted">{includes.slice(0, 3).map((i) => i.label).join(" · ")}</p>
+          </div>
+          <div className="flex flex-col items-start gap-6 lg:col-span-4 lg:col-start-9 lg:items-end">
+            <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} size="lg" tone="deep" />
+            <EnrolButton courseId={course.id} free={free} tone="deep" />
+          </div>
         </div>
-      </article>
+      </section>
 
       {related.length > 0 && (
-        <section aria-labelledby="related-title" className="section-y border-t border-line bg-paper-2">
+        <section aria-labelledby="related-title" className="section-y">
           <div className="container-x">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <h2 id="related-title" data-reveal className="font-display text-display-md text-ink">
+            <div className="flex flex-wrap items-end justify-between gap-6 border-b border-line pb-8">
+              <h2 id="related-title" className="font-display text-h2 text-ink">
                 {sameCategory.length > 0 ? `More in ${course.category?.name}` : "More courses"}
               </h2>
-              <Link data-reveal href="/courses" className="link-underline py-2 text-sm font-medium text-ink">
-                Browse all courses
-              </Link>
+              <ArrowLink href="/courses">Browse all courses</ArrowLink>
             </div>
-            <ul className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-14 grid gap-x-8 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((c, i) => (
-                <li key={c.id} data-reveal style={revealDelay(i * 90)}>
+                <li key={c.id} data-reveal style={revealDelay(i * 110)}>
                   <CourseCard course={c} />
                 </li>
               ))}

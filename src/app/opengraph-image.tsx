@@ -7,33 +7,54 @@ export const alt = `${site.name} — clinical dental courses taught by ${site.in
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+const HEADLINE = ["Learn the case,", "not the slide deck"];
+
+/** Cormorant Garamond for the card, fetched as TTF; the card still renders if this fails. */
+async function loadDisplayFont(style: "normal" | "italic") {
+  try {
+    const family = style === "italic" ? "Cormorant+Garamond:ital,wght@1,500" : "Cormorant+Garamond:wght@500";
+    const text = encodeURIComponent([...HEADLINE, site.name].join(""));
+    const css = await (await fetch(`https://fonts.googleapis.com/css2?family=${family}&text=${text}`)).text();
+    const url = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/)?.[1];
+    return url ? await (await fetch(url)).arrayBuffer() : null;
+  } catch {
+    return null;
+  }
+}
+
 export default async function OpenGraphImage() {
-  const [photo, mark] = await Promise.all([
+  const [photo, mark, roman, italic] = await Promise.all([
     readFile(join(process.cwd(), "public/images/teaching-whiteboard-portrait.jpg"), "base64"),
     readFile(join(process.cwd(), "public/images/brand-mark-96.png"), "base64"),
+    loadDisplayFont("normal"),
+    loadDisplayFont("italic"),
   ]);
+  const fonts = [
+    ...(roman ? [{ name: "Cormorant", data: roman, style: "normal" as const, weight: 500 as const }] : []),
+    ...(italic ? [{ name: "Cormorant", data: italic, style: "italic" as const, weight: 500 as const }] : []),
+  ];
+  const display = fonts.length ? "Cormorant" : undefined;
 
   return new ImageResponse(
     (
-      <div style={{ display: "flex", width: "100%", height: "100%", background: "#0b1222", color: "#fff" }}>
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "64px 56px 64px 72px", width: 760 }}>
+      <div style={{ display: "flex", width: "100%", height: "100%", background: "#f5f1ea", color: "#17181c" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "64px 56px 60px 72px", width: 780 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-            <img src={`data:image/png;base64,${mark}`} width={64} height={64} alt="" style={{ borderRadius: 999 }} />
+            <img src={`data:image/png;base64,${mark}`} width={56} height={56} alt="" style={{ borderRadius: 999 }} />
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 30 }}>{site.name}</span>
-              <span style={{ fontSize: 16, letterSpacing: 3, color: "rgba(255,255,255,0.55)", marginTop: 4 }}>{site.instructorName.toUpperCase()}</span>
+              <span style={{ fontSize: 30, fontFamily: display }}>{site.name}</span>
+              <span style={{ fontSize: 16, color: "#5f6068", marginTop: 2 }}>{site.instructorName}</span>
             </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ width: 56, height: 3, background: "#e27b22", marginBottom: 28 }} />
-            <span style={{ fontSize: 76, lineHeight: 1.02, letterSpacing: -2 }}>Learn the case,</span>
-            <span style={{ fontSize: 76, lineHeight: 1.02, letterSpacing: -2, color: "#f29a4a" }}>not the slide deck</span>
+          <div style={{ display: "flex", flexDirection: "column", fontFamily: display }}>
+            <span style={{ fontSize: 96, lineHeight: 0.95, letterSpacing: -2 }}>{HEADLINE[0]}</span>
+            <span style={{ fontSize: 96, lineHeight: 0.95, letterSpacing: -2, color: "#8a5a2e", fontStyle: "italic", paddingLeft: 64 }}>{HEADLINE[1]}</span>
           </div>
-          <span style={{ fontSize: 24, color: "rgba(255,255,255,0.7)", lineHeight: 1.4 }}>{site.tagline}</span>
+          <div style={{ display: "flex", borderTop: "1px solid rgba(23,24,28,0.2)", paddingTop: 22, fontSize: 22, color: "#3a3c42" }}>{site.tagline}</div>
         </div>
-        <img src={`data:image/jpeg;base64,${photo}`} width={440} height={630} alt="" style={{ objectFit: "cover" }} />
+        <img src={`data:image/jpeg;base64,${photo}`} width={420} height={630} alt="" style={{ objectFit: "cover" }} />
       </div>
     ),
-    size,
+    { ...size, fonts },
   );
 }

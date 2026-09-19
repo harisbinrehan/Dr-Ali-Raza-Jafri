@@ -13,8 +13,8 @@ import { FinalCta } from "@/components/home/FinalCta";
 import { FeaturedCourse } from "@/components/course/FeaturedCourse";
 import { CourseCard } from "@/components/course/CourseCard";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
-import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ButtonLink } from "@/components/ui/Button";
+import { SectionIntro } from "@/components/ui/SectionHeading";
+import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { RichText } from "@/components/ui/RichText";
 
 export const revalidate = 300;
@@ -33,10 +33,7 @@ export default async function HomePage() {
   ]);
 
   const [featuredSummary, ...rest] = courses;
-  const [featured, featuredImage] = await Promise.all([
-    getCourse(featuredSummary.slug),
-    upgradeThumbnail(featuredSummary.thumbnailUrl),
-  ]);
+  const [featured, featuredImage] = await Promise.all([getCourse(featuredSummary.slug), upgradeThumbnail(featuredSummary.thumbnailUrl)]);
   const gridCourses = rest.slice(0, 6);
 
   const byInstructor = courses.filter((c) => c.instructorSlug === site.instructorSlug);
@@ -48,45 +45,43 @@ export default async function HomePage() {
       <Hero
         featured={featuredSummary}
         stats={[
-          { value: stats.courses, label: "courses" },
-          { value: categories.length, label: "subjects" },
-          { value: stats.students, label: "students" },
+          { value: stats.courses, label: "Courses" },
+          { value: categories.length, label: "Subjects" },
+          { value: stats.students, label: "Students" },
         ]}
       />
 
       <InstructorIntro
         stats={[
-          { value: String(byInstructor.length), label: "courses" },
-          { value: String(instructorSubjects), label: "subjects" },
-          { value: `${lessonHours}h`, label: "of lessons" },
+          { value: String(byInstructor.length), label: "Courses" },
+          { value: String(instructorSubjects), label: "Subjects" },
+          { value: `${lessonHours}h`, label: "Of lessons" },
         ]}
       />
 
       <SubjectIndex categories={categories} />
 
-      <section aria-labelledby="courses-title" className="section-y">
+      <section aria-labelledby="courses-title" className="section-y border-t border-line">
         <div className="container-x">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionHeading id="courses-title" title={home.courses.heading} body={home.courses.body} />
-            <div data-reveal>
-              <ButtonLink href="/courses" variant="outline" arrow>
-                Search and filter
-              </ButtonLink>
+          <div className="flex flex-col justify-between gap-8 md:flex-row md:items-end">
+            <SectionIntro id="courses-title" title={home.courses.heading} body={home.courses.body} />
+            <div data-reveal className="shrink-0">
+              <ArrowLink href="/courses">Search and filter</ArrowLink>
             </div>
           </div>
 
-          <div className="mt-14">{featured && <FeaturedCourse course={featured} imageUrl={featuredImage} />}</div>
+          <div className="mt-16 lg:mt-20">{featured && <FeaturedCourse course={featured} imageUrl={featuredImage} />}</div>
 
-          <ul className="mt-16 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-24 grid gap-x-8 gap-y-20 border-t border-line pt-16 sm:grid-cols-2 lg:grid-cols-3">
             {gridCourses.map((course, i) => (
-              <li key={course.id} data-reveal style={revealDelay((i % 3) * 90)}>
+              <li key={course.id} data-reveal style={revealDelay((i % 3) * 110)}>
                 <CourseCard course={course} />
               </li>
             ))}
           </ul>
 
-          <div data-reveal className="mt-16 flex justify-center">
-            <ButtonLink href="/courses" size="lg" arrow>
+          <div data-reveal className="mt-20 flex justify-center">
+            <ButtonLink href="/courses" variant="outline" size="lg" arrow>
               View all {courses.length} courses
             </ButtonLink>
           </div>
@@ -96,21 +91,19 @@ export default async function HomePage() {
       <Commitments />
 
       <section aria-labelledby="faq-title" className="section-y">
-        <div className="container-x grid gap-12 lg:grid-cols-12">
+        <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28">
-              <SectionHeading id="faq-title" title="Frequently asked questions" />
-              <p data-reveal className="prose-copy mt-6 text-muted">
+            <div className="lg:sticky lg:top-32">
+              <SectionIntro id="faq-title" title="Frequently asked questions" />
+              <p data-reveal className="prose-copy mt-8 text-muted">
                 <RichText text="Something not answered here? [Ask us](/contact)." />
               </p>
             </div>
           </div>
-          <div data-reveal className="lg:col-span-8">
+          <div data-reveal className="lg:col-span-7 lg:col-start-6">
             <FaqAccordion items={faqsWithPolicy(faqs, policy, purchaseFaqIds.slice(0, 5))} firstOpen />
             <div className="mt-8">
-              <ButtonLink href="/faq" variant="quiet" className="font-medium">
-                {home.promise.moreLabel}
-              </ButtonLink>
+              <ArrowLink href="/faq">{home.promise.moreLabel}</ArrowLink>
             </div>
           </div>
         </div>

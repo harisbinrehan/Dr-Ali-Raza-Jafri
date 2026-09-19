@@ -2,18 +2,15 @@
 
 import { useState } from "react";
 import type { Section } from "@/lib/catalog";
-import { cn } from "@/lib/cn";
 import { formatDuration, lessonTypeLabel, plural } from "@/lib/format";
 import { Disclosure } from "@/components/ui/Disclosure";
-import { CardsLesson, Play, QuizLesson, VideoLesson } from "@/components/ui/Icons";
+import { Play } from "@/components/ui/Icons";
 import { openPreview } from "@/components/course/PreviewDialog";
 
-function LessonIcon({ type, className }: { type: string; className?: string }) {
-  if (type === "QUIZ") return <QuizLesson className={className} />;
-  if (type === "FLASHCARDS") return <CardsLesson className={className} />;
-  return <VideoLesson className={className} />;
-}
-
+/**
+ * The syllabus as an academic outline: numbered parts in display type, each
+ * opening onto its lessons with type and length. Free previews play in place.
+ */
 export function Curriculum({ sections, totalSeconds }: { sections: Section[]; totalSeconds: number }) {
   const [open, setOpen] = useState<Set<string>>(() => new Set(sections[0] ? [sections[0].id] : []));
   const lessonCount = sections.reduce((n, s) => n + s.lessons.length, 0);
@@ -30,79 +27,70 @@ export function Curriculum({ sections, totalSeconds }: { sections: Section[]; to
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="font-mono text-xs uppercase tracking-[0.12em] text-muted">
-          {[plural(sections.length, "section"), plural(lessonCount, "lesson"), total].filter(Boolean).join(" · ")}
-        </p>
+      <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-5">
+        <p className="text-[0.875rem] text-muted">{[plural(sections.length, "section"), plural(lessonCount, "lesson"), total].filter(Boolean).join(" · ")}</p>
         {sections.length > 1 && (
           <button
             type="button"
             onClick={() => setOpen(allOpen ? new Set() : new Set(sections.map((s) => s.id)))}
-            className="py-2 text-sm font-medium text-accent-deep underline decoration-accent-deep/30 underline-offset-4 hover:decoration-accent-deep"
+            className="link-quiet py-1 text-[0.875rem] font-semibold text-ink"
           >
             {allOpen ? "Collapse all" : "Expand all"}
           </button>
         )}
       </div>
 
-      <ol className="mt-6 border-t border-line">
+      <ol>
         {sections.map((section, index) => {
           const sectionSeconds = section.lessons.reduce((n, l) => n + l.durationSeconds, 0);
+          const sectionMeta = [plural(section.lessons.length, "lesson"), formatDuration(sectionSeconds)].filter(Boolean).join(" · ");
           return (
             <li key={section.id}>
               <Disclosure
                 open={open.has(section.id)}
                 onToggle={() => toggle(section.id)}
                 summary={
-                  <span className="flex items-baseline gap-4">
-                    <span className="w-6 shrink-0 font-mono text-xs tabular-nums text-accent-deep">{String(index + 1).padStart(2, "0")}</span>
-                    <span className="font-display text-[1.3125rem] leading-snug sm:text-[1.4375rem]">{section.title}</span>
+                  <span className="grid grid-cols-[3rem_1fr] items-baseline gap-x-4 sm:grid-cols-[4.5rem_1fr]">
+                    <span className="font-display text-[1.75rem] leading-none tabular-nums text-accent sm:text-[2.25rem]">{String(index + 1).padStart(2, "0")}</span>
+                    <span>
+                      <span className="block font-display text-h4 text-ink">{section.title}</span>
+                      <span className="mt-1.5 block text-[0.8125rem] text-muted">{sectionMeta}</span>
+                    </span>
                   </span>
                 }
-                meta={
-                  <span className="font-mono text-xs tabular-nums text-muted">
-                    {[plural(section.lessons.length, "lesson"), formatDuration(sectionSeconds)].filter(Boolean).join(" · ")}
-                  </span>
-                }
-                panelClassName="pb-5 sm:pl-10"
+                panelClassName="sm:pl-[5.5rem]"
               >
-                <ul className="divide-y divide-line/70 rounded-md border border-line bg-card">
-                  {section.lessons.map((lesson) => {
+                <ol className="border-t border-line">
+                  {section.lessons.map((lesson, li) => {
                     const previewAssetId = lesson.previewAssetId;
                     const duration = formatDuration(lesson.durationSeconds);
-                    const content = (
-                      <>
-                        <LessonIcon type={lesson.type} className={cn("size-[1.125rem] shrink-0", previewAssetId ? "text-accent-deep" : "text-muted")} />
-                        <span className="min-w-0 flex-1 text-[0.9375rem] leading-snug text-ink/90">
-                          {lesson.title}
-                          <span className="sr-only"> ({lessonTypeLabel(lesson.type)})</span>
-                        </span>
-                        {lesson.isFreePreview && (
-                          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-accent-deep">
-                            {previewAssetId && <Play className="size-3" />}
-                            {previewAssetId ? "Watch free" : "Preview"}
-                          </span>
-                        )}
-                        {duration && <span className="w-12 shrink-0 text-right font-mono text-xs tabular-nums text-muted">{duration}</span>}
-                      </>
-                    );
                     return (
-                      <li key={lesson.id}>
-                        {previewAssetId ? (
-                          <button
-                            type="button"
-                            onClick={() => openPreview({ id: lesson.id, title: lesson.title, previewAssetId })}
-                            className="flex w-full items-center gap-3.5 px-4 py-3.5 text-left transition-colors hover:bg-accent-soft/40"
-                          >
-                            {content}
-                          </button>
-                        ) : (
-                          <div className="flex items-center gap-3.5 px-4 py-3.5">{content}</div>
-                        )}
+                      <li key={lesson.id} className="grid grid-cols-[2.5rem_1fr] items-baseline gap-x-3 gap-y-1.5 border-b border-line py-4 last:border-b-0 sm:flex sm:gap-x-5">
+                        <span className="w-8 shrink-0 text-[0.8125rem] tabular-nums text-muted">
+                          {index + 1}.{li + 1}
+                        </span>
+                        <span className="min-w-0 flex-1 text-[0.9375rem] leading-snug text-ink">{lesson.title}</span>
+                        <span className="col-start-2 flex shrink-0 items-baseline gap-5 text-[0.8125rem] text-muted">
+                          {previewAssetId ? (
+                            <button
+                              type="button"
+                              onClick={() => openPreview({ id: lesson.id, title: lesson.title, previewAssetId })}
+                              className="group inline-flex items-center gap-1.5 font-semibold text-accent"
+                            >
+                              <Play className="size-3" />
+                              <span className="link-line">Watch free</span>
+                              <span className="sr-only">: {lesson.title}</span>
+                            </button>
+                          ) : (
+                            lesson.isFreePreview && <span className="text-accent">Preview</span>
+                          )}
+                          <span>{lessonTypeLabel(lesson.type)}</span>
+                          {duration && <span className="tabular-nums sm:w-12 sm:text-right">{duration}</span>}
+                        </span>
                       </li>
                     );
                   })}
-                </ul>
+                </ol>
               </Disclosure>
             </li>
           );

@@ -1,21 +1,30 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
-/** Opening block for the light, text-led pages (about, FAQ, contact, policies). */
+/** Opening block for the text-led pages: label, masked display title, lead. */
 export function PageHeader({ eyebrow, title, lead, children, className }: { eyebrow?: string; title: string; lead?: ReactNode; children?: ReactNode; className?: string }) {
   return (
-    <header className={cn("container-x pb-14 pt-32 sm:pt-40", className)}>
-      <div className="max-w-4xl">
-        {eyebrow && (
-          <p className="eyebrow flex items-center gap-3 text-accent-deep animate-fade">
-            <span aria-hidden="true" className="h-px w-6 bg-current" />
-            {eyebrow}
-          </p>
-        )}
-        <h1 className="mt-5 font-display text-display-lg text-ink animate-rise">{title}</h1>
-        {lead && <p className="mt-6 max-w-2xl text-lead text-muted animate-rise [animation-delay:100ms]">{lead}</p>}
-        {children}
-      </div>
-    </header>
+    <div className="relative isolate overflow-hidden">
+      <DarkBackdrop />
+      <header className={cn("container-x pt-[4.75rem]", className)}>
+        <div className="grid gap-8 border-b border-line pb-16 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-20">
+          <div className="lg:col-span-8">
+            {eyebrow && <p className="label text-accent animate-fade">{eyebrow}</p>}
+            <h1 className="mt-6 font-display text-h1 text-ink">
+              <span className="mask">
+                <span className="block animate-mask">{title}</span>
+              </span>
+            </h1>
+          </div>
+          {(lead || children) && (
+            <div className="lg:col-span-4 lg:self-end">
+              {lead && <p className="text-lead text-ink-soft animate-rise [animation-delay:200ms]">{lead}</p>}
+              {children}
+            </div>
+          )}
+        </div>
+      </header>
+    </div>
   );
 }

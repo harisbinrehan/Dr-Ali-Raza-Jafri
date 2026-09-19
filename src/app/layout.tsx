@@ -1,24 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Newsreader } from "next/font/google";
+import { Cormorant_Garamond, Manrope } from "next/font/google";
 import "./globals.css";
 import { getCategories, getContact } from "@/lib/catalog";
 import { site } from "@/lib/site";
 import { JsonLd, organizationSchema } from "@/lib/schema";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 
-// Only the 400 weight is used; static instances are a fraction of the variable font's size.
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+// Display: a Garamond — academic, editorial, unmistakably not a startup face.
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: "400",
+  weight: ["500", "600"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const geist = Geist({ variable: "--font-geist", subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap" });
+// Text: open, precise and very readable at small sizes.
+const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -39,22 +40,26 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1222",
-  colorScheme: "light",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f5f1ea" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b1222" },
+  ],
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const [contact, categories] = await Promise.all([getContact(), getCategories()]);
 
   return (
-    <html lang="en" className={`${newsreader.variable} ${geist.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
-        <SiteHeader contact={contact} />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
-        <SiteFooter contact={contact} categories={categories} />
-        <RevealObserver />
+        <ThemeProvider>
+          <SiteHeader contact={contact} />
+          <main id="main" className="flex-1">
+            {children}
+          </main>
+          <SiteFooter contact={contact} categories={categories} />
+          <RevealObserver />
+        </ThemeProvider>
         <JsonLd data={organizationSchema(contact)} />
       </body>
     </html>

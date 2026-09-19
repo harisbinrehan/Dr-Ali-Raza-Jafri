@@ -3,10 +3,9 @@
 import { useId, useState, type FormEvent } from "react";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
-import { Check } from "@/components/ui/Icons";
 
 const fieldClass =
-  "w-full rounded-sm border border-line-strong bg-card px-4 py-3 text-base text-ink outline-none transition-[border-color,box-shadow] placeholder:text-muted focus:border-ink focus:shadow-[0_0_0_3px_rgb(226_123_34/0.18)]";
+  "w-full border-b border-line-strong bg-transparent py-3 text-[1.0625rem] text-ink outline-none transition-colors placeholder:text-muted/70 focus:border-ink";
 
 /**
  * Same request as the platform's contact form: POST /api/catalog/contact with
@@ -48,27 +47,24 @@ export function ContactForm() {
 
   if (state === "sent") {
     return (
-      <div role="status" className="rounded-lg border border-success/25 bg-success/5 p-8 animate-rise">
-        <span className="grid size-10 place-items-center rounded-full bg-success text-white">
-          <Check className="size-5" />
-        </span>
-        <h2 className="mt-5 font-display text-2xl text-ink">Message sent</h2>
-        <p className="mt-2 leading-relaxed text-muted">Thank you. We reply to most messages within one working day.</p>
+      <div role="status" className="border-t border-ink pt-10 animate-rise">
+        <h2 className="font-display text-h3 text-ink">Message sent</h2>
+        <p className="mt-4 max-w-md leading-relaxed text-ink-soft">Thank you. We reply to most messages within one working day.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={onSubmit} className="space-y-5" noValidate>
-      <h2 className="font-display text-display-sm text-ink">Send a message</h2>
+    <form onSubmit={onSubmit} className="space-y-9" noValidate>
+      <h2 className="font-display text-h3 text-ink">Send a message</h2>
       <div>
-        <label htmlFor={`${id}-name`} className="mb-2 block text-sm font-medium text-ink">
+        <label htmlFor={`${id}-name`} className="block text-[0.8125rem] text-muted">
           Your name
         </label>
         <input id={`${id}-name`} value={name} onChange={(e) => setName(e.target.value)} autoComplete="name" className={fieldClass} />
       </div>
       <div>
-        <label htmlFor={`${id}-email`} className="mb-2 block text-sm font-medium text-ink">
+        <label htmlFor={`${id}-email`} className="block text-[0.8125rem] text-muted">
           Email
         </label>
         <input
@@ -83,29 +79,29 @@ export function ContactForm() {
         />
       </div>
       <div>
-        <label htmlFor={`${id}-message`} className="mb-2 block text-sm font-medium text-ink">
+        <label htmlFor={`${id}-message`} className="block text-[0.8125rem] text-muted">
           Message
         </label>
         <textarea
           id={`${id}-message`}
-          rows={6}
+          rows={5}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
           minLength={10}
           aria-describedby={`${id}-hint`}
-          className={cn(fieldClass, "resize-y")}
+          className={cn(fieldClass, "resize-y leading-relaxed")}
         />
-        <p id={`${id}-hint`} className="mt-2 text-xs text-muted">
+        <p id={`${id}-hint`} className="mt-2 text-[0.75rem] text-muted">
           At least 10 characters.
         </p>
       </div>
       {error && (
-        <p role="alert" className="text-sm text-danger">
+        <p role="alert" className="text-[0.875rem] text-danger">
           {error}
         </p>
       )}
-      <Button type="submit" variant="primary" size="lg" disabled={!ready || state === "sending"} className="w-full sm:w-auto" arrow={state !== "sending"}>
+      <Button type="submit" size="lg" disabled={!ready || state === "sending"} arrow={state !== "sending"}>
         {state === "sending" ? "Sending…" : "Send message"}
       </Button>
     </form>

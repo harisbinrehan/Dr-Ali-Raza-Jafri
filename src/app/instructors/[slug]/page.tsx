@@ -9,8 +9,10 @@ import { revealDelay } from "@/lib/motion";
 import { site } from "@/lib/site";
 import { JsonLd, personSchema } from "@/lib/schema";
 import { CourseCard } from "@/components/course/CourseCard";
-import { ButtonLink } from "@/components/ui/Button";
+import { ArrowLink } from "@/components/ui/Button";
 import { Parallax } from "@/components/ui/Parallax";
+import { RevealHeading } from "@/components/ui/SectionHeading";
+import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 export const revalidate = 300;
 
@@ -42,108 +44,117 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
   // The platform's instructor page shows this total; it counts one per student per course.
   const enrolments = theirs.reduce((n, c) => n + c.studentCount, 0);
   const isLead = slug === site.instructorSlug;
+  const stats = [
+    { value: String(theirs.length), label: "Courses" },
+    { value: enrolments.toLocaleString("en-US"), label: "Enrolments" },
+    { value: String(subjects.length), label: "Subjects" },
+    { value: `${hours}h`, label: "Of lessons" },
+  ];
 
   return (
     <>
-      <section aria-labelledby="instructor-name" className="grain relative overflow-hidden bg-ink text-white">
-        <div aria-hidden="true" className="column-rules absolute inset-0" />
-        <div className="container-x relative grid items-end gap-12 pb-16 pt-32 sm:pt-40 lg:grid-cols-12 lg:pb-24">
-          <div className="lg:col-span-7">
-            <p className="eyebrow flex items-center gap-3 text-accent-bright animate-fade">
-              <span aria-hidden="true" className="h-px w-8 bg-current" />
-              {home.instructor.eyebrow}
-            </p>
-            <h1 id="instructor-name" className="mt-6 font-display text-display-lg animate-rise">
-              {instructor.name}
+      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-[4.75rem]">
+        <DarkBackdrop />
+        <div className="container-x grid gap-14 pb-20 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-28 lg:pt-20">
+          <div className="flex flex-col lg:col-span-7">
+            <p className="label text-accent animate-fade">{home.instructor.eyebrow}</p>
+            <h1 id="instructor-name" className="mt-8 font-display text-hero text-ink">
+              <span className="mask">
+                <span className="block animate-mask">{instructor.name}</span>
+              </span>
             </h1>
-            {instructor.headline && <p className="mt-6 max-w-xl text-lead text-ink-muted animate-rise [animation-delay:100ms]">{instructor.headline}</p>}
-            {isLead && !instructor.headline && <p className="mt-6 max-w-xl text-lead text-ink-muted animate-rise [animation-delay:100ms]">{about.lead}</p>}
+            {(instructor.headline || isLead) && (
+              <p className="mt-10 max-w-lg text-lead text-ink-soft animate-rise [animation-delay:250ms]">{instructor.headline ?? about.lead}</p>
+            )}
 
-            <dl className="mt-12 grid max-w-xl grid-cols-2 gap-6 sm:grid-cols-4 border-t border-ink-line pt-8 animate-rise [animation-delay:200ms]">
-              {[
-                { value: theirs.length, label: "courses" },
-                { value: enrolments.toLocaleString("en-US"), label: "enrolments" },
-                { value: subjects.length, label: "subjects" },
-                { value: `${hours}h`, label: "of lessons" },
-              ].map((s) => (
-                <div key={s.label} className="flex flex-col-reverse">
-                  <dt className="eyebrow mt-3 text-white/55">{s.label}</dt>
-                  <dd className="font-display text-[clamp(2rem,1.6rem+1.6vw,2.75rem)] leading-none tabular-nums">{s.value}</dd>
+            <dl className="mt-auto grid grid-cols-2 border-t border-line pt-2 animate-rise [animation-delay:350ms] sm:grid-cols-4 lg:mt-16">
+              {stats.map((s) => (
+                <div key={s.label} className="flex flex-col-reverse py-5">
+                  <dt className="mt-1.5 text-[0.8125rem] text-muted">{s.label}</dt>
+                  <dd className="font-display text-[2.5rem] leading-none tabular-nums text-ink">{s.value}</dd>
                 </div>
               ))}
             </dl>
           </div>
 
           {isLead && (
-            <div className="lg:col-span-4 lg:col-start-9">
-              <figure className="relative aspect-[4/5] overflow-hidden rounded-md">
-                <Parallax speed={-0.05} className="absolute -inset-y-[8%] inset-x-0">
-                  <Image src="/images/chairside-portrait.jpg" alt={instructor.name} fill preload sizes="(min-width: 1024px) 30vw, 92vw" className="object-cover animate-settle" />
+            <figure className="lg:col-span-4 lg:col-start-9">
+              <div className="relative aspect-[4/5] overflow-hidden bg-canvas-alt">
+                <Parallax speed={-0.05} className="absolute -inset-y-[6%] inset-x-0">
+                  <Image src="/images/chairside-portrait.jpg" alt={instructor.name} fill preload sizes="(min-width: 1024px) 30vw, 100vw" className="object-cover animate-settle" />
                 </Parallax>
-              </figure>
-              <p className="eyebrow mt-4 text-white/50">Still from Interproximal Reduction: A Hands-On Course</p>
-            </div>
+              </div>
+              <figcaption className="mt-4 text-[0.8125rem] text-muted">Still from Interproximal Reduction: A Hands-On Course</figcaption>
+            </figure>
           )}
         </div>
       </section>
 
       {(instructor.bio || isLead) && (
-        <section aria-label="About" className="section-y">
-          <div className="container-x grid gap-12 lg:grid-cols-12">
+        <section aria-label="About" className="section-y bg-canvas-alt">
+          <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
             {isLead && (
-              <blockquote data-reveal className="lg:col-span-5">
-                <p className="font-display text-display-sm italic text-ink">“{about.pullQuote}”</p>
+              <blockquote data-reveal className="lg:col-span-6">
+                <p className="font-display text-h2 italic text-ink">
+                  <span aria-hidden="true" className="text-accent">“</span>
+                  {about.pullQuote}
+                  <span aria-hidden="true" className="text-accent">”</span>
+                </p>
               </blockquote>
             )}
-            <div className="prose-copy lg:col-span-6 lg:col-start-7">
-              {instructor.bio ? (
-                <p data-reveal className="whitespace-pre-line">
-                  {instructor.bio}
-                </p>
-              ) : (
-                about.body.map((p, i) => (
-                  <p key={i} data-reveal style={revealDelay(i * 80)}>
-                    {p}
+            <div className="lg:col-span-4 lg:col-start-9 lg:pt-3">
+              <div className="prose-copy">
+                {instructor.bio ? (
+                  <p data-reveal className="whitespace-pre-line">
+                    {instructor.bio}
                   </p>
-                ))
-              )}
+                ) : (
+                  about.body.map((p, i) => (
+                    <p key={i} data-reveal style={revealDelay(i * 100)}>
+                      {p}
+                    </p>
+                  ))
+                )}
+              </div>
               {subjects.length > 0 && (
-                <ul data-reveal className="mt-8 flex flex-wrap gap-2">
-                  {subjects.map((s) => (
-                    <li key={s.id}>
-                      <Link href={`/courses?category=${s.slug}`} className="inline-block rounded-full border border-line-strong px-3.5 py-1.5 text-sm text-ink/80 no-underline transition-colors hover:border-ink hover:text-ink">
-                        {s.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+                <div data-reveal className="mt-10 border-t border-line pt-6">
+                  <p className="text-[0.8125rem] text-muted">Teaches</p>
+                  <ul className="mt-3 text-[0.9375rem] leading-[1.9] text-ink">
+                    {subjects.map((s, i) => (
+                      <li key={s.id} className="inline">
+                        <Link href={`/courses?category=${s.slug}`} className="link-quiet">
+                          {s.name}
+                        </Link>
+                        {i < subjects.length - 1 && <span aria-hidden="true">, </span>}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
             </div>
           </div>
         </section>
       )}
 
-      <section aria-labelledby="their-courses" className="section-y border-t border-line bg-paper-2">
+      <section aria-labelledby="their-courses" className="section-y">
         <div className="container-x">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <h2 id="their-courses" data-reveal className="font-display text-display-md text-ink">
+          <div className="flex flex-wrap items-end justify-between gap-6 border-b border-line pb-8">
+            <RevealHeading id="their-courses" className="text-h2 text-ink">
               Courses by {instructor.name}
-            </h2>
-            <p data-reveal className="eyebrow text-muted">
+            </RevealHeading>
+            <p data-reveal className="text-[0.875rem] text-muted">
               {plural(theirs.length, "course")}
             </p>
           </div>
-          <ul className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-14 grid gap-x-8 gap-y-20 sm:grid-cols-2 lg:grid-cols-3">
             {theirs.map((course, i) => (
-              <li key={course.id} data-reveal style={revealDelay((i % 3) * 80)}>
+              <li key={course.id} data-reveal style={revealDelay((i % 3) * 110)}>
                 <CourseCard course={course} />
               </li>
             ))}
           </ul>
-          <div data-reveal className="mt-16 flex justify-center">
-            <ButtonLink href="/courses" variant="outline" size="lg" arrow>
-              Search and filter
-            </ButtonLink>
+          <div data-reveal className="mt-20 flex justify-center">
+            <ArrowLink href="/courses">Search and filter</ArrowLink>
           </div>
         </div>
       </section>

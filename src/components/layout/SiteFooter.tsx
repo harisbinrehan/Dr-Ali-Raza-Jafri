@@ -10,23 +10,25 @@ const helpLinks = [
   { href: "/teach", label: "Teach with us" },
 ];
 
+const linkClass = "link-line inline-block py-1 text-on-deep/80 transition-colors duration-500 hover:text-on-deep";
+
 export function SiteFooter({ contact, categories }: { contact: Contact; categories: Category[] }) {
   const year = new Date().getFullYear();
   return (
-    <footer className="grain relative overflow-hidden bg-ink text-white">
-      <div className="container-x relative pb-10 pt-20 sm:pt-24">
-        <div className="grid gap-14 lg:grid-cols-12">
+    <footer className="bg-deep text-on-deep">
+      <div className="container-x pb-10 pt-24 sm:pt-28">
+        <div className="grid gap-16 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4">
-            <BrandLockup tone="dark" />
-            <p className="mt-6 max-w-xs font-display text-2xl leading-snug text-white/90">{site.tagline}</p>
+            <BrandLockup tone="deep" />
+            <p className="mt-8 max-w-xs text-[0.9375rem] leading-relaxed text-on-deep-muted">{site.tagline}</p>
           </div>
 
-          <nav aria-label="Get help" className="lg:col-span-2">
-            <h2 className="eyebrow text-white/50">Get help</h2>
-            <ul className="mt-4 space-y-1.5 text-[0.9375rem]">
+          <nav aria-label="Get help" className="lg:col-span-2 lg:col-start-6">
+            <h2 className="label text-on-deep-muted">Get help</h2>
+            <ul className="mt-6 space-y-1.5 text-[0.9375rem]">
               {helpLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="link-underline inline-block py-1 text-white/80 transition-colors hover:text-white">
+                  <Link href={l.href} className={linkClass}>
                     {l.label}
                   </Link>
                 </li>
@@ -35,11 +37,11 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
           </nav>
 
           <nav aria-label="Subjects" className="lg:col-span-3">
-            <h2 className="eyebrow text-white/50">Subjects</h2>
-            <ul className="mt-4 space-y-1.5 text-[0.9375rem]">
+            <h2 className="label text-on-deep-muted">Subjects</h2>
+            <ul className="mt-6 space-y-1.5 text-[0.9375rem]">
               {categories.map((c) => (
                 <li key={c.id}>
-                  <Link href={`/courses?category=${c.slug}`} className="link-underline inline-block py-1 text-white/80 transition-colors hover:text-white">
+                  <Link href={`/courses?category=${c.slug}`} className={linkClass}>
                     {c.name}
                   </Link>
                 </li>
@@ -47,37 +49,37 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
             </ul>
           </nav>
 
-          <div className="lg:col-span-3">
-            <h2 className="eyebrow text-white/50">Contact us</h2>
-            <address className="mt-5 space-y-3 text-[0.9375rem] not-italic leading-relaxed text-white/80">
+          <div className="lg:col-span-2">
+            <h2 className="label text-on-deep-muted">Contact us</h2>
+            <address className="mt-6 space-y-3 text-[0.9375rem] not-italic leading-relaxed text-on-deep/80">
               {contact.address && <p>{contact.address}</p>}
               {contact.phone && (
                 <p>
-                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="link-underline hover:text-white">
+                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="link-line hover:text-on-deep">
                     {contact.phone}
                   </a>
                 </p>
               )}
               {contact.email && (
                 <p>
-                  <a href={`mailto:${contact.email}`} className="link-underline break-all hover:text-white">
+                  <a href={`mailto:${contact.email}`} className="link-line break-all hover:text-on-deep">
                     {contact.email}
                   </a>
                 </p>
               )}
-              {contact.hours && <p className="text-white/60">{contact.hours}</p>}
+              {contact.hours && <p className="text-on-deep-muted">{contact.hours}</p>}
             </address>
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-5 border-t border-ink-line pt-8 text-sm text-white/55 md:flex-row md:items-center md:justify-between">
+        <div className="mt-24 flex flex-col gap-5 border-t border-deep-line pt-8 text-[0.8125rem] text-on-deep-muted md:flex-row md:items-center md:justify-between">
           <p>
             © {year} {site.name}
           </p>
-          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+          <ul className="flex flex-wrap gap-x-7 gap-y-1">
             {legalNav.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="link-underline inline-block py-1 transition-colors hover:text-white">
+                <Link href={l.href} className="link-line inline-block py-1 transition-colors hover:text-on-deep">
                   {l.label}
                 </Link>
               </li>

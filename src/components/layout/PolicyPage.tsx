@@ -16,14 +16,14 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
     <>
       <PageHeader eyebrow="Policies" title={doc.title} lead={<RichText text={fillPolicy(doc.intro, policy)} />} />
 
-      <div className="container-x grid gap-12 border-t border-line pb-28 pt-14 lg:grid-cols-12">
+      <div className="container-x grid gap-12 pb-32 pt-16 lg:grid-cols-12 lg:gap-8 lg:pt-20">
         <nav aria-label="On this page" className="hidden lg:col-span-3 lg:block">
-          <div className="sticky top-[calc(var(--header-offset,4.5rem)+2rem)] transition-[top] duration-500">
-            <p className="eyebrow text-muted">On this page</p>
-            <ol className="mt-5 space-y-3 border-l border-line">
+          <div className="sticky top-[calc(var(--header-offset,4.75rem)+2.5rem)] transition-[top] duration-700">
+            <p className="label text-muted">On this page</p>
+            <ol className="mt-6 space-y-1">
               {doc.sections.map((s) => (
                 <li key={s.heading}>
-                  <a href={`#${anchor(s.heading)}`} className="-ml-px block border-l border-transparent pl-4 text-sm text-muted transition-colors hover:border-ink hover:text-ink">
+                  <a href={`#${anchor(s.heading)}`} className="link-line inline-block py-1 text-[0.875rem] text-muted transition-colors hover:text-ink">
                     {s.heading}
                   </a>
                 </li>
@@ -32,13 +32,13 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
           </div>
         </nav>
 
-        <div className="max-w-2xl lg:col-span-8 lg:col-start-5">
+        <div className="lg:col-span-7 lg:col-start-5">
           {doc.sections.map((s) => (
-            <section key={s.heading} id={anchor(s.heading)} aria-labelledby={`${anchor(s.heading)}-title`} className="scroll-mt-28 border-b border-line py-10 first:pt-0">
+            <section key={s.heading} id={anchor(s.heading)} aria-labelledby={`${anchor(s.heading)}-title`} className="grid scroll-mt-28 gap-4 border-t border-line py-10 first:border-t-0 first:pt-0 xl:grid-cols-[13rem_1fr] xl:gap-10">
               <h2 id={`${anchor(s.heading)}-title`} className="font-display text-[1.75rem] leading-tight text-ink">
                 {s.heading}
               </h2>
-              <div className="prose-copy mt-5">
+              <div className="prose-copy max-w-[62ch]">
                 {s.paragraphs.map((p, i) => (
                   <p key={i}>
                     <RichText text={fillPolicy(p, policy)} />
@@ -48,19 +48,19 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
             </section>
           ))}
 
-          <address className="mt-10 space-y-1 text-sm not-italic leading-relaxed text-muted">
+          <address className="mt-6 space-y-1 border-t border-line pt-10 text-[0.875rem] not-italic leading-relaxed text-muted">
             <p>
               {contact.name}
               {contact.address && `, ${contact.address}`}
             </p>
             {contact.email && (
               <p>
-                <a href={`mailto:${contact.email}`} className="text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
+                <a href={`mailto:${contact.email}`} className="link-quiet text-ink">
                   {contact.email}
                 </a>
               </p>
             )}
-            <p className="pt-3 text-ink [&_a]:underline [&_a]:underline-offset-4">
+            <p className="pt-3 text-ink [&_a]:underline [&_a]:decoration-accent [&_a]:underline-offset-4">
               <RichText text="Questions about this page? [Contact us](/contact)." />
             </p>
           </address>

@@ -7,17 +7,7 @@ import { RichText } from "@/components/ui/RichText";
 export type FaqEntry = { id: string; question: string; answer: string };
 
 /** FAQ list. Several answers can be open at once; the first can start open. */
-export function FaqAccordion({
-  items,
-  firstOpen = false,
-  tone = "light",
-  headingLevel = 3,
-}: {
-  items: FaqEntry[];
-  firstOpen?: boolean;
-  tone?: "light" | "dark";
-  headingLevel?: 2 | 3;
-}) {
+export function FaqAccordion({ items, firstOpen = false, headingLevel = 3 }: { items: FaqEntry[]; firstOpen?: boolean; headingLevel?: 2 | 3 }) {
   const [open, setOpen] = useState<Set<string>>(() => new Set(firstOpen && items[0] ? [items[0].id] : []));
 
   const toggle = (id: string) =>
@@ -29,17 +19,16 @@ export function FaqAccordion({
     });
 
   return (
-    <div className={tone === "dark" ? "border-t border-ink-line" : "border-t border-line"}>
+    <div className="border-t border-line">
       {items.map((item) => (
         <Disclosure
           key={item.id}
           open={open.has(item.id)}
           onToggle={() => toggle(item.id)}
-          tone={tone}
           headingLevel={headingLevel}
-          summary={<span className="font-display text-[1.3125rem] leading-snug sm:text-[1.5rem]">{item.question}</span>}
+          summary={<span className="font-display text-[1.5rem] leading-snug sm:text-[1.75rem]">{item.question}</span>}
         >
-          <p className={`prose-copy max-w-2xl pr-12 ${tone === "dark" ? "text-white/70 [&_a]:text-accent-bright" : ""}`}>
+          <p className="prose-copy max-w-2xl pr-10">
             <RichText text={item.answer} />
           </p>
         </Disclosure>

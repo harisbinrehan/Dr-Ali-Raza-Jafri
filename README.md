@@ -40,21 +40,31 @@ npm run build
 npm run start   # PORT=3000 by default
 ```
 
-**Recommended routing (the site already runs behind Caddy).** Send the public
-paths to this app and leave everything else exactly where it is today, e.g.:
+**Recommended routing (the site already runs behind Caddy).** Send everything
+to this app except the platform's API and its built assets, which keep going
+straight to the existing upstreams:
 
 ```caddy
-@public path / /courses /courses/* /instructors/* /about /faq /contact /teach /pricing /terms /privacy /refunds /returns /shipping /service-policy /_next/* /images/* /icon.png /apple-icon.png /opengraph-image* /sitemap.xml /robots.txt
-handle @public {
+@platform path /api/* /assets/*
+handle @platform {
+	# existing handlers for the Node API and the SPA's static files, unchanged
+}
+handle {
 	reverse_proxy 127.0.0.1:3000
 }
-# existing handlers for /api and the SPA stay below, unchanged
 ```
 
-With that split, `LEGACY_ORIGIN` should point at the existing upstream directly
-(not the public domain) so the fallback rewrite can never loop. For local
-development the default proxies to production, so `/checkout`, `/login` and
-`/api` work on `localhost` — **do not complete purchases while testing**.
+This app serves the platform's own pages (`/login`, `/cart`, `/checkout`,
+`/learn/*`, dashboards …) through `/platform-shell`: it fetches the platform's
+HTML shell from `LEGACY_ORIGIN` and adds the site fonts, `public/legacy/skin.css`
+and `public/legacy/theme.js`. The platform's JavaScript, API calls and payment
+flow are untouched; the skin only redefines its Tailwind colour, font and radius
+variables (light and dark), fixes its mobile overflow, and sends its links to
+redesigned pages (home, courses, about …) through a full page load.
+`LEGACY_ORIGIN` should point at the existing upstream directly (not the public
+domain) so requests can never loop. For local development the default proxies to
+production, so `/checkout`, `/login` and `/api` work on `localhost` — **do not
+complete purchases while testing**.
 
 Security headers are applied only to the routes this app owns, so the legacy
 checkout keeps its own CSP and `Permissions-Policy` (required by the Safepay iframe).
@@ -74,6 +84,30 @@ src/
   lib/                 catalog API client, enrolment hand-off, formatting, JSON-LD
 public/images/         editorial photography (see below)
 ```
+
+## Design system
+
+- **Type:** Cormorant Garamond (display, 500/600 + italic, lining figures) and
+  Manrope (text). Two families only. Scale tokens `text-hero`, `text-h1`–`text-h4`,
+  `text-lead` and the `label` utility live in `src/app/globals.css`.
+- **Colour:** semantic tokens (`canvas`, `canvas-alt`, `surface`, `ink`, `ink-soft`,
+  `muted`, `line`, `accent`, `deep`, `on-deep` …) defined once for light and once
+  for dark. Components never use raw colours.
+- **Themes:** light and dark via `next-themes` (`[data-theme]`), following the
+  system until the visitor uses the toggle in the header or menu.
+- **Shape:** square images, 2px radius on buttons and fields, hairlines instead
+  of boxes and shadows.
+- **Motion:** `data-reveal` (fade-up), `data-reveal="text"` (masked headings via
+  `RevealHeading`), `data-reveal="image"` (wipe + settle) and desktop-only
+  `Parallax`; all observed by one `RevealObserver` and disabled under
+  `prefers-reduced-motion`.
+
+## Supabase
+
+`src/lib/supabase.ts` and the `NEXT_PUBLIC_SUPABASE_*` variables point at a
+Supabase project that is reachable (auth healthy, email sign-in enabled) but has
+no tables or buckets exposed yet. Nothing on the site reads from it; the site's
+data comes from the platform API above.
 
 ## Replacing images
 

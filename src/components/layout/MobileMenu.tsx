@@ -8,13 +8,14 @@ import { primaryNav } from "@/lib/site";
 import type { Contact } from "@/lib/catalog";
 import { AccountLinks } from "@/components/layout/AccountLinks";
 import { BrandLockup } from "@/components/layout/BrandLockup";
-import { Close, Search } from "@/components/ui/Icons";
+import { Search } from "@/components/ui/Icons";
 
 const links = [...primaryNav, { href: "/teach", label: "Teach with us" }];
 
 /**
- * Full-screen menu built on the native <dialog>: focus is trapped, Escape
- * closes it and the page behind is inert, without any extra script.
+ * Full-screen menu on the native <dialog>: focus is trapped, the page behind
+ * is inert, and Escape closes it (handled through React state so everything
+ * stays in sync).
  */
 export function MobileMenu({ open, onClose, contact }: { open: boolean; onClose: () => void; contact: Contact }) {
   const ref = useRef<HTMLDialogElement>(null);
@@ -32,55 +33,52 @@ export function MobileMenu({ open, onClose, contact }: { open: boolean; onClose:
     <dialog
       ref={ref}
       onCancel={(e) => {
-        // Escape: let React state drive the close so everything stays in sync.
         e.preventDefault();
         onClose();
       }}
       onClose={onClose}
       aria-label="Menu"
-      className="m-0 h-dvh max-h-none w-full max-w-none translate-y-0 bg-ink p-0 text-white backdrop:bg-transparent open:flex open:flex-col"
+      className="m-0 h-dvh max-h-none w-full max-w-none bg-canvas p-0 text-ink backdrop:bg-transparent open:flex open:flex-col"
     >
-      <div className="container-x flex h-[4.5rem] shrink-0 items-center justify-between border-b border-ink-line">
-        <BrandLockup tone="dark" onNavigate={onClose} />
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close menu"
-          className="grid size-11 place-items-center rounded-full border border-white/20 transition-colors hover:bg-white/10"
-        >
-          <Close className="size-5" />
+      <div className="container-x flex h-[4.75rem] shrink-0 items-center justify-between border-b border-line">
+        <BrandLockup onNavigate={onClose} />
+        <button type="button" onClick={onClose} className="flex h-10 items-center gap-3 text-[0.875rem] font-medium">
+          Close
+          <span aria-hidden="true" className="relative size-4">
+            <span className="absolute left-0 top-1/2 h-px w-full rotate-45 bg-current" />
+            <span className="absolute left-0 top-1/2 h-px w-full -rotate-45 bg-current" />
+          </span>
         </button>
       </div>
 
-      <div className="container-x flex flex-1 flex-col overflow-y-auto pb-[max(2rem,env(safe-area-inset-bottom))] pt-6">
+      <div className="container-x flex flex-1 flex-col overflow-y-auto pb-[max(2rem,env(safe-area-inset-bottom))] pt-8">
         <form action="/courses" role="search" className="relative" onSubmit={onClose}>
           <label htmlFor="menu-search" className="sr-only">
             Search courses
           </label>
-          <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-white/50" />
+          <Search className="pointer-events-none absolute left-0 top-1/2 size-4 -translate-y-1/2 text-muted" />
           <input
             id="menu-search"
             name="query"
             type="search"
             placeholder="Search courses"
-            className="h-12 w-full rounded-sm border border-white/15 bg-white/5 pl-11 pr-4 text-base text-white outline-none placeholder:text-white/45 focus:border-white/40"
+            className="h-12 w-full border-b border-line-strong bg-transparent pl-7 text-base text-ink outline-none placeholder:text-muted focus:border-ink"
           />
         </form>
 
-        <nav aria-label="Mobile" className="mt-6">
+        <nav aria-label="Mobile" className="mt-8">
           <ul>
             {links.map((item, i) => {
               const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
-                <li key={item.href} className={cn(open && "animate-rise")} style={{ animationDelay: `${60 + i * 55}ms` }}>
+                <li key={item.href} className={cn("border-b border-line", open && "animate-rise")} style={{ animationDelay: `${80 + i * 60}ms` }}>
                   <Link
                     href={item.href}
                     onClick={onClose}
                     aria-current={active ? "page" : undefined}
-                    className="flex items-baseline gap-4 border-b border-ink-line py-4"
+                    className={cn("block py-4 font-display text-[2.5rem] leading-none", active ? "text-accent" : "text-ink")}
                   >
-                    <span className="w-7 font-mono text-xs text-accent-bright">{String(i + 1).padStart(2, "0")}</span>
-                    <span className={cn("font-display text-[2.25rem] leading-none", active ? "text-accent-bright" : "text-white")}>{item.label}</span>
+                    {item.label}
                   </Link>
                 </li>
               );
@@ -88,23 +86,25 @@ export function MobileMenu({ open, onClose, contact }: { open: boolean; onClose:
           </ul>
         </nav>
 
-        <div className="mt-8">
-          <AccountLinks tone="dark" layout="stacked" />
+        <div className="mt-10">
+          <AccountLinks layout="stacked" />
         </div>
 
-        <address className="mt-auto space-y-1 pt-10 text-sm not-italic leading-relaxed text-white/60">
-          {contact.phone && (
-            <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="block text-white/85">
-              {contact.phone}
-            </a>
-          )}
-          {contact.email && (
-            <a href={`mailto:${contact.email}`} className="block text-white/85">
-              {contact.email}
-            </a>
-          )}
-          {contact.hours && <p>{contact.hours}</p>}
-        </address>
+        <div className="mt-auto pt-12">
+          <address className="space-y-1 text-sm not-italic leading-relaxed text-muted">
+            {contact.phone && (
+              <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="block text-ink">
+                {contact.phone}
+              </a>
+            )}
+            {contact.email && (
+              <a href={`mailto:${contact.email}`} className="block text-ink">
+                {contact.email}
+              </a>
+            )}
+            {contact.hours && <p>{contact.hours}</p>}
+          </address>
+        </div>
       </div>
     </dialog>
   );

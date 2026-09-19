@@ -29,6 +29,29 @@ const OWNED_ROUTES = [
   "/service-policy",
 ];
 
+/** Pages rendered by the existing platform (a single-page app). */
+const PLATFORM_PAGES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/verify-email",
+  "/cart",
+  "/checkout",
+  "/order-complete",
+  "/wishlist",
+  "/messages",
+  "/learn",
+  "/learn/:path*",
+  "/account",
+  "/account/:path*",
+  "/teacher",
+  "/teacher/:path*",
+  "/admin",
+  "/admin/:path*",
+  "/verify/:path*",
+];
+
 const securityHeaders = [
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
@@ -45,7 +68,9 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return {
-      beforeFiles: [],
+      // The platform's own pages are served through /platform-shell, which adds
+      // the site's skin (fonts, colours, theme) without changing their behaviour.
+      beforeFiles: PLATFORM_PAGES.map((source) => ({ source, destination: "/platform-shell" })),
       afterFiles: [],
       fallback: [{ source: "/:path*", destination: `${LEGACY_ORIGIN}/:path*` }],
     };

@@ -1,0 +1,234 @@
+/*
+ * Alignodontic Academy — skin for the existing platform's pages
+ * (sign-in, cart, checkout, learning, account, dashboards).
+ *
+ * The platform is built with Tailwind v4, so every colour, font and radius is
+ * a CSS variable. Redefining those variables here (unlayered, so they win over
+ * the platform's @layer theme) restyles its pages to match the public site
+ * without touching its markup, logic, or payment flow.
+ */
+
+/* ------------------------------------------------------------ Light */
+:root {
+  --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cormorant Garamond", Garamond, "Times New Roman", serif;
+
+  /* Paper, charcoal, bronze — warm stone in place of cool slate. */
+  --color-white: #f5f1ea;
+  --color-slate-50: #efeae1;
+  --color-slate-100: #e9e3d8;
+  --color-slate-200: #ddd6c9;
+  --color-slate-300: #cbc3b3;
+  --color-slate-400: #97948c;
+  --color-slate-500: #6c6c70;
+  --color-slate-600: #55565c;
+  --color-slate-700: #3a3c42;
+  --color-slate-800: #26272c;
+  --color-slate-900: #17181c;
+
+  --color-accent-400: #b07a45;
+  --color-accent-500: #8a5a2e;
+  --color-accent-600: #8a5a2e;
+  --color-brand-500: #b98552;
+  --color-success-500: #3f6b52;
+  --color-dash-primary: #17181c;
+
+  --radius-control: 8px;
+  --radius-card: 2px;
+  --radius-panel: 2px;
+  --radius-panel-lg: 2px;
+  --radius-pill: 2px;
+
+  --skin-button: #17181c;
+  --skin-button-text: #f5f1ea;
+  --skin-button-hover: #8a5a2e;
+  --skin-input: #fbf9f5;
+}
+
+body {
+  font-feature-settings: normal;
+  letter-spacing: 0;
+}
+
+/* Display type: Cormorant, not the platform's Fraunces axes. */
+.font-display {
+  font-variation-settings: normal !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.012em !important;
+  font-feature-settings: "lnum" 1;
+}
+h1.font-display,
+h1 {
+  letter-spacing: -0.015em;
+}
+h1:not(.font-display),
+h2.text-title-lg,
+h1.text-title-lg,
+.text-display-sm {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+/* Header: the same brand lockup as the public site. */
+header a[href="/"] > img {
+  width: 2.375rem !important;
+  height: 2.375rem !important;
+}
+header a[href="/"] > span {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+@media (max-width: 420px) {
+  header a[href="/"] > span {
+    font-size: 1.125rem;
+  }
+  header a[href="/"] > img {
+    width: 2.125rem !important;
+    height: 2.125rem !important;
+  }
+}
+
+/* Panel headings ("Your account", "Order details", …) in the display serif. */
+main h2.text-title-sm,
+main h3.text-title-sm {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+/* The two hard-coded warm panels and the one dark panel. */
+.bg-\[\#faf9f7\],
+.bg-\[\#f7f6f3\] {
+  background-color: var(--color-slate-50) !important;
+}
+.surface-grain::before {
+  display: none;
+}
+
+/* Primary actions: charcoal, turning bronze on hover (orange in dark). */
+.bg-slate-900.text-white,
+.bg-accent-600.text-white {
+  background-color: var(--skin-button) !important;
+  color: var(--skin-button-text) !important;
+  letter-spacing: 0.01em;
+}
+.bg-slate-900.text-white:hover,
+.bg-accent-600.text-white:hover {
+  background-color: var(--skin-button-hover) !important;
+}
+
+input:not([type="checkbox"]):not([type="radio"]),
+select,
+textarea {
+  background-color: var(--skin-input);
+}
+
+/* Same page grid as the public site. */
+.container-marketplace {
+  max-width: 1360px !important;
+  padding-inline: clamp(1.25rem, 4.5vw, 4rem) !important;
+}
+
+/* ------------------------------------------------------------ Responsive fixes
+ * The platform's single-column grids size to their content on phones, so two
+ * side-by-side inputs push checkout wider than the screen. */
+.grid > * {
+  min-width: 0;
+}
+input,
+select,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+}
+@media (max-width: 1023px) {
+  /* Only grids that are meant to be one column below lg. */
+  .grid:not([class*="grid-cols-"]),
+  [class*="lg:grid-cols-"]:not([class^="grid-cols-"]):not([class*=" grid-cols-"]):not([class*="sm:grid-cols-"]):not([class*="md:grid-cols-"]) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 479px) {
+  form .grid.grid-cols-2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ------------------------------------------------------------ Dark
+ * The academy's navy and orange. Applied on the student-facing pages; the
+ * teacher and admin dashboards stay light (see theme.js). */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --color-white: #0b1222;
+  --color-slate-50: #0f182b;
+  --color-slate-100: #111a2e;
+  --color-slate-200: #1f2940;
+  --color-slate-300: #2c3650;
+  --color-slate-400: #7d8597;
+  --color-slate-500: #a7adbb;
+  --color-slate-600: #c4c8d1;
+  --color-slate-700: #dcdfe5;
+  --color-slate-800: #eceef1;
+  --color-slate-900: #f7f4ee;
+
+  --color-accent-400: #f29a4a;
+  --color-accent-500: #f29a4a;
+  --color-accent-600: #e27b22;
+  --color-brand-500: #f29a4a;
+
+  --color-green-50: rgb(63 107 82 / 0.22);
+  --color-green-200: rgb(120 190 150 / 0.35);
+  --color-green-700: #9fd7b5;
+  --color-green-800: #b7e4c7;
+  --color-green-900: #cdeed9;
+  --color-emerald-50: rgb(63 107 82 / 0.22);
+  --color-emerald-700: #9fd7b5;
+  --color-amber-50: rgb(226 123 34 / 0.14);
+  --color-amber-200: rgb(242 154 74 / 0.35);
+  --color-amber-800: #f7c89c;
+  --color-amber-900: #f9d7b5;
+  --color-red-50: rgb(161 48 31 / 0.25);
+  --color-red-200: rgb(230 120 100 / 0.35);
+  --color-red-700: #f3a597;
+  --color-red-800: #f6b9ad;
+  --color-sky-50: rgb(90 140 190 / 0.2);
+  --color-sky-800: #b9d6f0;
+  --color-violet-50: rgb(140 110 210 / 0.2);
+  --color-violet-800: #d4c8f5;
+
+  --skin-button: #e27b22;
+  --skin-button-text: #0b1222;
+  --skin-button-hover: #f29a4a;
+  --skin-input: #0f182b;
+}
+html[data-theme="dark"] body {
+  background-color: #0b1222;
+  background-image:
+    radial-gradient(42rem 42rem at calc(100% + 10rem) 0, rgb(226 123 34 / 0.16), transparent 70%),
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    calc((min(100vw, 1360px) - 2 * clamp(1.25rem, 4.5vw, 4rem)) / 6) 100%;
+  background-position:
+    0 0,
+    center top;
+  background-repeat: no-repeat, repeat;
+  background-attachment: fixed, scroll;
+}
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .bg-white\/95,
+html[data-theme="dark"] .bg-white\/80 {
+  background-color: rgb(11 18 34 / 0.92);
+}
+html[data-theme="dark"] .min-h-screen.bg-white {
+  background-color: transparent;
+}
+html[data-theme="dark"] .bg-\[\#101828\] {
+  background-color: #070b16 !important;
+}

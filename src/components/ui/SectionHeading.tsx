@@ -1,50 +1,64 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-type SectionHeadingProps = {
-  eyebrow?: string;
+type HeadingTag = "h1" | "h2" | "h3";
+
+/**
+ * A display heading that rises out of a mask as it enters the viewport.
+ * The same words, one element — just typeset and revealed with care.
+ */
+export function RevealHeading({
+  as: Tag = "h2",
+  id,
+  className,
+  style,
+  children,
+}: {
+  as?: HeadingTag;
+  id?: string;
+  className?: string;
+  style?: CSSProperties;
+  children: ReactNode;
+}) {
+  return (
+    <Tag id={id} data-reveal="text" style={style} className={cn("font-display", className)}>
+      <span className="mask">
+        <span>{children}</span>
+      </span>
+    </Tag>
+  );
+}
+
+type SectionIntroProps = {
+  label?: string;
   title: ReactNode;
   body?: ReactNode;
-  align?: "left" | "center";
-  tone?: "light" | "dark";
-  as?: "h1" | "h2" | "h3";
-  size?: "md" | "lg";
   id?: string;
+  as?: HeadingTag;
+  size?: "h1" | "h2" | "h3";
+  tone?: "light" | "deep";
   className?: string;
 };
 
-export function SectionHeading({
-  eyebrow,
-  title,
-  body,
-  align = "left",
-  tone = "light",
-  as: Heading = "h2",
-  size = "md",
-  id,
-  className,
-}: SectionHeadingProps) {
-  const dark = tone === "dark";
+/** Label (optional), display heading and a short supporting line. Left-aligned by design. */
+export function SectionIntro({ label, title, body, id, as = "h2", size = "h2", tone = "light", className }: SectionIntroProps) {
+  const deep = tone === "deep";
   return (
-    <div className={cn("max-w-3xl", align === "center" && "mx-auto text-center", className)} data-reveal>
-      {eyebrow && (
-        <p className={cn("eyebrow mb-5 flex items-center gap-3", align === "center" && "justify-center", dark ? "text-accent-bright" : "text-accent-deep")}>
-          <span aria-hidden="true" className="h-px w-6 bg-current" />
-          {eyebrow}
+    <div className={cn("max-w-3xl", className)}>
+      {label && (
+        <p data-reveal className={cn("label mb-6", deep ? "text-deep-accent" : "text-accent")}>
+          {label}
         </p>
       )}
-      <Heading
+      <RevealHeading
+        as={as}
         id={id}
-        className={cn(
-          "font-display font-normal",
-          size === "lg" ? "text-display-lg" : "text-display-md",
-          dark ? "text-white" : "text-ink",
-        )}
+        className={cn(size === "h1" ? "text-h1" : size === "h3" ? "text-h3" : "text-h2", deep ? "text-on-deep" : "text-ink")}
       >
         {title}
-      </Heading>
+      </RevealHeading>
       {body && (
-        <p className={cn("mt-5 text-lead", align === "center" && "mx-auto", "max-w-2xl", dark ? "text-ink-muted" : "text-muted")}>
+        <p data-reveal className={cn("mt-6 max-w-xl text-lead", deep ? "text-on-deep-muted" : "text-muted")}>
           {body}
         </p>
       )}

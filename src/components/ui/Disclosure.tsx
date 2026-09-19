@@ -2,7 +2,6 @@
 
 import { useId, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { Plus } from "@/components/ui/Icons";
 
 type DisclosureProps = {
   summary: ReactNode;
@@ -11,34 +10,25 @@ type DisclosureProps = {
   open: boolean;
   onToggle: () => void;
   headingLevel?: 2 | 3 | 4;
-  tone?: "light" | "dark";
+  tone?: "light" | "deep";
   className?: string;
   panelClassName?: string;
 };
 
 /**
- * One accordion row: a real <button> in a heading, with aria-expanded and a
- * labelled region. Height animates via the grid 0fr→1fr technique, so there is
- * no measuring and no layout thrash.
+ * One accordion row: a real <button> inside a heading, aria-expanded, and a
+ * labelled region. A hairline plus turns into a minus; the panel height
+ * animates with the grid 0fr→1fr technique.
  */
-export function Disclosure({
-  summary,
-  meta,
-  children,
-  open,
-  onToggle,
-  headingLevel = 3,
-  tone = "light",
-  className,
-  panelClassName,
-}: DisclosureProps) {
+export function Disclosure({ summary, meta, children, open, onToggle, headingLevel = 3, tone = "light", className, panelClassName }: DisclosureProps) {
   const id = useId();
   const buttonId = `${id}-button`;
   const panelId = `${id}-panel`;
   const Heading = `h${headingLevel}` as const;
+  const deep = tone === "deep";
 
   return (
-    <div className={cn("border-b", tone === "dark" ? "border-ink-line" : "border-line", className)}>
+    <div className={cn("border-b", deep ? "border-deep-line" : "border-line", className)}>
       <Heading className="m-0">
         <button
           id={buttonId}
@@ -46,30 +36,24 @@ export function Disclosure({
           aria-expanded={open}
           aria-controls={panelId}
           onClick={onToggle}
-          className={cn(
-            "group flex w-full items-start gap-5 py-5 text-left transition-colors sm:py-6",
-            tone === "dark" ? "text-white" : "text-ink",
-          )}
+          className={cn("group flex w-full items-baseline gap-6 py-6 text-left sm:py-7", deep ? "text-on-deep" : "text-ink")}
         >
-          <span className="min-w-0 flex-1">{summary}</span>
-          {meta && <span className="hidden shrink-0 pt-1 sm:block">{meta}</span>}
-          <span
-            aria-hidden="true"
-            className={cn(
-              "mt-0.5 grid size-8 shrink-0 place-items-center rounded-full border transition-[transform,background-color,border-color,color] duration-500 ease-(--ease-out-expo)",
-              tone === "dark"
-                ? "border-ink-line group-hover:border-white/40"
-                : "border-line-strong group-hover:border-ink",
-              open && (tone === "dark" ? "rotate-45 border-accent bg-accent text-ink" : "rotate-45 border-ink bg-ink text-paper"),
-            )}
-          >
-            <Plus className="size-4" />
+          <span className="min-w-0 flex-1 transition-colors duration-500 group-hover:text-accent">{summary}</span>
+          {meta && <span className="hidden shrink-0 sm:block">{meta}</span>}
+          <span aria-hidden="true" className="relative mt-1 size-3.5 shrink-0 self-center">
+            <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />
+            <span
+              className={cn(
+                "absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-current transition-transform duration-700 ease-(--ease-editorial)",
+                open ? "scale-y-0" : "scale-y-100",
+              )}
+            />
           </span>
         </button>
       </Heading>
       <div className="collapse-grid" data-open={open}>
         <div id={panelId} role="region" aria-labelledby={buttonId} inert={!open}>
-          <div className={cn("pb-6", panelClassName)}>{children}</div>
+          <div className={cn("pb-8", panelClassName)}>{children}</div>
         </div>
       </div>
     </div>

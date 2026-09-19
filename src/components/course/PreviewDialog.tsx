@@ -126,16 +126,16 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
       onClose={onClosed}
       onClick={(e) => e.target === dialogRef.current && close()}
       aria-labelledby="preview-title"
-      className="m-auto w-[min(64rem,calc(100vw-2rem))] max-w-none overflow-hidden rounded-lg bg-ink p-0 text-white shadow-float"
+      className="m-auto w-[min(68rem,calc(100vw-2rem))] max-w-none overflow-hidden bg-[#0a0b0d] p-0 text-[#ece7de]"
     >
-      <div className="flex items-center gap-4 border-b border-ink-line px-5 py-4">
+      <div className="flex items-center gap-4 border-b border-white/10 px-6 py-5">
         <div className="min-w-0 flex-1">
-          <p className="eyebrow text-accent-bright">Free preview · {courseTitle}</p>
-          <h2 id="preview-title" className="mt-1 truncate font-display text-xl">
+          <p className="label text-[#c9a075]">Free preview · {courseTitle}</p>
+          <h2 id="preview-title" className="mt-2 truncate font-display text-[1.625rem] leading-tight">
             {lesson?.title}
           </h2>
         </div>
-        <button type="button" onClick={close} aria-label="Close preview" className="grid size-10 shrink-0 place-items-center rounded-full border border-white/20 hover:bg-white/10">
+        <button type="button" onClick={close} aria-label="Close preview" className="grid size-10 shrink-0 place-items-center text-white/70 transition-colors hover:text-white">
           <Close className="size-5" />
         </button>
       </div>
@@ -166,7 +166,7 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
               />
             )}
             {session?.watermark && (
-              <span aria-hidden="true" className="pointer-events-none absolute bottom-14 right-3 select-none rounded bg-black/30 px-1.5 py-0.5 font-mono text-[10px] tracking-wider text-white/40">
+              <span aria-hidden="true" className="pointer-events-none absolute bottom-14 right-3 select-none rounded bg-black/30 px-1.5 py-0.5 text-[10px] tracking-wider tabular-nums text-white/40">
                 {session.watermark}
               </span>
             )}
@@ -175,7 +175,7 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
       </div>
 
       {lessons.length > 1 && (
-        <nav aria-label="Other free previews" className="max-h-56 overflow-y-auto border-t border-ink-line">
+        <nav aria-label="Other free previews" className="max-h-56 overflow-y-auto border-t border-white/10">
           <ul>
             {lessons.map((l) => (
               <li key={l.id}>
@@ -183,9 +183,9 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
                   type="button"
                   onClick={() => selectLesson(l)}
                   aria-current={l.id === lesson?.id ? "true" : undefined}
-                  className="flex w-full items-center gap-3 px-5 py-3 text-left text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-white aria-[current=true]:text-accent-bright"
+                  className="flex w-full items-center gap-3 border-b border-white/5 px-6 py-3.5 text-left text-sm text-white/70 transition-colors hover:text-white aria-[current=true]:text-[#c9a075]"
                 >
-                  <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
+                  <span aria-hidden="true" className="h-px w-3 shrink-0 bg-current" />
                   {l.title}
                 </button>
               </li>
