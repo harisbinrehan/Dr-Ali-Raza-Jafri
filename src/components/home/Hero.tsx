@@ -2,11 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CourseSummary } from "@/lib/catalog";
 import { home } from "@/content/pages";
-import { displayTitle } from "@/lib/format";
+import { displayTitle, formatPrice } from "@/lib/format";
 import { site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
 import { Parallax } from "@/components/ui/Parallax";
 import { ArrowRight } from "@/components/ui/Icons";
+import { CourseImage } from "@/components/course/CourseImage";
 import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 type HeroProps = {
@@ -57,9 +58,10 @@ export function Hero({ featured, stats }: HeroProps) {
             </div>
           </div>
 
-          <figure className="lg:col-span-7 lg:col-start-6">
-            <div className="relative aspect-[4/3] overflow-hidden bg-canvas-alt sm:aspect-[16/10]">
-              <Parallax speed={-0.05} className="absolute -inset-y-[6%] inset-x-0">
+          {/* Photograph with the featured course laid over its corner. */}
+          <div className="relative lg:col-span-7 lg:col-start-6 lg:pb-16">
+            <Parallax speed={-0.05}>
+              <figure className="relative aspect-[4/3] overflow-hidden rounded-lg bg-canvas-alt sm:aspect-[16/10]">
                 <Image
                   src="/images/teaching-whiteboard.jpg"
                   alt="Prof. Dr. Ali Raza Jafri teaching at a whiteboard"
@@ -69,17 +71,31 @@ export function Hero({ featured, stats }: HeroProps) {
                   sizes="(min-width: 1360px) 700px, (min-width: 1024px) 54vw, 100vw"
                   className="object-cover object-[62%_38%] animate-settle"
                 />
-              </Parallax>
-            </div>
-            <figcaption className="mt-4 flex flex-wrap items-baseline justify-between gap-3 text-[0.8125rem] text-muted">
-              <span>Still from Diagnosis and Treatment Planning</span>
-              <Link href={`/courses/${featured.slug}`} className="group inline-flex items-center gap-2 text-ink">
-                <span className="text-muted">Featured —</span>
-                <span className="link-line">{displayTitle(featured.title)}</span>
-                <ArrowRight className="size-3.5 transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+                <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/10" />
+                <figcaption className="label absolute left-5 right-5 top-5 text-white/90">Still from Diagnosis and Treatment Planning</figcaption>
+              </figure>
+            </Parallax>
+
+            <Parallax
+              speed={0.04}
+              className="relative z-10 -mt-14 ml-auto w-[86%] sm:w-[62%] lg:absolute lg:bottom-0 lg:-left-10 lg:mt-0 lg:ml-0 lg:w-[19rem]"
+            >
+              <Link
+                href={`/courses/${featured.slug}`}
+                className="group block rounded-xl bg-[#f7f4ee] p-3 text-[#17181c] shadow-[0_24px_60px_-24px_rgb(0_0_0/0.5)] ring-1 ring-black/5 animate-rise [animation-delay:650ms]"
+              >
+                <CourseImage src={featured.thumbnailUrl} title={displayTitle(featured.title)} sizes="320px" className="rounded-md" />
+                <div className="px-2 pb-1.5 pt-4">
+                  <p className="label text-[#a05a1c]">Featured</p>
+                  <p className="mt-2 font-display text-h4 leading-snug">{displayTitle(featured.title)}</p>
+                  <div className="mt-4 flex items-center justify-between border-t border-black/10 pt-3.5">
+                    <span className="text-[0.9375rem] font-semibold text-[#a05a1c]">{formatPrice(featured.effectivePriceCents, featured.currency)}</span>
+                    <ArrowRight className="size-4 transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+                  </div>
+                </div>
               </Link>
-            </figcaption>
-          </figure>
+            </Parallax>
+          </div>
         </div>
 
         <dl className="mt-16 grid grid-cols-3 border-t border-line lg:mt-24">

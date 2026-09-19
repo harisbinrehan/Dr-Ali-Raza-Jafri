@@ -29,7 +29,7 @@ export default async function TeachPage() {
           {teach.highlights.map((h, i) => (
             <li key={h.title} data-reveal style={revealDelay(i * 110)} className="border-t border-ink py-10 md:pr-6">
               <h2 className="font-display text-h3 text-ink">{fillPolicy(h.title, policy)}</h2>
-              <p className="mt-5 leading-[1.8] text-muted">{fillPolicy(h.body, policy)}</p>
+              <p className="mt-5 leading-[1.6] text-muted">{fillPolicy(h.body, policy)}</p>
             </li>
           ))}
         </ol>
@@ -39,7 +39,7 @@ export default async function TeachPage() {
         <div className="space-y-20 lg:col-span-7">
           {teach.sections.map((s) => (
             <section key={s.heading} aria-labelledby={`teach-${s.heading}`} className="grid gap-6 border-t border-line pt-10 xl:grid-cols-[13rem_1fr] xl:gap-10">
-              <RevealHeading as="h2" id={`teach-${s.heading}`} className="text-[2rem] leading-tight text-ink">
+              <RevealHeading as="h2" id={`teach-${s.heading}`} className="text-h3 text-ink">
                 {s.heading}
               </RevealHeading>
               <div className="prose-copy max-w-[62ch]">
@@ -58,7 +58,7 @@ export default async function TeachPage() {
             <h2 id="apply-title" className="font-display text-h3">
               {teach.apply.heading}
             </h2>
-            <p className="mt-5 leading-[1.8] text-on-deep-muted">{teach.apply.body}</p>
+            <p className="mt-5 leading-[1.6] text-on-deep-muted">{teach.apply.body}</p>
             <div className="mt-10 flex flex-col gap-3">
               <ButtonLink href={teach.apply.primary.href} variant="on-deep" size="lg" arrow>
                 {teach.apply.primary.label}

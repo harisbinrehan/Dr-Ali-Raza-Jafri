@@ -119,7 +119,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
               {subjects.length > 0 && (
                 <div data-reveal className="mt-10 border-t border-line pt-6">
                   <p className="text-[0.8125rem] text-muted">Teaches</p>
-                  <ul className="mt-3 text-[0.9375rem] leading-[1.9] text-ink">
+                  <ul className="mt-3 text-[0.9375rem] leading-[1.6] text-ink">
                     {subjects.map((s, i) => (
                       <li key={s.id} className="inline">
                         <Link href={`/courses?category=${s.slug}`} className="link-quiet">

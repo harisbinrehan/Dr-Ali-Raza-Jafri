@@ -9,10 +9,10 @@ export const contentType = "image/png";
 
 const HEADLINE = ["Learn the case,", "not the slide deck"];
 
-/** Space Grotesk for the card, fetched as TTF; the card still renders if this fails. */
+/** Plus Jakarta Sans for the card, fetched as TTF; the card still renders if this fails. */
 async function loadDisplayFont(weight: 600 | 700) {
   try {
-    const family = `Space+Grotesk:wght@${weight}`;
+    const family = `Plus+Jakarta+Sans:wght@${weight}`;
     const text = encodeURIComponent([...HEADLINE, site.name].join(""));
     const css = await (await fetch(`https://fonts.googleapis.com/css2?family=${family}&text=${text}`)).text();
     const url = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/)?.[1];
@@ -30,10 +30,10 @@ export default async function OpenGraphImage() {
     loadDisplayFont(600),
   ]);
   const fonts = [
-    ...(bold ? [{ name: "Space Grotesk", data: bold, style: "normal" as const, weight: 700 as const }] : []),
-    ...(semibold ? [{ name: "Space Grotesk", data: semibold, style: "normal" as const, weight: 600 as const }] : []),
+    ...(bold ? [{ name: "Plus Jakarta Sans", data: bold, style: "normal" as const, weight: 700 as const }] : []),
+    ...(semibold ? [{ name: "Plus Jakarta Sans", data: semibold, style: "normal" as const, weight: 600 as const }] : []),
   ];
-  const display = fonts.length ? "Space Grotesk" : undefined;
+  const display = fonts.length ? "Plus Jakarta Sans" : undefined;
 
   return new ImageResponse(
     (
@@ -47,8 +47,8 @@ export default async function OpenGraphImage() {
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", fontFamily: display }}>
-            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -3, fontWeight: 700 }}>{HEADLINE[0]}</span>
-            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -3, fontWeight: 700, color: "#e27b22" }}>{HEADLINE[1]}</span>
+            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -2, fontWeight: 700 }}>{HEADLINE[0]}</span>
+            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -2, fontWeight: 700, color: "#e27b22" }}>{HEADLINE[1]}</span>
           </div>
           <div style={{ display: "flex", borderTop: "1px solid rgba(23,24,28,0.2)", paddingTop: 22, fontSize: 22, color: "#3a3c42" }}>{site.tagline}</div>
         </div>

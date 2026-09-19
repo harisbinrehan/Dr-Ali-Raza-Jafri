@@ -12,7 +12,7 @@ export function BrandLockup({ tone = "light", onNavigate }: { tone?: "light" | "
         <span className={cn("truncate font-display text-[0.9375rem] font-semibold leading-tight tracking-[-0.02em] sm:text-[1.125rem]", deep ? "text-on-deep" : "text-ink")}>
           {site.name}
         </span>
-        <span className={cn("truncate text-[0.6875rem] leading-tight", deep ? "text-on-deep-muted" : "text-muted")}>{site.instructorName}</span>
+        <span className={cn("truncate text-[0.8125rem] leading-tight", deep ? "text-on-deep-muted" : "text-muted")}>{site.instructorName}</span>
       </span>
     </Link>
   );

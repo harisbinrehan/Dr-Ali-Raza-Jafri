@@ -11,7 +11,7 @@
 /* ------------------------------------------------------------ Light */
 :root {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
 
   /* Paper, charcoal, bronze — warm stone in place of cool slate. */
   --color-white: #f5f1ea;
@@ -50,11 +50,11 @@ body {
   letter-spacing: 0;
 }
 
-/* Headings: Space Grotesk bold with tight tracking, as on the public site. */
+/* Headings: Plus Jakarta Sans bold, as on the public site. */
 .font-display {
   font-variation-settings: normal !important;
   font-weight: 700 !important;
-  letter-spacing: -0.025em !important;
+  letter-spacing: -0.02em !important;
 }
 h1:not(.font-display),
 h2.text-title-lg,
@@ -62,7 +62,7 @@ h1.text-title-lg,
 .text-display-sm {
   font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.02em;
 }
 
 /* Header: the same brand lockup as the public site. */

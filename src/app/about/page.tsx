@@ -71,7 +71,7 @@ export default async function AboutPage() {
             {about.howItWorks.body.map((p, i) => (
               <li key={i} data-reveal style={revealDelay(i * 110)} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-9 first:border-t-0 first:pt-0 sm:grid-cols-[4.5rem_1fr]">
                 <span className="font-display text-[2rem] leading-none text-accent">{String(i + 1).padStart(2, "0")}</span>
-                <p className="text-[1.0625rem] leading-[1.8] text-ink-soft">{p}</p>
+                <p className="text-[1.0625rem] leading-[1.6] text-ink-soft">{p}</p>
               </li>
             ))}
           </ol>

@@ -19,7 +19,7 @@ export function FinalCta({ contact, courseCount }: { contact: Contact; courseCou
         <p data-reveal className="label text-deep-accent">
           {site.name}
         </p>
-        <RevealHeading id="final-cta-title" className="mt-6 max-w-4xl text-h1 text-on-deep">
+        <RevealHeading id="final-cta-title" className="mt-6 max-w-3xl text-h2 text-on-deep">
           {site.tagline}
         </RevealHeading>
         <div data-reveal className="mt-12 flex flex-wrap gap-3">

@@ -21,7 +21,7 @@ export function Commitments() {
           {promises.map((p, i) => (
             <li key={p.title} data-reveal style={revealDelay(i * 110)} className="grid gap-4 border-t border-deep-line py-10 first:border-t-0 first:pt-2 sm:grid-cols-[1fr_1.15fr] sm:gap-10">
               <h3 className="font-display text-h3 text-on-deep">{p.title}</h3>
-              <p className="leading-[1.8] text-on-deep-muted sm:pt-2">{p.body}</p>
+              <p className="leading-[1.6] text-on-deep-muted sm:pt-2">{p.body}</p>
             </li>
           ))}
         </ol>

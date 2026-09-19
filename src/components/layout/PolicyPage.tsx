@@ -35,7 +35,7 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
         <div className="lg:col-span-7 lg:col-start-5">
           {doc.sections.map((s) => (
             <section key={s.heading} id={anchor(s.heading)} aria-labelledby={`${anchor(s.heading)}-title`} className="grid scroll-mt-28 gap-4 border-t border-line py-10 first:border-t-0 first:pt-0 xl:grid-cols-[13rem_1fr] xl:gap-10">
-              <h2 id={`${anchor(s.heading)}-title`} className="font-display text-[1.75rem] leading-tight text-ink">
+              <h2 id={`${anchor(s.heading)}-title`} className="font-display text-h4 text-ink">
                 {s.heading}
               </h2>
               <div className="prose-copy max-w-[62ch]">

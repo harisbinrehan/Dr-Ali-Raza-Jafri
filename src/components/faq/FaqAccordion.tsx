@@ -26,7 +26,7 @@ export function FaqAccordion({ items, firstOpen = false, headingLevel = 3 }: { i
           open={open.has(item.id)}
           onToggle={() => toggle(item.id)}
           headingLevel={headingLevel}
-          summary={<span className="font-display text-[1.5rem] leading-snug sm:text-[1.75rem]">{item.question}</span>}
+          summary={<span className="font-display text-h4 font-semibold">{item.question}</span>}
         >
           <p className="prose-copy max-w-2xl pr-10">
             <RichText text={item.answer} />

@@ -92,7 +92,7 @@ export function ContactForm() {
           aria-describedby={`${id}-hint`}
           className={cn(fieldClass, "resize-y leading-relaxed")}
         />
-        <p id={`${id}-hint`} className="mt-2 text-[0.75rem] text-muted">
+        <p id={`${id}-hint`} className="mt-2 text-[0.8125rem] text-muted">
           At least 10 characters.
         </p>
       </div>

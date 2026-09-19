@@ -26,7 +26,7 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
           <p data-reveal className="label text-accent">
             {home.instructor.eyebrow}
           </p>
-          <RevealHeading id="instructor-title" className="mt-6 text-h1 text-ink">
+          <RevealHeading id="instructor-title" className="mt-6 text-h2 text-ink">
             {site.instructorName}
           </RevealHeading>
           <p data-reveal style={revealDelay(100)} className="mt-8 max-w-lg text-lead text-ink-soft">
@@ -41,7 +41,7 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
             </p>
           </blockquote>
 
-          <p data-reveal style={revealDelay(220)} className="mt-10 max-w-lg leading-[1.8] text-muted">
+          <p data-reveal style={revealDelay(220)} className="mt-10 max-w-lg leading-[1.6] text-muted">
             {about.body[0]}
           </p>
 

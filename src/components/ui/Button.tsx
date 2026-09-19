@@ -19,7 +19,7 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-9 px-3.5 text-[0.875rem]",
+  sm: "h-9 px-3.5",
   md: "h-11 px-5",
   lg: "h-[3.25rem] px-6",
 };
@@ -88,7 +88,7 @@ export function Button({
 /** The editorial secondary action: text, a hairline that draws on hover, and an arrow. */
 export function ArrowLink({ href, children, className, ...rest }: LinkProps) {
   return (
-    <SmartLink href={href} className={cn("group/arrow inline-flex items-center gap-2.5 py-2 text-[0.875rem] font-semibold tracking-[0.01em]", className)} {...rest}>
+    <SmartLink href={href} className={cn("group/arrow inline-flex items-center gap-2.5 py-2 text-[0.9375rem] font-semibold", className)} {...rest}>
       <span className="link-line pb-0.5 group-hover/arrow:bg-[length:100%_1px]">{children}</span>
       <ArrowRight className="size-4 shrink-0 transition-transform duration-700 ease-(--ease-editorial) group-hover/arrow:translate-x-1" />
     </SmartLink>

@@ -147,7 +147,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
                 )}
               >
                 {c.name}
-                <span className="text-[0.75rem] tabular-nums text-muted">{c.courseCount}</span>
+                <span className="text-[0.8125rem] tabular-nums text-muted">{c.courseCount}</span>
               </button>
             );
           })}

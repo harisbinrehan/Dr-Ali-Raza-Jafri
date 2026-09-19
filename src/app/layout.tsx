@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { getCategories, getContact } from "@/lib/catalog";
 import { site } from "@/lib/site";
@@ -9,8 +9,8 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 
-// Same pairing as the Amir Engineering project: Space Grotesk headings, Inter text.
-const heading = Space_Grotesk({ variable: "--font-heading", subsets: ["latin"], weight: ["500", "600", "700"], display: "swap" });
+// Headings: Plus Jakarta Sans (600–700). Text: Inter (400–500).
+const heading = Plus_Jakarta_Sans({ variable: "--font-heading", subsets: ["latin"], weight: ["600", "700"], display: "swap" });
 const body = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {

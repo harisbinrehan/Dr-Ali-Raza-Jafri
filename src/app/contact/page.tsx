@@ -35,7 +35,7 @@ export default async function ContactPage() {
             {details.map(({ label, value, href }) => (
               <div key={label} data-reveal className="grid gap-1 border-t border-line py-6 sm:grid-cols-[7rem_1fr] sm:gap-6">
                 <dt className="text-[0.8125rem] text-muted sm:pt-1.5">{label}</dt>
-                <dd className="font-display text-[1.5rem] leading-snug text-ink">
+                <dd className="text-[1.0625rem] font-medium leading-snug text-ink">
                   {href ? (
                     <a href={href} className="link-line break-words">
                       {value}

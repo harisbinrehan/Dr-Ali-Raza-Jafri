@@ -25,7 +25,7 @@ export function SubjectIndex({ categories }: { categories: Category[] }) {
             <li key={c.id} data-reveal style={revealDelay(Math.min(i, 6) * 50)} className="border-b border-line first:border-t">
               <Link href={`/courses?category=${c.slug}`} className="group flex items-baseline gap-6 py-5 sm:py-6">
                 <span className="w-7 shrink-0 text-[0.8125rem] tabular-nums text-muted">{String(i + 1).padStart(2, "0")}</span>
-                <span className="min-w-0 flex-1 font-display text-[1.625rem] leading-tight text-ink transition-[color,transform] duration-700 ease-(--ease-editorial) group-hover:translate-x-2 group-hover:text-accent sm:text-[2rem]">
+                <span className="min-w-0 flex-1 font-display text-[1.25rem] font-semibold leading-tight text-ink transition-[color,transform] duration-700 ease-(--ease-editorial) group-hover:translate-x-2 group-hover:text-accent sm:text-[1.5rem]">
                   {c.name}
                 </span>
                 <span className="hidden shrink-0 text-[0.8125rem] tabular-nums text-muted sm:block">{plural(c.courseCount, "course")}</span>

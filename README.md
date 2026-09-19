@@ -87,9 +87,10 @@ public/images/         editorial photography (see below)
 
 ## Design system
 
-- **Type:** Space Grotesk (headings, bold with tight tracking) and Inter (text) —
-  the same pairing as the Amir Engineering project. Scale tokens `text-hero`,
-  `text-h1`–`text-h4`, `text-lead` and the `label` utility live in `src/app/globals.css`.
+- **Type:** Plus Jakarta Sans (headings, 600–700) and Inter (text, 400–500).
+  Page headings 36–44px mobile / 48–64px desktop, section headings 28–34 / 36–48px,
+  body 16–18px at 1.6, supporting text 13–14px, buttons 15px medium. Tokens
+  `text-hero`, `text-h1`–`text-h4`, `text-lead` and `label` live in `src/app/globals.css`.
 - **Navbar and sidebar:** modelled on Amir Engineering — a sticky 64px bar with
   outlined icon buttons (search, theme, cart, menu), and a right-hand sheet for
   the mobile menu (`SiteHeader`, `MobileMenu`, `AccountLinks`).

@@ -43,7 +43,7 @@ export function HowItWorks({ rows }: { rows: { title: string; body: string }[] }
     <dl>
       {rows.map((row, i) => (
         <div key={row.title} data-reveal style={revealDelay(i * 70)} className="grid gap-2 border-t border-line py-6 sm:grid-cols-[14rem_1fr] sm:gap-10">
-          <dt className="font-display text-[1.375rem] leading-snug text-ink">{row.title}</dt>
+          <dt className="font-display text-h4 text-ink">{row.title}</dt>
           <dd className="prose-copy text-[0.9375rem]">
             <RichText text={row.body} />
           </dd>

@@ -15,7 +15,7 @@ const LEGACY_ORIGIN = (process.env.LEGACY_ORIGIN ?? "https://dralirazajafri.com"
 const INJECT = [
   '<link rel="preconnect" href="https://fonts.googleapis.com" />',
   '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
-  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" />',
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" />',
   '<link rel="stylesheet" href="/legacy/skin.css" />',
   '<script src="/legacy/theme.js"></script>',
 ].join("");
