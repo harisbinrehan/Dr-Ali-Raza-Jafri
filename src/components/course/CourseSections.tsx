@@ -26,7 +26,12 @@ export function LearningOutcomes({ items }: { items: string[] }) {
   return (
     <ol className="grid gap-x-10 sm:grid-cols-2">
       {items.map((item, i) => (
-        <li key={item} data-reveal style={revealDelay((i % 2) * 90)} className="grid grid-cols-[2.25rem_1fr] gap-3 border-t border-line py-6">
+        <li
+          key={item}
+          data-reveal
+          style={revealDelay((i % 2) * 90)}
+          className={`grid grid-cols-[2.25rem_1fr] gap-3 border-t border-line py-6 ${i === items.length - 1 && items.length % 2 === 1 ? "sm:col-span-2" : ""}`}
+        >
           <span className="font-display text-[1.375rem] leading-none text-accent">{i + 1}</span>
           <span className="leading-relaxed text-ink">
             <CourseText text={item} />

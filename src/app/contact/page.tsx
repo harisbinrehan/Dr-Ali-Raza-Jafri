@@ -37,7 +37,7 @@ export default async function ContactPage() {
                 <dt className="text-[0.8125rem] text-muted sm:pt-1.5">{label}</dt>
                 <dd className="text-[1.0625rem] font-medium leading-snug text-ink">
                   {href ? (
-                    <a href={href} className="link-line break-words">
+                    <a href={href} className="link-line inline-block break-words py-1">
                       {value}
                     </a>
                   ) : (

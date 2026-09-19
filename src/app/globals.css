@@ -131,7 +131,6 @@
   --animate-mask: mask 1.3s var(--ease-editorial) both;
   --animate-settle: settle 2.2s var(--ease-editorial) both;
   --animate-draw: draw 1.6s var(--ease-in-out-quart) both;
-  --animate-scroll-cue: scroll-cue 2.6s var(--ease-in-out-quart) infinite;
 
   @keyframes rise {
     from { opacity: 0; transform: translateY(22px); }
@@ -153,12 +152,6 @@
   @keyframes draw {
     from { transform: scaleX(0); }
     to { transform: scaleX(1); }
-  }
-  @keyframes scroll-cue {
-    0% { transform: scaleY(0); transform-origin: top; }
-    45% { transform: scaleY(1); transform-origin: top; }
-    55% { transform: scaleY(1); transform-origin: bottom; }
-    100% { transform: scaleY(0); transform-origin: bottom; }
   }
 }
 

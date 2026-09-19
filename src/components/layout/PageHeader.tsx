@@ -8,7 +8,7 @@ export function PageHeader({ eyebrow, title, lead, children, className }: { eyeb
     <div className="relative isolate overflow-hidden">
       <DarkBackdrop />
       <header className={cn("container-x pt-16", className)}>
-        <div className="grid gap-8 border-b border-line pb-16 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-24 lg:pt-20">
+        <div className="grid gap-8 pb-12 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-16 lg:pt-20">
           <div className="lg:col-span-8">
             {eyebrow && <p className="label text-accent animate-fade">{eyebrow}</p>}
             <h1 className="mt-6 font-display text-h1 text-ink">

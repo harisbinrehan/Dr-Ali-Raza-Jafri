@@ -11,7 +11,9 @@ import { openPreview } from "@/components/course/PreviewDialog";
  * The syllabus as an academic outline: numbered parts in display type, each
  * opening onto its lessons with type and length. Free previews play in place.
  */
-export function Curriculum({ sections, totalSeconds }: { sections: Section[]; totalSeconds: number }) {
+export function Curriculum({ sections: allSections, totalSeconds }: { sections: Section[]; totalSeconds: number }) {
+  // A section with no lessons has nothing to open; leave it out of the outline.
+  const sections = allSections.filter((s) => s.lessons.length > 0);
   const [open, setOpen] = useState<Set<string>>(() => new Set(sections[0] ? [sections[0].id] : []));
   const lessonCount = sections.reduce((n, s) => n + s.lessons.length, 0);
   const allOpen = open.size === sections.length;
@@ -75,7 +77,7 @@ export function Curriculum({ sections, totalSeconds }: { sections: Section[]; to
                             <button
                               type="button"
                               onClick={() => openPreview({ id: lesson.id, title: lesson.title, previewAssetId })}
-                              className="group inline-flex items-center gap-1.5 font-semibold text-accent"
+                              className="group -my-1.5 inline-flex items-center gap-1.5 py-1.5 font-semibold text-accent"
                             >
                               <Play className="size-3" />
                               <span className="link-line">Watch free</span>

@@ -37,7 +37,7 @@ export default async function FaqPage() {
               {contact.phone && (
                 <div>
                   <p className="text-[0.8125rem] text-muted">Phone</p>
-                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="link-line text-ink">
+                  <a href={`tel:${contact.phone.replace(/\s/g, "")}`} className="link-line inline-block py-1 text-ink">
                     {contact.phone}
                   </a>
                 </div>
@@ -45,7 +45,7 @@ export default async function FaqPage() {
               {contact.email && (
                 <div>
                   <p className="text-[0.8125rem] text-muted">Email</p>
-                  <a href={`mailto:${contact.email}`} className="link-line break-all text-ink">
+                  <a href={`mailto:${contact.email}`} className="link-line inline-block break-all py-1 text-ink">
                     {contact.email}
                   </a>
                 </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import type { Category, CourseSummary } from "@/lib/catalog";
 import { cn } from "@/lib/cn";
 import { plural } from "@/lib/format";
@@ -41,7 +41,6 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
   const [category, setCategory] = useState(categories.some((c) => c.slug === initial.category) ? initial.category : "");
   const [sort, setSort] = useState<Sort>(SORTS.some((s) => s.value === initial.sort) ? (initial.sort as Sort) : "popular");
   const [query, setQuery] = useState(initial.query);
-  const deferredQuery = useDeferredValue(query);
 
   // Mirror the filters in the URL (?category=, ?query=, ?sort= — the platform's own
   // parameter names) so any view can be shared, without a server round trip.
@@ -77,7 +76,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
   };
 
   const results = useMemo(() => {
-    const terms = normalise(deferredQuery).split(/\s+/).filter(Boolean);
+    const terms = normalise(query).split(/\s+/).filter(Boolean);
     const filtered = courses.filter((c) => {
       if (category && c.category?.slug !== category) return false;
       if (terms.length === 0) return true;
@@ -85,10 +84,10 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
       return terms.every((t) => haystack.includes(t));
     });
     return sortCourses(filtered, sort);
-  }, [courses, category, deferredQuery, sort]);
+  }, [courses, category, query, sort]);
 
   const activeCategory = categories.find((c) => c.slug === category);
-  const hasFilters = Boolean(category || deferredQuery.trim());
+  const hasFilters = Boolean(category || query.trim());
   const tabs = [{ slug: "", name: "All subjects", courseCount: courses.length }, ...categories];
 
   return (
@@ -132,7 +131,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
 
       {/* Subjects: a quiet tab rail rather than a row of pills. */}
       <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1.25rem,4.5vw,4rem)] mt-10 border-b border-line bg-canvas/92 px-[clamp(1.25rem,4.5vw,4rem)] backdrop-blur-xl transition-[top] duration-700 ease-(--ease-editorial)">
-        <div role="group" aria-label="Filter by subject" className="no-scrollbar -mb-px flex gap-7 overflow-x-auto">
+        <div role="group" aria-label="Filter by subject" className="no-scrollbar -mb-px flex gap-7 overflow-x-auto pr-10 [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)] lg:pr-0 lg:[mask-image:none]">
           {tabs.map((c) => {
             const active = category === c.slug;
             return (
@@ -163,10 +162,10 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
               in <span className="text-ink">{activeCategory.name}</span>
             </>
           )}
-          {deferredQuery.trim() && (
+          {query.trim() && (
             <>
               {" "}
-              matching <span className="text-ink">“{deferredQuery.trim()}”</span>
+              matching <span className="text-ink">“{query.trim()}”</span>
             </>
           )}
         </p>

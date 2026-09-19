@@ -135,7 +135,7 @@ export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePri
             {includes.map((item) => (
               <li key={item.label} className="border-b border-line py-3 text-[0.875rem] text-ink-soft last:border-b-0">
                 {item.href ? (
-                  <Link href={item.href} className="link-quiet">
+                  <Link href={item.href} className="link-quiet inline-block py-1">
                     {item.label}
                   </Link>
                 ) : (

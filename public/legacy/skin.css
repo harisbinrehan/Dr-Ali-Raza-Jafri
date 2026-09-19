@@ -19,8 +19,8 @@
   --color-slate-100: #e9e3d8;
   --color-slate-200: #ddd6c9;
   --color-slate-300: #cbc3b3;
-  --color-slate-400: #97948c;
-  --color-slate-500: #6c6c70;
+  --color-slate-400: #6f6c65;
+  --color-slate-500: #616166;
   --color-slate-600: #55565c;
   --color-slate-700: #3a3c42;
   --color-slate-800: #26272c;
@@ -130,6 +130,41 @@ textarea {
 .container-marketplace {
   max-width: 1360px !important;
   padding-inline: clamp(1.25rem, 4.5vw, 4rem) !important;
+}
+
+/* The platform's footer is a dark band in both themes, like the public site's. */
+footer.bg-slate-900,
+footer.bg-slate-950 {
+  background-color: #15181e !important;
+  color: #eee9e0;
+}
+html[data-theme="dark"] footer.bg-slate-900,
+html[data-theme="dark"] footer.bg-slate-950 {
+  background-color: #070b16 !important;
+}
+footer .text-white,
+footer .text-slate-100,
+footer .text-slate-200 {
+  color: #eee9e0 !important;
+}
+footer .text-slate-300,
+footer .text-slate-400,
+footer .text-slate-500 {
+  color: rgb(238 233 224 / 0.72) !important;
+}
+footer a:hover {
+  color: #ffffff !important;
+}
+footer .border-slate-800,
+footer .border-slate-700 {
+  border-color: rgb(238 233 224 / 0.14) !important;
+}
+
+/* Comfortable tap targets for the platform's header and footer links. */
+header nav a,
+footer a {
+  display: inline-block;
+  padding-block: 0.25rem;
 }
 
 /* ------------------------------------------------------------ Responsive fixes

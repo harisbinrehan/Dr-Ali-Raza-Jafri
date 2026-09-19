@@ -99,14 +99,25 @@ class CatalogError extends Error {
   }
 }
 
+const RETRIES = 2;
+
+/** GET from the catalogue API; transient failures (5xx, network) are retried with backoff. */
 async function request<T>(path: string): Promise<T> {
-  const res = await fetch(`${API_ORIGIN}/api${path}`, {
-    headers: { Accept: "application/json" },
-    next: { revalidate: CATALOG_REVALIDATE_SECONDS },
-  });
-  if (!res.ok) throw new CatalogError(res.status, path);
-  const body = (await res.json()) as { data: T };
-  return body.data;
+  for (let attempt = 0; ; attempt++) {
+    try {
+      const res = await fetch(`${API_ORIGIN}/api${path}`, {
+        headers: { Accept: "application/json" },
+        next: { revalidate: CATALOG_REVALIDATE_SECONDS },
+      });
+      if (!res.ok) throw new CatalogError(res.status, path);
+      const body = (await res.json()) as { data: T };
+      return body.data;
+    } catch (error) {
+      const transient = !(error instanceof CatalogError) || error.status >= 500;
+      if (!transient || attempt >= RETRIES) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 400 * 2 ** attempt));
+    }
+  }
 }
 
 /* ---------- Mapping raw API shapes to what the UI needs ---------- */
@@ -212,9 +223,29 @@ export async function getInstructor(slug: string): Promise<Instructor | null> {
   }
 }
 
-export const getStats = () => request<Stats>("/catalog/stats");
 export const getContact = () => request<Contact>("/catalog/contact");
-export const getPolicy = () => request<Policy>("/catalog/policy");
+
+/** Platform-wide counts. Optional: pages still render if the endpoint is down. */
+export async function getStats(): Promise<Stats | null> {
+  try {
+    return await request<Stats>("/catalog/stats");
+  } catch (error) {
+    console.error("[catalog] stats unavailable:", error);
+    return null;
+  }
+}
+
+/** The values the site's own policy pages state, used only if the endpoint is down. */
+const POLICY_FALLBACK: Policy = { currency: "PKR", refundWindowDays: 14, commissionPercent: 30, minWithdrawal: "PKR 5,000" };
+
+export async function getPolicy(): Promise<Policy> {
+  try {
+    return await request<Policy>("/catalog/policy");
+  } catch (error) {
+    console.error("[catalog] policy unavailable, using published values:", error);
+    return POLICY_FALLBACK;
+  }
+}
 
 /**
  * YouTube's `hqdefault` is 480×360 with letterbox bars. When the widescreen

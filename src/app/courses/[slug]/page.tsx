@@ -93,7 +93,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
 
   const [keepPromise, certificatePromise, refundPromise] = promises;
   const howItWorks = [
-    ...(course.sections.length > 0 ? [{ title: "Format", body: formatSummary(course) }] : []),
+    ...(course.lessonCount > 0 ? [{ title: "Format", body: formatSummary(course) }] : []),
     { title: keepPromise.title, body: keepPromise.body },
     ...(course.certificateEnabled ? [{ title: certificatePromise.title, body: certificatePromise.body }] : []),
     { title: refundPromise.title, body: `${refundPromise.body} [The refund policy](/refunds).` },
@@ -180,7 +180,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
               </CourseSection>
             )}
 
-            {course.sections.length > 0 && (
+            {course.sections.some((s) => s.lessons.length > 0) && (
               <CourseSection id="curriculum" title="Curriculum">
                 <Curriculum sections={course.sections} totalSeconds={course.totalDurationSeconds} />
               </CourseSection>

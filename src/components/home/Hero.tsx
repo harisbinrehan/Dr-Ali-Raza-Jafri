@@ -50,12 +50,6 @@ export function Hero({ featured, stats }: HeroProps) {
               </ButtonLink>
             </div>
 
-            <div aria-hidden="true" className="mt-auto hidden items-center gap-4 pt-16 lg:flex">
-              <span className="relative h-14 w-px overflow-hidden bg-line">
-                <span className="absolute inset-0 bg-ink animate-scroll-cue" />
-              </span>
-              <span className="label text-muted">Scroll</span>
-            </div>
           </div>
 
           {/* Photograph with the featured course laid over its corner. */}
@@ -98,7 +92,7 @@ export function Hero({ featured, stats }: HeroProps) {
           </div>
         </div>
 
-        <dl className="mt-16 grid grid-cols-3 border-t border-line lg:mt-24">
+        <dl className="mt-16 grid border-t border-line lg:mt-24" style={{ gridTemplateColumns: `repeat(${stats.length}, minmax(0, 1fr))` }}>
           {stats.map((s, i) => (
             <div key={s.label} className={`flex flex-col-reverse py-7 ${i > 0 ? "border-l border-line pl-5 sm:pl-8" : ""}`}>
               <dt className="mt-2 text-[0.8125rem] text-muted">{s.label}</dt>

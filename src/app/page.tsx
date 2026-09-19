@@ -45,9 +45,9 @@ export default async function HomePage() {
       <Hero
         featured={featuredSummary}
         stats={[
-          { value: stats.courses, label: "Courses" },
+          { value: stats?.courses ?? courses.length, label: "Courses" },
           { value: categories.length, label: "Subjects" },
-          { value: stats.students, label: "Students" },
+          ...(stats ? [{ value: stats.students, label: "Students" }] : []),
         ]}
       />
 
