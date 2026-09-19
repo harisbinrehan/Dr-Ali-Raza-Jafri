@@ -41,7 +41,7 @@ export function Hero({ featured, stats }: HeroProps) {
 
           <p className="mt-7 max-w-xl text-lead text-ink-muted animate-rise [animation-delay:280ms]">{home.intro}</p>
 
-          <div className="mt-10 flex flex-wrap gap-3 animate-rise [animation-delay:400ms]">
+          <div className="mt-10 flex flex-col gap-3 animate-rise [animation-delay:400ms] sm:flex-row">
             <ButtonLink href={home.primaryCta.href} variant="accent" size="lg" arrow>
               {home.primaryCta.label}
             </ButtonLink>
@@ -62,7 +62,7 @@ export function Hero({ featured, stats }: HeroProps) {
 
         <div className="relative lg:col-span-5">
           <Parallax speed={-0.06}>
-            <figure className="relative aspect-[4/3] overflow-hidden rounded-md animate-unveil [animation-delay:150ms] lg:aspect-[4/5]">
+            <figure className="relative aspect-[4/3] overflow-hidden rounded-md lg:aspect-[4/5]">
               <Image
                 src="/images/teaching-whiteboard.jpg"
                 alt="Prof. Dr. Ali Raza Jafri teaching at a whiteboard"
@@ -70,7 +70,7 @@ export function Hero({ featured, stats }: HeroProps) {
                 preload
                 fetchPriority="high"
                 sizes="(min-width: 1024px) 38vw, 92vw"
-                className="object-cover object-[61%_40%]"
+                className="object-cover object-[61%_40%] animate-settle"
               />
               <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-ink/60 via-transparent to-ink/30" />
               <figcaption className="eyebrow absolute left-4 right-4 top-4 text-white/80">Still from Diagnosis and Treatment Planning</figcaption>

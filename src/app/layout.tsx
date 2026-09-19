@@ -8,11 +8,12 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 
+// Only the 400 weight is used; static instances are a fraction of the variable font's size.
 const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
+  weight: "400",
   style: ["normal", "italic"],
-  axes: ["opsz"],
   display: "swap",
 });
 

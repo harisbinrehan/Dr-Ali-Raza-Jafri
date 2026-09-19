@@ -63,7 +63,7 @@ export function InstructorIntro({ stats }: InstructorIntroProps) {
               Courses by {site.instructorName}
             </ButtonLink>
             <ButtonLink href="/about" variant="quiet" className="text-[0.9375rem] font-medium">
-              Read more
+              Read more<span className="sr-only"> about the academy</span>
             </ButtonLink>
           </div>
         </div>

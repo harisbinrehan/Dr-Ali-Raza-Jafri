@@ -24,6 +24,8 @@ export function readCart(): string[] {
   }
 }
 
+const CART_EVENT = "alignodontic:cart";
+
 export function addToCart(courseId: string) {
   const items = readCart();
   if (items.includes(courseId)) return;
@@ -32,6 +34,20 @@ export function addToCart(courseId: string) {
   } catch {
     // Storage unavailable (private mode quota etc.) — checkout will show an empty cart.
   }
+  window.dispatchEvent(new Event(CART_EVENT));
+}
+
+/** Subscribe to cart changes from this tab and others (for useSyncExternalStore). */
+export function subscribeCart(onChange: () => void) {
+  const onStorage = (e: StorageEvent) => e.key === CART_KEY && onChange();
+  window.addEventListener("storage", onStorage);
+  window.addEventListener(CART_EVENT, onChange);
+  window.addEventListener("pageshow", onChange);
+  return () => {
+    window.removeEventListener("storage", onStorage);
+    window.removeEventListener(CART_EVENT, onChange);
+    window.removeEventListener("pageshow", onChange);
+  };
 }
 
 /** Same behaviour as the platform's primary course button. */

@@ -59,7 +59,7 @@
   --animate-rise: rise 0.9s var(--ease-out-expo) both;
   --animate-fade: fade 1.1s var(--ease-out-expo) both;
   --animate-mask-up: mask-up 1.1s var(--ease-out-expo) both;
-  --animate-unveil: unveil 1.4s var(--ease-in-out-quart) both;
+  --animate-settle: settle 1.6s var(--ease-out-expo) both;
 
   @keyframes rise {
     from { opacity: 0; transform: translateY(18px); }
@@ -73,9 +73,10 @@
     from { transform: translateY(105%); }
     to { transform: none; }
   }
-  @keyframes unveil {
-    from { clip-path: inset(100% 0 0 0); }
-    to { clip-path: inset(0 0 0 0); }
+  /* Transform-only, so the image is painted from the first frame (good for LCP). */
+  @keyframes settle {
+    from { transform: scale(1.08); }
+    to { transform: none; }
   }
 }
 
@@ -208,9 +209,6 @@
     opacity: 1;
     transform: none;
     clip-path: inset(100% 0 0 0);
-  }
-  [data-reveal="fade"]:not(.is-revealed) {
-    transform: none;
   }
 }
 

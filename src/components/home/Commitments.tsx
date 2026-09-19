@@ -1,5 +1,4 @@
 import { home, promises } from "@/content/pages";
-import { revealDelay } from "@/lib/motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ButtonLink } from "@/components/ui/Button";
 import { Certificate, Infinity, Refund } from "@/components/ui/Icons";
@@ -21,11 +20,11 @@ export function Commitments() {
           </div>
         </div>
 
-        <ol className="mt-16 grid gap-px overflow-hidden rounded-md bg-ink-line md:grid-cols-3">
+        <ol data-reveal className="mt-16 grid gap-px overflow-hidden rounded-md bg-ink-line md:grid-cols-3">
           {promises.map((p, i) => {
             const Icon = icons[i];
             return (
-              <li key={p.title} data-reveal style={revealDelay(i * 90)} className="flex flex-col bg-ink p-8 sm:p-10">
+              <li key={p.title} className="flex flex-col bg-ink p-8 sm:p-10">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs text-accent-bright">{String(i + 1).padStart(2, "0")}</span>
                   <Icon className="size-7 text-white/40" />

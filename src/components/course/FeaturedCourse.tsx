@@ -6,6 +6,7 @@ import { CourseImage } from "@/components/course/CourseImage";
 import { PriceTag } from "@/components/course/PriceTag";
 import { buttonClasses } from "@/components/ui/Button";
 import { ArrowRight, Check } from "@/components/ui/Icons";
+import { CourseText } from "@/components/ui/RichText";
 
 /** A single course given room: image, what it teaches, and one clear action. */
 export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; imageUrl: string | null }) {
@@ -45,7 +46,9 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
             {outcomes.map((o) => (
               <li key={o} className="flex gap-3 text-[0.9375rem] leading-snug text-ink/85">
                 <Check className="mt-0.5 size-4 shrink-0 text-accent-deep" />
-                {o}
+                <span>
+                  <CourseText text={o} />
+                </span>
               </li>
             ))}
           </ul>

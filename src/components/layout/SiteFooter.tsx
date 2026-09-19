@@ -23,10 +23,10 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
 
           <nav aria-label="Get help" className="lg:col-span-2">
             <h2 className="eyebrow text-white/50">Get help</h2>
-            <ul className="mt-5 space-y-3 text-[0.9375rem]">
+            <ul className="mt-4 space-y-1.5 text-[0.9375rem]">
               {helpLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="link-underline text-white/80 transition-colors hover:text-white">
+                  <Link href={l.href} className="link-underline inline-block py-1 text-white/80 transition-colors hover:text-white">
                     {l.label}
                   </Link>
                 </li>
@@ -36,10 +36,10 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
 
           <nav aria-label="Subjects" className="lg:col-span-3">
             <h2 className="eyebrow text-white/50">Subjects</h2>
-            <ul className="mt-5 space-y-3 text-[0.9375rem]">
+            <ul className="mt-4 space-y-1.5 text-[0.9375rem]">
               {categories.map((c) => (
                 <li key={c.id}>
-                  <Link href={`/courses?category=${c.slug}`} className="link-underline text-white/80 transition-colors hover:text-white">
+                  <Link href={`/courses?category=${c.slug}`} className="link-underline inline-block py-1 text-white/80 transition-colors hover:text-white">
                     {c.name}
                   </Link>
                 </li>
@@ -77,7 +77,7 @@ export function SiteFooter({ contact, categories }: { contact: Contact; categori
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             {legalNav.map((l) => (
               <li key={l.href}>
-                <Link href={l.href} className="link-underline transition-colors hover:text-white">
+                <Link href={l.href} className="link-underline inline-block py-1 transition-colors hover:text-white">
                   {l.label}
                 </Link>
               </li>

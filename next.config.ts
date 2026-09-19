@@ -37,6 +37,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Tailwind CSS is small; inlining it removes the one render-blocking request for first-time visitors.
+  experimental: { inlineCss: true },
   images: {
     remotePatterns: [{ protocol: "https", hostname: "i.ytimg.com", pathname: "/vi/**" }],
     formats: ["image/avif", "image/webp"],

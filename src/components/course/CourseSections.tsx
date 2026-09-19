@@ -4,9 +4,10 @@ import type { ReactNode } from "react";
 import type { Review } from "@/lib/catalog";
 import { home } from "@/content/pages";
 import { plural } from "@/lib/format";
-import { revealDelay } from "@/lib/motion";
 import { site } from "@/lib/site";
 import { ArrowRight } from "@/components/ui/Icons";
+import { CourseText } from "@/components/ui/RichText";
+import { cn } from "@/lib/cn";
 
 /** Section wrapper for the course page body: consistent heading and rhythm. */
 export function CourseSection({ id, title, children }: { id: string; title: string; children: ReactNode }) {
@@ -22,11 +23,13 @@ export function CourseSection({ id, title, children }: { id: string; title: stri
 
 export function LearningOutcomes({ items }: { items: string[] }) {
   return (
-    <ol className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+    <ol data-reveal className="grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
       {items.map((item, i) => (
-        <li key={item} data-reveal style={revealDelay((i % 2) * 70)} className="flex gap-4 bg-card p-6">
+        <li key={item} className={cn("flex gap-4 bg-card p-6", i === items.length - 1 && items.length % 2 === 1 && "sm:col-span-2")}>
           <span className="font-display text-[1.75rem] leading-none tabular-nums text-accent-deep">{String(i + 1).padStart(2, "0")}</span>
-          <span className="pt-1 leading-relaxed text-ink/85">{item}</span>
+          <span className="pt-1 leading-relaxed text-ink/85">
+            <CourseText text={item} />
+          </span>
         </li>
       ))}
     </ol>
@@ -39,7 +42,9 @@ export function Requirements({ items }: { items: string[] }) {
       {items.map((item) => (
         <li key={item} className="flex gap-4 leading-relaxed text-ink/85">
           <span aria-hidden="true" className="mt-3 h-px w-4 shrink-0 bg-accent-deep" />
-          {item}
+          <span>
+            <CourseText text={item} />
+          </span>
         </li>
       ))}
     </ul>
@@ -76,7 +81,7 @@ export function InstructorCard({ name, slug, courseCount, bio }: InstructorCardP
       </div>
       <Link
         href={`/instructors/${slug}`}
-        className="group flex shrink-0 items-center gap-2 text-sm font-medium text-ink hover:text-accent-deep"
+        className="group flex shrink-0 items-center gap-2 py-2 text-sm font-medium text-ink hover:text-accent-deep"
       >
         All courses
         <ArrowRight className="size-4 transition-transform duration-500 ease-(--ease-out-expo) group-hover:translate-x-1" />

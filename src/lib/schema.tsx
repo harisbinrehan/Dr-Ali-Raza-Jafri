@@ -1,6 +1,5 @@
 import type { Contact, CourseDetail } from "@/lib/catalog";
-import type { FaqItem } from "@/content/faq";
-import { isoDuration } from "@/lib/format";
+import { isoDuration, stripLinks } from "@/lib/format";
 import { site } from "@/lib/site";
 
 /**
@@ -78,14 +77,14 @@ export function personSchema(name: string, url: string) {
   return { "@context": "https://schema.org", "@type": "Person", name, url };
 }
 
-export function faqSchema(items: (FaqItem & { plainAnswer: string })[]) {
+export function faqSchema(items: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     mainEntity: items.map((f) => ({
       "@type": "Question",
       name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.plainAnswer },
+      acceptedAnswer: { "@type": "Answer", text: stripLinks(f.answer) },
     })),
   };
 }

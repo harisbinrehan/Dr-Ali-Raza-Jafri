@@ -31,6 +31,11 @@ export function MobileMenu({ open, onClose, contact }: { open: boolean; onClose:
   return (
     <dialog
       ref={ref}
+      onCancel={(e) => {
+        // Escape: let React state drive the close so everything stays in sync.
+        e.preventDefault();
+        onClose();
+      }}
       onClose={onClose}
       aria-label="Menu"
       className="m-0 h-dvh max-h-none w-full max-w-none translate-y-0 bg-ink p-0 text-white backdrop:bg-transparent open:flex open:flex-col"

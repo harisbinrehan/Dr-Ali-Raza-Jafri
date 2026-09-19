@@ -38,7 +38,7 @@ export function Curriculum({ sections, totalSeconds }: { sections: Section[]; to
           <button
             type="button"
             onClick={() => setOpen(allOpen ? new Set() : new Set(sections.map((s) => s.id)))}
-            className="text-sm font-medium text-accent-deep underline decoration-accent-deep/30 underline-offset-4 hover:decoration-accent-deep"
+            className="py-2 text-sm font-medium text-accent-deep underline decoration-accent-deep/30 underline-offset-4 hover:decoration-accent-deep"
           >
             {allOpen ? "Collapse all" : "Expand all"}
           </button>
@@ -64,7 +64,7 @@ export function Curriculum({ sections, totalSeconds }: { sections: Section[]; to
                     {[plural(section.lessons.length, "lesson"), formatDuration(sectionSeconds)].filter(Boolean).join(" · ")}
                   </span>
                 }
-                panelClassName="pb-5 pl-10"
+                panelClassName="pb-5 sm:pl-10"
               >
                 <ul className="divide-y divide-line/70 rounded-md border border-line bg-card">
                   {section.lessons.map((lesson) => {

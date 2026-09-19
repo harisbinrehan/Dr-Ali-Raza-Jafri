@@ -15,7 +15,7 @@ const variants: Record<Variant, string> = {
   accent: "bg-accent text-ink hover:bg-accent-bright",
   outline: "border border-line-strong text-ink hover:border-ink hover:bg-ink hover:text-paper",
   "outline-light": "border border-white/25 text-white hover:border-white hover:bg-white hover:text-ink",
-  quiet: "text-current underline decoration-current/30 underline-offset-4 hover:decoration-current",
+  quiet: "py-2 text-current underline decoration-current/30 underline-offset-4 hover:decoration-current",
 };
 
 const sizes: Record<Size, string> = {

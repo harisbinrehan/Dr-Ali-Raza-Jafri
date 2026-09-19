@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
 import { buttonClasses } from "@/components/ui/Button";
-import { dashboardFor, fetchViewer, readCart, type Viewer } from "@/lib/enrolment";
+import { dashboardFor, fetchViewer, readCart, subscribeCart, type Viewer } from "@/lib/enrolment";
 import { legacyRoutes } from "@/lib/site";
 
 /**
  * Sign-in state is owned by the existing platform. This reads it (never
  * changes it) so returning students see their way back to their courses.
  */
-export function useViewer() {
+function useViewer() {
   const [viewer, setViewer] = useState<Viewer | undefined>(undefined);
   useEffect(() => {
     const controller = new AbortController();
@@ -20,19 +20,12 @@ export function useViewer() {
   return viewer;
 }
 
-export function useCartCount() {
-  const [count, setCount] = useState(0);
-  useEffect(() => {
-    const sync = () => setCount(readCart().length);
-    sync();
-    window.addEventListener("storage", sync);
-    window.addEventListener("pageshow", sync);
-    return () => {
-      window.removeEventListener("storage", sync);
-      window.removeEventListener("pageshow", sync);
-    };
-  }, []);
-  return count;
+function useCartCount() {
+  return useSyncExternalStore(
+    subscribeCart,
+    () => readCart().length,
+    () => 0,
+  );
 }
 
 type AccountLinksProps = { tone: "light" | "dark"; layout?: "inline" | "stacked" };

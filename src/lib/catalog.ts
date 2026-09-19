@@ -33,6 +33,7 @@ export type CourseSummary = {
   level: CourseLevel;
   totalDurationSeconds: number;
   lessonCount: number;
+  studentCount: number;
   ratingAverage: number;
   ratingCount: number;
   publishedAt: string;
@@ -87,8 +88,6 @@ export type Instructor = {
   name: string;
   headline: string | null;
   bio: string | null;
-  avatarUrl: string | null;
-  expertise: string[];
 };
 
 class CatalogError extends Error {
@@ -137,6 +136,7 @@ function toSummary(raw: RawCourse): CourseSummary {
     level: raw.level,
     totalDurationSeconds: raw.totalDurationSeconds ?? 0,
     lessonCount: raw.lessonCount ?? raw._count?.lessons ?? 0,
+    studentCount: raw.studentCount ?? 0,
     ratingAverage: raw.ratingAverage ?? 0,
     ratingCount: raw.ratingCount ?? 0,
     publishedAt: raw.publishedAt,
@@ -198,16 +198,13 @@ export async function getInstructor(slug: string): Promise<Instructor | null> {
       slug: string;
       headline: string | null;
       bio: string | null;
-      expertise: string[] | null;
-      user: { firstName: string | null; lastName: string | null; avatarUrl: string | null };
+      user: { firstName: string | null; lastName: string | null };
     }>(`/catalog/instructors/${encodeURIComponent(slug)}`);
     return {
       slug: raw.slug,
       name: instructorName(raw.user),
       headline: raw.headline,
       bio: raw.bio,
-      avatarUrl: raw.user.avatarUrl,
-      expertise: raw.expertise ?? [],
     };
   } catch (error) {
     if (error instanceof CatalogError && error.status === 404) return null;

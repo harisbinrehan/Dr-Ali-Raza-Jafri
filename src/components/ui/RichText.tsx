@@ -28,3 +28,23 @@ export function RichText({ text }: { text: string }) {
   if (last < text.length) parts.push(text.slice(last));
   return <>{parts}</>;
 }
+
+/**
+ * Course text entered on the platform occasionally uses **bold**. Show it as
+ * emphasis instead of literal asterisks; everything else is plain text.
+ */
+export function CourseText({ text }: { text: string }) {
+  return (
+    <>
+      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+        part.startsWith("**") && part.endsWith("**") ? (
+          <strong key={i} className="font-semibold text-ink">
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}

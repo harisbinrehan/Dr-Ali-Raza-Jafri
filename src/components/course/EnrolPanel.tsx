@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
-import { addToCart, enrolNow, fetchOwnsCourse, readCart } from "@/lib/enrolment";
+import { addToCart, enrolNow, fetchOwnsCourse, readCart, subscribeCart } from "@/lib/enrolment";
 import { legacyRoutes } from "@/lib/site";
 import { formatPrice } from "@/lib/format";
 import { buttonClasses } from "@/components/ui/Button";
@@ -25,8 +25,6 @@ export type EnrolPanelProps = {
 
 const includeIcons = { lessons: Clock, keep: Infinity, refund: Refund, certificate: Certificate, level: Level };
 
-type Status = "idle" | "in-cart" | "owned";
-
 /**
  * Price and enrolment. The buttons do exactly what the platform's own course
  * page does — add the course to the cart the platform keeps, then open its
@@ -34,7 +32,13 @@ type Status = "idle" | "in-cart" | "owned";
  */
 export function EnrolPanel(props: EnrolPanelProps) {
   const { courseId, title, imageUrl, priceCents, effectivePriceCents, currency, includes, firstPreview } = props;
-  const [status, setStatus] = useState<Status>("idle");
+  const [owned, setOwned] = useState(false);
+  const inCart = useSyncExternalStore(
+    subscribeCart,
+    () => readCart().includes(courseId),
+    () => false,
+  );
+  const status = owned ? "owned" : inCart ? "in-cart" : "idle";
   const [pending, setPending] = useState(false);
   const [barVisible, setBarVisible] = useState(false);
   const ctaRef = useRef<HTMLDivElement>(null);
@@ -42,9 +46,8 @@ export function EnrolPanel(props: EnrolPanelProps) {
   const primaryLabel = free ? "Enrol for free" : "Buy this course";
 
   useEffect(() => {
-    if (readCart().includes(courseId)) setStatus("in-cart");
     const controller = new AbortController();
-    fetchOwnsCourse(courseId, controller.signal).then((owned) => owned && setStatus("owned"));
+    fetchOwnsCourse(courseId, controller.signal).then(setOwned);
     return () => controller.abort();
   }, [courseId]);
 
@@ -60,10 +63,6 @@ export function EnrolPanel(props: EnrolPanelProps) {
   const onEnrol = () => {
     setPending(true);
     enrolNow(courseId);
-  };
-  const onAddToCart = () => {
-    addToCart(courseId);
-    setStatus("in-cart");
   };
 
   const primary =
@@ -111,7 +110,7 @@ export function EnrolPanel(props: EnrolPanelProps) {
             {status === "idle" && (
               <button
                 type="button"
-                onClick={onAddToCart}
+                onClick={() => addToCart(courseId)}
                 className="mt-2.5 w-full py-2 text-sm font-medium text-ink/70 underline decoration-ink/25 underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
               >
                 Add to cart instead
@@ -134,7 +133,7 @@ export function EnrolPanel(props: EnrolPanelProps) {
                 <li key={item.label} className="flex items-center gap-3 text-[0.9375rem] text-ink/80">
                   <Icon className="size-[1.125rem] shrink-0 text-accent-deep" />
                   {item.href ? (
-                    <Link href={item.href} className="underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
+                    <Link href={item.href} className="py-1 underline decoration-ink/25 underline-offset-4 hover:decoration-ink">
                       {item.label}
                     </Link>
                   ) : (

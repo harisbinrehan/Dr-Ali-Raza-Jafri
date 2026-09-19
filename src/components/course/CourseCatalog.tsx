@@ -179,7 +179,7 @@ export function CourseCatalog({
           <button
             type="button"
             onClick={clearFilters}
-            className="flex items-center gap-1.5 text-sm font-medium text-ink/80 hover:text-ink"
+            className="flex items-center gap-1.5 py-2 text-sm font-medium text-ink/80 hover:text-ink"
           >
             <Close className="size-4" /> Clear filters
           </button>
@@ -190,7 +190,7 @@ export function CourseCatalog({
         <ul className="mt-8 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((course, i) => (
             <li key={course.id} className="animate-rise" style={{ animationDelay: `${Math.min(i, 8) * 45}ms` }}>
-              <CourseCard course={course} preload={i < 3} />
+              <CourseCard course={course} preload={i < 3} headingLevel="h2" />
             </li>
           ))}
         </ul>

@@ -28,9 +28,15 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
   const [session, setSession] = useState<Session | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  const selectLesson = (next: PreviewLesson) => {
+    setSession(null);
+    setError(null);
+    setLesson(next);
+  };
+
   useEffect(() => {
     const onOpen = (e: Event) => {
-      setLesson((e as CustomEvent<PreviewLesson>).detail);
+      selectLesson((e as CustomEvent<PreviewLesson>).detail);
       dialogRef.current?.showModal();
     };
     window.addEventListener(EVENT, onOpen);
@@ -41,8 +47,6 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
   useEffect(() => {
     if (!lesson) return;
     const controller = new AbortController();
-    setSession(null);
-    setError(null);
     fetch(`/api/videos/${lesson.previewAssetId}/preview`, {
       method: "POST",
       headers: { Accept: "application/json" },
@@ -106,11 +110,14 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
     };
   }, [session]);
 
-  const close = () => dialogRef.current?.close();
   const onClosed = () => {
     videoRef.current?.pause();
     setLesson(null);
     setSession(null);
+  };
+  const close = () => {
+    dialogRef.current?.close();
+    onClosed();
   };
 
   return (
@@ -154,6 +161,7 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
                 playsInline
                 controlsList="nodownload"
                 onContextMenu={(e) => e.preventDefault()}
+                onError={() => session && setError("This video could not be loaded.")}
                 title={lesson.title}
               />
             )}
@@ -173,7 +181,7 @@ export function PreviewDialog({ courseTitle, lessons }: { courseTitle: string; l
               <li key={l.id}>
                 <button
                   type="button"
-                  onClick={() => setLesson(l)}
+                  onClick={() => selectLesson(l)}
                   aria-current={l.id === lesson?.id ? "true" : undefined}
                   className="flex w-full items-center gap-3 px-5 py-3 text-left text-sm text-white/75 transition-colors hover:bg-white/5 hover:text-white aria-[current=true]:text-accent-bright"
                 >

@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 export function BrandLockup({ tone = "light", onNavigate }: { tone?: "light" | "dark"; onNavigate?: () => void }) {
   const dark = tone === "dark";
   return (
-    <Link href="/" onClick={onNavigate} className="group flex items-center gap-3" aria-label={`${site.name} — home`}>
+    <Link href="/" onClick={onNavigate} className="group flex items-center gap-3">
       <Image
         src="/images/brand-mark-96.png"
         alt=""
@@ -16,7 +16,7 @@ export function BrandLockup({ tone = "light", onNavigate }: { tone?: "light" | "
       />
       <span className="flex flex-col leading-none">
         <span className={cn("font-display text-[1.1875rem] tracking-[-0.01em]", dark ? "text-white" : "text-ink")}>{site.name}</span>
-        <span className={cn("mt-1 font-mono text-[0.625rem] uppercase tracking-[0.16em]", dark ? "text-white/55" : "text-muted")}>
+        <span className={cn("mt-1 font-mono text-[0.6875rem] uppercase tracking-[0.14em]", dark ? "text-white/55" : "text-muted")}>
           {site.instructorName}
         </span>
       </span>

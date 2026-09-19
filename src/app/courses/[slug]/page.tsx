@@ -10,6 +10,7 @@ import { revealDelay } from "@/lib/motion";
 import { site } from "@/lib/site";
 import { breadcrumbSchema, courseSchema, JsonLd } from "@/lib/schema";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { CourseText } from "@/components/ui/RichText";
 import { Certificate, Clock, Language, Level } from "@/components/ui/Icons";
 import { EnrolPanel, type EnrolPanelProps } from "@/components/course/EnrolPanel";
 import { Curriculum } from "@/components/course/Curriculum";
@@ -133,7 +134,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
               <div className="prose-copy max-w-2xl">
                 {paragraphs.map((p, i) => (
                   <p key={i} data-reveal style={revealDelay(i * 60)} className="whitespace-pre-line">
-                    {p}
+                    <CourseText text={p} />
                   </p>
                 ))}
               </div>
@@ -175,7 +176,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
               <h2 id="related-title" data-reveal className="font-display text-display-md text-ink">
                 {sameCategory.length > 0 ? `More in ${course.category?.name}` : "More courses"}
               </h2>
-              <Link data-reveal href="/courses" className="link-underline text-sm font-medium text-ink">
+              <Link data-reveal href="/courses" className="link-underline py-2 text-sm font-medium text-ink">
                 Browse all courses
               </Link>
             </div>
