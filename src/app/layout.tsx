@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { getCategories, getContact } from "@/lib/catalog";
 import { site } from "@/lib/site";
@@ -9,17 +9,9 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 
-// Display: a Garamond — academic, editorial, unmistakably not a startup face.
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["500", "600"],
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-// Text: open, precise and very readable at small sizes.
-const manrope = Manrope({ variable: "--font-manrope", subsets: ["latin"], display: "swap" });
+// Same pairing as the Amir Engineering project: Space Grotesk headings, Inter text.
+const heading = Space_Grotesk({ variable: "--font-heading", subsets: ["latin"], weight: ["500", "600", "700"], display: "swap" });
+const body = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -50,10 +42,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const [contact, categories] = await Promise.all([getContact(), getCategories()]);
 
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
         <ThemeProvider>
-          <SiteHeader contact={contact} />
+          <SiteHeader />
           <main id="main" className="flex-1">
             {children}
           </main>

@@ -34,7 +34,7 @@ export function InstructorIntro({ stats }: { stats: { value: string; label: stri
           </p>
 
           <blockquote data-reveal style={revealDelay(160)} className="mt-14 border-t border-line pt-10">
-            <p className="font-display text-h3 italic text-ink">
+            <p className="font-display text-h3 text-ink">
               <span aria-hidden="true" className="mr-1 text-accent">“</span>
               {about.pullQuote}
               <span aria-hidden="true" className="text-accent">”</span>

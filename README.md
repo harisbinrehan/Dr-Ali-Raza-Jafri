@@ -87,16 +87,19 @@ public/images/         editorial photography (see below)
 
 ## Design system
 
-- **Type:** Cormorant Garamond (display, 500/600 + italic, lining figures) and
-  Manrope (text). Two families only. Scale tokens `text-hero`, `text-h1`–`text-h4`,
-  `text-lead` and the `label` utility live in `src/app/globals.css`.
+- **Type:** Space Grotesk (headings, bold with tight tracking) and Inter (text) —
+  the same pairing as the Amir Engineering project. Scale tokens `text-hero`,
+  `text-h1`–`text-h4`, `text-lead` and the `label` utility live in `src/app/globals.css`.
+- **Navbar and sidebar:** modelled on Amir Engineering — a sticky 64px bar with
+  outlined icon buttons (search, theme, cart, menu), and a right-hand sheet for
+  the mobile menu (`SiteHeader`, `MobileMenu`, `AccountLinks`).
 - **Colour:** semantic tokens (`canvas`, `canvas-alt`, `surface`, `ink`, `ink-soft`,
   `muted`, `line`, `accent`, `deep`, `on-deep` …) defined once for light and once
   for dark. Components never use raw colours.
 - **Themes:** light and dark via `next-themes` (`[data-theme]`), following the
   system until the visitor uses the toggle in the header or menu.
-- **Shape:** square images, 2px radius on buttons and fields, hairlines instead
-  of boxes and shadows.
+- **Shape:** square images, 8px radius on buttons, hairlines instead of boxes
+  and shadows.
 - **Motion:** `data-reveal` (fade-up), `data-reveal="text"` (masked headings via
   `RevealHeading`), `data-reveal="image"` (wipe + settle) and desktop-only
   `Parallax`; all observed by one `RevealObserver` and disabled under

@@ -106,7 +106,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
     <>
       <div className="relative isolate">
         <DarkBackdrop />
-        <article className="container-x grid pb-8 pt-[4.75rem] lg:grid-cols-12 lg:gap-x-8">
+        <article className="container-x grid pb-8 pt-16 lg:grid-cols-12 lg:gap-x-8">
           {/* Hero */}
           <header className="pb-14 pt-10 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pb-20 lg:pt-14">
             <Breadcrumb
@@ -142,7 +142,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
 
           {/* Enrolment: sticky beside the whole course on desktop, straight after the hero on mobile */}
           <aside aria-label="Enrol" className="relative z-10 lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:pt-14">
-            <div className="animate-rise [animation-delay:240ms] lg:sticky lg:top-[calc(var(--header-offset,4.75rem)+1.5rem)] lg:transition-[top] lg:duration-700">
+            <div className="animate-rise [animation-delay:240ms] lg:sticky lg:top-[calc(var(--header-offset,4rem)+1.5rem)] lg:transition-[top] lg:duration-700">
               <EnrolPanel
                 courseId={course.id}
                 title={title}

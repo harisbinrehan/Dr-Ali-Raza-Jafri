@@ -4,8 +4,8 @@ import { cn } from "@/lib/cn";
 import { isOwnedRoute } from "@/lib/site";
 import { ArrowRight } from "@/components/ui/Icons";
 
-type Variant = "primary" | "outline" | "on-deep" | "outline-deep";
-type Size = "md" | "lg";
+type Variant = "primary" | "outline" | "ghost" | "on-deep" | "outline-deep";
+type Size = "sm" | "md" | "lg";
 
 const base =
   "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform] duration-500 ease-(--ease-editorial) active:translate-y-px disabled:pointer-events-none disabled:opacity-40";
@@ -14,10 +14,12 @@ const variants: Record<Variant, string> = {
   primary: "bg-btn text-btn-fg hover:bg-btn-hover",
   outline: "border-ink/25 bg-ink/[0.04] text-ink hover:border-ink/45 hover:bg-ink/[0.08]",
   "on-deep": "bg-btn-deep text-btn-deep-fg hover:bg-btn-deep-hover",
+  ghost: "text-ink/80 hover:bg-ink/[0.06] hover:text-ink",
   "outline-deep": "border-deep-line bg-on-deep/[0.04] text-on-deep hover:border-on-deep/40 hover:bg-on-deep/[0.08]",
 };
 
 const sizes: Record<Size, string> = {
+  sm: "h-9 px-3.5 text-[0.875rem]",
   md: "h-11 px-5",
   lg: "h-[3.25rem] px-6",
 };
@@ -25,6 +27,10 @@ const sizes: Record<Size, string> = {
 export function buttonClasses({ variant = "primary", size = "md", className }: { variant?: Variant; size?: Size; className?: string } = {}) {
   return cn(base, variants[variant], sizes[size], className);
 }
+
+/** Square outlined icon button (theme, cart, menu) — as in the Amir Engineering navbar. */
+export const iconButtonClasses =
+  "relative inline-grid size-9 shrink-0 place-items-center rounded-lg border border-line-strong bg-canvas text-ink transition-colors hover:bg-ink/[0.06] dark:bg-white/[0.04] dark:hover:bg-white/[0.08] [&_svg]:size-4";
 
 function Arrow() {
   return <ArrowRight className="size-4 shrink-0 transition-transform duration-700 ease-(--ease-editorial) group-hover/btn:translate-x-1" />;

@@ -9,10 +9,10 @@ export const contentType = "image/png";
 
 const HEADLINE = ["Learn the case,", "not the slide deck"];
 
-/** Cormorant Garamond for the card, fetched as TTF; the card still renders if this fails. */
-async function loadDisplayFont(style: "normal" | "italic") {
+/** Space Grotesk for the card, fetched as TTF; the card still renders if this fails. */
+async function loadDisplayFont(weight: 600 | 700) {
   try {
-    const family = style === "italic" ? "Cormorant+Garamond:ital,wght@1,500" : "Cormorant+Garamond:wght@500";
+    const family = `Space+Grotesk:wght@${weight}`;
     const text = encodeURIComponent([...HEADLINE, site.name].join(""));
     const css = await (await fetch(`https://fonts.googleapis.com/css2?family=${family}&text=${text}`)).text();
     const url = css.match(/src: url\((.+?)\) format\('(?:opentype|truetype)'\)/)?.[1];
@@ -23,17 +23,17 @@ async function loadDisplayFont(style: "normal" | "italic") {
 }
 
 export default async function OpenGraphImage() {
-  const [photo, mark, roman, italic] = await Promise.all([
+  const [photo, mark, bold, semibold] = await Promise.all([
     readFile(join(process.cwd(), "public/images/teaching-whiteboard-portrait.jpg"), "base64"),
     readFile(join(process.cwd(), "public/images/brand-mark-96.png"), "base64"),
-    loadDisplayFont("normal"),
-    loadDisplayFont("italic"),
+    loadDisplayFont(700),
+    loadDisplayFont(600),
   ]);
   const fonts = [
-    ...(roman ? [{ name: "Cormorant", data: roman, style: "normal" as const, weight: 500 as const }] : []),
-    ...(italic ? [{ name: "Cormorant", data: italic, style: "italic" as const, weight: 500 as const }] : []),
+    ...(bold ? [{ name: "Space Grotesk", data: bold, style: "normal" as const, weight: 700 as const }] : []),
+    ...(semibold ? [{ name: "Space Grotesk", data: semibold, style: "normal" as const, weight: 600 as const }] : []),
   ];
-  const display = fonts.length ? "Cormorant" : undefined;
+  const display = fonts.length ? "Space Grotesk" : undefined;
 
   return new ImageResponse(
     (
@@ -42,13 +42,13 @@ export default async function OpenGraphImage() {
           <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
             <img src={`data:image/png;base64,${mark}`} width={56} height={56} alt="" style={{ borderRadius: 999 }} />
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <span style={{ fontSize: 30, fontFamily: display }}>{site.name}</span>
+              <span style={{ fontSize: 28, fontFamily: display, fontWeight: 600 }}>{site.name}</span>
               <span style={{ fontSize: 16, color: "#5f6068", marginTop: 2 }}>{site.instructorName}</span>
             </div>
           </div>
           <div style={{ display: "flex", flexDirection: "column", fontFamily: display }}>
-            <span style={{ fontSize: 96, lineHeight: 0.95, letterSpacing: -2 }}>{HEADLINE[0]}</span>
-            <span style={{ fontSize: 96, lineHeight: 0.95, letterSpacing: -2, color: "#8a5a2e", fontStyle: "italic", paddingLeft: 64 }}>{HEADLINE[1]}</span>
+            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -3, fontWeight: 700 }}>{HEADLINE[0]}</span>
+            <span style={{ fontSize: 80, lineHeight: 1.02, letterSpacing: -3, fontWeight: 700, color: "#e27b22" }}>{HEADLINE[1]}</span>
           </div>
           <div style={{ display: "flex", borderTop: "1px solid rgba(23,24,28,0.2)", paddingTop: 22, fontSize: 22, color: "#3a3c42" }}>{site.tagline}</div>
         </div>

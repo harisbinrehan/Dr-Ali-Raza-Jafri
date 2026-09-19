@@ -29,8 +29,8 @@ export default async function FaqPage() {
         </div>
 
         <aside aria-labelledby="ask-title" className="lg:col-span-4 lg:col-start-9">
-          <div className="border-t border-ink pt-8 lg:sticky lg:top-[calc(var(--header-offset,4.75rem)+2.5rem)] lg:transition-[top] lg:duration-700">
-            <h2 id="ask-title" className="font-display text-h3 text-ink [&_a]:italic [&_a]:text-accent [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-[0.2em]">
+          <div className="border-t border-ink pt-8 lg:sticky lg:top-[calc(var(--header-offset,4rem)+2.5rem)] lg:transition-[top] lg:duration-700">
+            <h2 id="ask-title" className="font-display text-h3 text-ink [&_a]:text-accent [&_a]:underline [&_a]:decoration-1 [&_a]:underline-offset-[0.2em]">
               <RichText text="Something not answered here? [Ask us](/contact)." />
             </h2>
             <address className="mt-10 space-y-5 text-[0.9375rem] not-italic">

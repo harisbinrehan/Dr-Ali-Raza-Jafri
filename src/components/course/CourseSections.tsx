@@ -27,7 +27,7 @@ export function LearningOutcomes({ items }: { items: string[] }) {
     <ol className="grid gap-x-10 sm:grid-cols-2">
       {items.map((item, i) => (
         <li key={item} data-reveal style={revealDelay((i % 2) * 90)} className="grid grid-cols-[2.25rem_1fr] gap-3 border-t border-line py-6">
-          <span className="font-display text-[1.5rem] italic leading-none text-accent">{i + 1}</span>
+          <span className="font-display text-[1.375rem] leading-none text-accent">{i + 1}</span>
           <span className="leading-relaxed text-ink">
             <CourseText text={item} />
           </span>
@@ -86,7 +86,7 @@ export function InstructorFeature({ name, slug, courseCount, bio }: InstructorFe
         {bio ? (
           <p className="prose-copy mt-6 whitespace-pre-line">{bio}</p>
         ) : (
-          isLead && <p className="mt-6 font-display text-[1.5rem] italic leading-snug text-ink-soft">“{about.pullQuote}”</p>
+          isLead && <p className="mt-6 font-display text-[1.25rem] leading-snug text-ink-soft">“{about.pullQuote}”</p>
         )}
         <div className="mt-6">
           <ArrowLink href={`/instructors/${slug}`}>All courses by {name}</ArrowLink>
@@ -123,7 +123,7 @@ export function Reviews({ reviews, average, count, instructor }: { reviews: Revi
       </div>
       {lead && (
         <figure className="mt-12 border-t border-line pt-10">
-          <blockquote className="font-display text-h3 italic text-ink">“{lead.comment}”</blockquote>
+          <blockquote className="font-display text-h3 text-ink">“{lead.comment}”</blockquote>
           <figcaption className="mt-5 text-[0.875rem] text-muted">{lead.author}</figcaption>
         </figure>
       )}

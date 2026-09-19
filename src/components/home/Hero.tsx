@@ -20,7 +20,7 @@ type HeroProps = {
  */
 export function Hero({ featured, stats }: HeroProps) {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-[4.75rem]">
+    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pt-16">
       <DarkBackdrop />
       <div className="container-x">
         <div className="flex items-center justify-between border-b border-line pb-5 pt-10 lg:pt-14">
@@ -33,7 +33,7 @@ export function Hero({ featured, stats }: HeroProps) {
             <span className="block animate-mask">{home.headline[0]}</span>
           </span>
           <span className="mask lg:pl-[16%]">
-            <span className="block italic text-accent animate-mask [animation-delay:140ms]">{home.headline[1]}</span>
+            <span className="block text-accent animate-mask [animation-delay:140ms]">{home.headline[1]}</span>
           </span>
         </h1>
 

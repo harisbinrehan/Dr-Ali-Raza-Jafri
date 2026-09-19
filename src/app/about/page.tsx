@@ -44,7 +44,7 @@ export default async function AboutPage() {
       <section aria-label="Who we are" className="section-y">
         <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
           <blockquote data-reveal className="lg:col-span-6">
-            <p className="font-display text-h2 italic text-ink">
+            <p className="font-display text-h2 text-ink">
               <span aria-hidden="true" className="text-accent">“</span>
               {about.pullQuote}
               <span aria-hidden="true" className="text-accent">”</span>

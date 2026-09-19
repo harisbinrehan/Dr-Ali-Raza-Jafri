@@ -53,7 +53,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
 
   return (
     <>
-      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-[4.75rem]">
+      <section aria-labelledby="instructor-name" className="relative isolate overflow-hidden pt-16">
         <DarkBackdrop />
         <div className="container-x grid gap-14 pb-20 pt-12 lg:grid-cols-12 lg:gap-8 lg:pb-28 lg:pt-20">
           <div className="flex flex-col lg:col-span-7">
@@ -95,7 +95,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
           <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
             {isLead && (
               <blockquote data-reveal className="lg:col-span-6">
-                <p className="font-display text-h2 italic text-ink">
+                <p className="font-display text-h2 text-ink">
                   <span aria-hidden="true" className="text-accent">“</span>
                   {about.pullQuote}
                   <span aria-hidden="true" className="text-accent">”</span>

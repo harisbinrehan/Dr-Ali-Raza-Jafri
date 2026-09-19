@@ -18,7 +18,7 @@ export function PolicyPage({ doc, policy, contact }: { doc: PolicyDocument; poli
 
       <div className="container-x grid gap-12 pb-32 pt-16 lg:grid-cols-12 lg:gap-8 lg:pt-20">
         <nav aria-label="On this page" className="hidden lg:col-span-3 lg:block">
-          <div className="sticky top-[calc(var(--header-offset,4.75rem)+2.5rem)] transition-[top] duration-700">
+          <div className="sticky top-[calc(var(--header-offset,4rem)+2.5rem)] transition-[top] duration-700">
             <p className="label text-muted">On this page</p>
             <ol className="mt-6 space-y-1">
               {doc.sections.map((s) => (

@@ -54,7 +54,7 @@ export default async function TeachPage() {
         </div>
 
         <aside aria-labelledby="apply-title" className="lg:col-span-4 lg:col-start-9">
-          <div data-reveal className="bg-deep p-9 text-on-deep sm:p-11 lg:sticky lg:top-[calc(var(--header-offset,4.75rem)+2.5rem)] lg:transition-[top] lg:duration-700">
+          <div data-reveal className="bg-deep p-9 text-on-deep sm:p-11 lg:sticky lg:top-[calc(var(--header-offset,4rem)+2.5rem)] lg:transition-[top] lg:duration-700">
             <h2 id="apply-title" className="font-display text-h3">
               {teach.apply.heading}
             </h2>
