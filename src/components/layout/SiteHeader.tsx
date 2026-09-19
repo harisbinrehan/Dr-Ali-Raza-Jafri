@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { cn } from "@/lib/cn";
 import { primaryNav } from "@/lib/site";
 import { AccountLinks, CartButton, useViewer } from "@/components/layout/AccountLinks";
@@ -16,12 +17,23 @@ import { Menu, Search } from "@/components/ui/Icons";
  * hairline, text links with rounded hover fills, the orange primary action and
  * outlined icon buttons (theme, cart, menu).
  */
+const subscribeNoop = () => () => {};
+
 export function SiteHeader() {
   const pathname = usePathname();
   const viewer = useViewer();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  const { resolvedTheme } = useTheme();
+  // Hydration-safe "mounted" flag without setState-in-effect.
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+  const isDark = mounted && resolvedTheme === "dark";
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -35,9 +47,9 @@ export function SiteHeader() {
     document.documentElement.style.setProperty("--header-offset", "4rem");
   }, []);
 
-  const isHome = pathname === "/";
-  const isTransparent = isHome && !scrolled;
-  const tone = isTransparent ? "deep" : "light";
+  const isLightTop = pathname.startsWith("/instructors/");
+  const isTransparent = !scrolled;
+  const tone = isTransparent && !isLightTop && isDark ? "deep" : "light";
 
   return (
     <>
@@ -66,7 +78,7 @@ export function SiteHeader() {
                       aria-current={active ? "page" : undefined}
                       className={cn(
                         "inline-flex h-9 items-center whitespace-nowrap rounded-lg px-4 text-[0.875rem] font-medium transition-colors",
-                        isTransparent 
+                        tone === "deep" 
                           ? (active ? "text-accent" : "text-on-deep hover:bg-on-deep/[0.08]") 
                           : (active ? "text-accent" : "text-ink hover:bg-ink/[0.06]")
                       )}
@@ -82,7 +94,7 @@ export function SiteHeader() {
           <div
             className={cn(
               "flex shrink-0 items-center gap-1.5 sm:gap-2",
-              isTransparent
+              tone === "deep"
                 ? "text-on-deep [&_a]:text-on-deep [&_button]:text-on-deep [&_a:hover]:bg-on-deep/[0.08] [&_button:hover]:bg-on-deep/[0.08]"
                 : "text-ink [&_a]:text-ink [&_button]:text-ink [&_a:hover]:bg-ink/[0.06] [&_button:hover]:bg-ink/[0.06]"
             )}

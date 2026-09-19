@@ -25,7 +25,7 @@ export function Hero({ featured, stats }: HeroProps) {
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-8 pt-16 sm:pb-10">
       <DarkBackdrop />
       <div className="container-x">
-        <div className="flex items-center justify-between border-b border-line pb-4 pt-6 lg:pt-8">
+        <div className="flex items-center justify-between border-b border-line pb-4 pt-8 lg:pt-10">
           <p className="label text-eyebrow animate-fade">{home.eyebrow}</p>
           <p className="label hidden text-muted animate-fade sm:block">Taught by {site.instructorName}</p>
         </div>
@@ -39,7 +39,7 @@ export function Hero({ featured, stats }: HeroProps) {
           </span>
         </h1>
 
-        <div className="mt-8 grid gap-8 lg:mt-12 lg:grid-cols-12 lg:gap-8">
+        <div className="mt-8 grid gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-8">
           <div className="flex flex-col lg:col-span-4">
             <p className="max-w-md text-lead text-ink-soft animate-rise [animation-delay:350ms]">{home.intro}</p>
             <div className="mt-6 flex flex-col gap-3 animate-rise [animation-delay:480ms] sm:flex-row lg:flex-col xl:flex-row">
@@ -66,11 +66,10 @@ export function Hero({ featured, stats }: HeroProps) {
                   sizes="(min-width: 1360px) 700px, (min-width: 1024px) 54vw, 100vw"
                   imageClassName="transition-transform duration-[1600ms] ease-(--ease-editorial) group-hover:scale-[1.025]"
                 />
-                <span className="label absolute left-4 top-4 rounded-full bg-canvas/90 px-3 py-1 text-ink backdrop-blur">Featured</span>
               </div>
 
               <div data-reveal style={revealDelay(120)} className="p-6">
-                <p className="label text-eyebrow">{featured.category?.name}</p>
+                <p className="label text-eyebrow">Featured · {featured.category?.name}</p>
                 <p className="mt-2 font-display text-h3 leading-snug text-ink">{displayTitle(featured.title)}</p>
                 <div className="mt-5 flex items-center justify-between">
                   <span className="text-[0.9375rem] text-muted">{featured.instructor}</span>

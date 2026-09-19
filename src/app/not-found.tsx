@@ -39,10 +39,9 @@ export default async function NotFound() {
               <article className="group relative mt-5 overflow-hidden rounded-2xl border border-deep-line">
                 <div className="relative">
                   <CourseImage src={featuredImage} title={displayTitle(featured.title)} sizes="(min-width: 1024px) 320px, 90vw" />
-                  <span className="label absolute left-4 top-4 rounded-full bg-canvas/90 px-3 py-1 text-ink backdrop-blur">Featured</span>
                 </div>
                 <div className="p-5">
-                  <p className="label text-eyebrow-deep">{featured.category?.name}</p>
+                  <p className="label text-eyebrow-deep">Featured · {featured.category?.name}</p>
                   <h3 className="mt-2 font-display text-h4 text-on-deep">
                     <Link href={`/courses/${featured.slug}`} className="after:absolute after:inset-0 after:content-['']">
                       {displayTitle(featured.title)}

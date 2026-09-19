@@ -243,18 +243,25 @@ html[data-theme="dark"] body {
   background-color: #0b1220;
   background-image:
     radial-gradient(70% 60% at 85% 10%, rgb(26 138 124 / 0.22), transparent 60%),
-    radial-gradient(40% 40% at 0% 100%, rgb(184 146 74 / 0.1), transparent 60%),
-    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    radial-gradient(40% 40% at 0% 100%, rgb(184 146 74 / 0.1), transparent 60%);
   background-size:
     100% 100%,
-    100% 100%,
-    calc((min(100vw, 1360px) - 2 * clamp(1.25rem, 4.5vw, 4rem)) / 6) 100%;
+    100% 100%;
   background-position:
     0 0,
-    0 0,
-    center top;
-  background-repeat: no-repeat, no-repeat, repeat;
-  background-attachment: fixed, fixed, scroll;
+    0 0;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+}
+html[data-theme="dark"] header, html[data-theme="dark"] header * {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+html[data-theme="dark"]:not([data-scrolled="true"]) header.bg-white,
+html[data-theme="dark"]:not([data-scrolled="true"]) header.bg-white\/95,
+html[data-theme="dark"]:not([data-scrolled="true"]) header.bg-white\/80 {
+  background-color: transparent !important;
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
 }
 html[data-theme="dark"] .bg-white,
 html[data-theme="dark"] .bg-white\/95,

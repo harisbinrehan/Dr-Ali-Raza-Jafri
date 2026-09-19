@@ -26,6 +26,14 @@
   });
   if (window.matchMedia) window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
 
+  // Track scroll position for seamless transparent header (matches homepage design).
+  function handleScroll() {
+    if (window.scrollY > 20) root.setAttribute("data-scrolled", "true");
+    else root.removeAttribute("data-scrolled");
+  }
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll();
+
   var OWNED = ["/courses", "/instructors", "/about", "/faq", "/contact", "/teach", "/pricing", "/terms", "/privacy", "/refunds", "/returns", "/shipping", "/service-policy"];
   function isOwned(path) {
     if (path === "/") return true;
