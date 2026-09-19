@@ -96,7 +96,7 @@ export function DrawerAccountLinks({ viewer, onNavigate }: { viewer: Viewer | un
         Teach with us
       </Link>
       {viewer && (
-        <a href="/users/sign_out" onClick={() => localStorage.removeItem("alignodontic.accessToken")} className={buttonClasses({ variant: "ghost", size: "sm", className: "w-full text-muted hover:text-ink" })}>
+        <a href="/users/sign_out" onClick={() => localStorage.removeItem("alignodontic.accessToken")} className={buttonClasses({ variant: "danger", size: "sm", className: "w-full" })}>
           Sign out
         </a>
       )}

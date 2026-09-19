@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 import { isOwnedRoute } from "@/lib/site";
 import { ArrowRight } from "@/components/ui/Icons";
 
-type Variant = "primary" | "outline" | "ghost" | "on-deep" | "outline-deep";
+type Variant = "primary" | "outline" | "ghost" | "on-deep" | "outline-deep" | "danger";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -16,6 +16,7 @@ const variants: Record<Variant, string> = {
   "on-deep": "bg-btn-deep text-btn-deep-fg shadow-[0_1px_2px_rgb(0_0_0/0.1),0_8px_20px_-8px_rgb(0_0_0/0.35)] hover:bg-btn-deep-hover hover:-translate-y-px",
   ghost: "text-ink/80 hover:bg-ink/[0.06] hover:text-ink",
   "outline-deep": "border-deep-line bg-on-deep/[0.04] text-on-deep hover:border-on-deep/40 hover:bg-on-deep/[0.08]",
+  danger: "bg-danger text-[#f7f4ee] hover:bg-danger/90",
 };
 
 const sizes: Record<Size, string> = {

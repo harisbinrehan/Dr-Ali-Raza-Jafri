@@ -435,9 +435,145 @@ html[data-theme="dark"] .bg-\[\#101828\] {
 }
 
 /* ------------------------------------------------------------ Mobile drawer
- * theme.js intercepts the hamburger button and shows its own dialog
- * (#aa-mobile-menu, inline-styled to match MobileMenu.tsx) instead of this.
- * Hidden here only as a backstop, in case the interception ever misses. */
+ * theme.js intercepts the hamburger button and shows this instead — same
+ * structure and classes as MobileMenu.tsx, using skin.css's own variable
+ * names (this page never sees the Next.js app's --surface/--ink/--line/etc.),
+ * so every platform page (sign-in, cart, checkout, learning, account,
+ * dashboards) opens the identical drawer the public site uses. */
 #mobile-menu {
   display: none !important;
+}
+.aa-drawer {
+  position: fixed;
+  inset-block: 0;
+  left: auto;
+  right: 0;
+  margin: 0;
+  height: 100dvh;
+  max-height: none;
+  width: 100%;
+  max-width: 24rem;
+  display: none;
+  flex-direction: column;
+  border: none;
+  border-left: 1px solid var(--color-slate-200);
+  background-color: var(--color-white);
+  padding: 0;
+  color: var(--color-slate-900);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  z-index: 999999;
+}
+.aa-drawer::backdrop {
+  background: rgb(0 0 0 / 0.4);
+  backdrop-filter: blur(4px);
+}
+.aa-drawer-header {
+  position: relative;
+  display: flex;
+  height: 4rem;
+  flex-shrink: 0;
+  align-items: center;
+  border-bottom: 1px solid var(--color-slate-200);
+  padding-inline: 1rem;
+}
+.aa-drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: inherit;
+}
+.aa-drawer-brand img {
+  border-radius: 999px;
+}
+.aa-drawer-brand span {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+.aa-drawer-close-btn {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-control);
+  background: transparent;
+  border: none;
+  color: var(--color-slate-500);
+  cursor: pointer;
+}
+.aa-drawer-close-btn:hover {
+  background-color: var(--color-slate-100);
+}
+.aa-drawer-close-btn svg {
+  width: 1rem;
+  height: 1rem;
+}
+.aa-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow-y: auto;
+  padding: 1rem;
+}
+.aa-menu-link {
+  display: block;
+  border-bottom: 1px solid var(--color-slate-200);
+  padding-block: 0.625rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-slate-900);
+  text-decoration: none;
+}
+.aa-drawer-nav .aa-menu-link:last-child {
+  border-bottom: none;
+}
+.aa-drawer-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--color-slate-200);
+  padding: 1rem;
+}
+.aa-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  border-radius: var(--radius-control);
+  font-weight: 500;
+  font-size: 0.875rem;
+  height: 2.25rem;
+  padding-inline: 0.75rem;
+  width: 100%;
+  text-decoration: none;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.aa-menu-btn-outline {
+  border-color: var(--color-slate-300);
+  background-color: color-mix(in srgb, var(--color-slate-900) 4%, transparent);
+  color: var(--color-slate-900);
+}
+.aa-menu-btn-outline:hover {
+  border-color: color-mix(in srgb, var(--color-slate-900) 45%, transparent);
+  background-color: color-mix(in srgb, var(--color-slate-900) 8%, transparent);
+}
+.aa-menu-btn-primary {
+  background-color: var(--skin-button);
+  color: var(--skin-button-text);
+}
+.aa-menu-btn-primary:hover {
+  background-color: var(--skin-button-hover);
+}
+.aa-menu-btn-danger {
+  background-color: #a1301f;
+  color: #f7f4ee;
+}
+.aa-menu-btn-danger:hover {
+  background-color: #b83a29;
 }
