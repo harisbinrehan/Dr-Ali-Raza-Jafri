@@ -9,7 +9,7 @@ import { ArrowRight } from "@/components/ui/Icons";
 /** Every subject as an editorial index; each row opens the filtered catalogue. */
 export function SubjectIndex({ categories }: { categories: Category[] }) {
   return (
-    <section aria-labelledby="subjects-title" className="section-y">
+    <section aria-labelledby="subjects-title" className="pt-[clamp(1.5rem,1rem+3vw,3rem)] pb-[clamp(5rem,3rem+8vw,11rem)]">
       <div className="container-x grid gap-14 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-32">

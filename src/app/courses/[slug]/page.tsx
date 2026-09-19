@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { faqs, purchaseFaqIds } from "@/content/faq";
 import { courseIncludes, promises } from "@/content/pages";
@@ -13,11 +12,13 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { CourseText } from "@/components/ui/RichText";
 import { ArrowLink } from "@/components/ui/Button";
 import { EnrolButton, EnrolPanel, type EnrolPanelProps } from "@/components/course/EnrolPanel";
+import { CourseFacts, type CourseFact } from "@/components/course/CourseFacts";
 import { Curriculum } from "@/components/course/Curriculum";
 import { PreviewDialog, type PreviewLesson } from "@/components/course/PreviewDialog";
 import { CourseCard } from "@/components/course/CourseCard";
 import { PriceTag } from "@/components/course/PriceTag";
 import { CourseSection, HowItWorks, InstructorFeature, LearningOutcomes, Requirements, Reviews } from "@/components/course/CourseSections";
+import { Award, BarChart, Clock, Globe, ListVideo } from "@/components/ui/Icons";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
 import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
@@ -83,12 +84,12 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
     { label: course.level === "ALL_LEVELS" ? levelLabel.ALL_LEVELS : `${levelLabel[course.level]} level` },
   ];
 
-  const facts = [
-    { label: "Lessons", value: String(course.lessonCount) },
-    ...(duration ? [{ label: "Duration", value: duration }] : []),
-    { label: "Level", value: levelLabel[course.level] },
-    { label: "Language", value: course.language === "en" ? "English" : course.language.toUpperCase() },
-    ...(course.certificateEnabled ? [{ label: "Certificate", value: "On completion" }] : []),
+  const facts: CourseFact[] = [
+    { label: "Lessons", value: String(course.lessonCount), icon: ListVideo },
+    ...(duration ? [{ label: "Duration", value: duration, icon: Clock }] : []),
+    { label: "Level", value: levelLabel[course.level], icon: BarChart },
+    { label: "Language", value: course.language === "en" ? "English" : course.language.toUpperCase(), icon: Globe },
+    ...(course.certificateEnabled ? [{ label: "Certificate", value: "On completion", icon: Award }] : []),
   ];
 
   const [keepPromise, certificatePromise, refundPromise] = promises;
@@ -123,21 +124,10 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
               </span>
             </h1>
             {course.subtitle && <p className="mt-7 max-w-2xl text-lead text-ink-soft animate-rise [animation-delay:200ms]">{course.subtitle}</p>}
-            <p className="mt-6 text-[0.9375rem] text-muted animate-rise [animation-delay:260ms]">
-              Taught by{" "}
-              <Link href={`/instructors/${course.instructorSlug}`} className="link-quiet text-ink">
-                {course.instructor}
-              </Link>
-            </p>
 
-            <dl className="mt-12 grid grid-cols-2 border-t border-line animate-rise [animation-delay:320ms] sm:grid-cols-3 xl:grid-cols-5">
-              {facts.map((f) => (
-                <div key={f.label} className="border-b border-line py-5 pr-4 xl:border-b-0">
-                  <dt className="text-[0.8125rem] text-muted">{f.label}</dt>
-                  <dd className="mt-1 font-display text-[1.375rem] leading-tight text-ink">{f.value}</dd>
-                </div>
-              ))}
-            </dl>
+            <div className="mt-10 animate-rise [animation-delay:320ms]">
+              <CourseFacts instructor={course.instructor} instructorSlug={course.instructorSlug} studentCount={course.studentCount} facts={facts} />
+            </div>
           </header>
 
           {/* Enrolment: sticky beside the whole course on desktop, straight after the hero on mobile */}

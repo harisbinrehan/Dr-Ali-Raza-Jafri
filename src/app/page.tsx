@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { faqs, purchaseFaqIds } from "@/content/faq";
-import { home } from "@/content/pages";
+import { home, promises } from "@/content/pages";
 import { getCategories, getContact, getCourse, getCourses, getPolicy, getStats, upgradeThumbnail } from "@/lib/catalog";
-import { faqsWithPolicy } from "@/lib/policy-text";
+import { faqsWithPolicy, fillPolicy } from "@/lib/policy-text";
 import { revealDelay } from "@/lib/motion";
-import { site } from "@/lib/site";
 import { Hero } from "@/components/home/Hero";
-import { InstructorIntro } from "@/components/home/InstructorIntro";
+import { PromiseCard } from "@/components/home/PromiseCard";
 import { SubjectIndex } from "@/components/home/SubjectIndex";
 import { Commitments } from "@/components/home/Commitments";
 import { FinalCta } from "@/components/home/FinalCta";
@@ -36,10 +35,6 @@ export default async function HomePage() {
   const [featured, featuredImage] = await Promise.all([getCourse(featuredSummary.slug), upgradeThumbnail(featuredSummary.thumbnailUrl)]);
   const gridCourses = rest.slice(0, 6);
 
-  const byInstructor = courses.filter((c) => c.instructorSlug === site.instructorSlug);
-  const lessonHours = Math.round(byInstructor.reduce((sum, c) => sum + c.totalDurationSeconds, 0) / 3600);
-  const instructorSubjects = new Set(byInstructor.map((c) => c.category?.slug).filter(Boolean)).size;
-
   return (
     <>
       <Hero
@@ -51,13 +46,7 @@ export default async function HomePage() {
         ]}
       />
 
-      <InstructorIntro
-        stats={[
-          { value: String(byInstructor.length), label: "Courses" },
-          { value: String(instructorSubjects), label: "Subjects" },
-          { value: `${lessonHours}h`, label: "Of lessons" },
-        ]}
-      />
+      <PromiseCard items={promises.map((p) => fillPolicy(p.short, policy))} />
 
       <SubjectIndex categories={categories} />
 

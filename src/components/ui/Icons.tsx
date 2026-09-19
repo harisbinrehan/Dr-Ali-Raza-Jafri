@@ -41,6 +41,12 @@ export const ChevronDown = (p: IconProps) => (
   </Icon>
 );
 
+export const ChevronRight = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="m9 6 6 6-6 6" />
+  </Icon>
+);
+
 
 export const Search = (p: IconProps) => (
   <Icon {...p}>
@@ -87,5 +93,51 @@ export const User = (p: IconProps) => (
   <Icon {...p}>
     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
     <circle cx="12" cy="7" r="4" />
+  </Icon>
+);
+
+export const ListVideo = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 6h16M4 12h10M4 18h7" />
+  </Icon>
+);
+
+export const Clock = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M12 7.5V12l3 2" />
+  </Icon>
+);
+
+export const BarChart = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M5 19v-9M12 19V5M19 19v-6" />
+  </Icon>
+);
+
+export const Globe = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="12" r="8.5" />
+    <path d="M3.5 12h17M12 3.5c2.5 2.3 3.8 5.3 3.8 8.5s-1.3 6.2-3.8 8.5c-2.5-2.3-3.8-5.3-3.8-8.5S9.5 5.8 12 3.5Z" />
+  </Icon>
+);
+
+export const Award = (p: IconProps) => (
+  <Icon {...p}>
+    <circle cx="12" cy="8.5" r="5" />
+    <path d="M9 12.8 7.5 21l4.5-2.5 4.5 2.5-1.5-8.2" />
+  </Icon>
+);
+
+export const InfinityIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M7 8.5a3.5 3.5 0 1 0 0 7c1.9 0 3.5-1.75 5-3.5s3.1-3.5 5-3.5a3.5 3.5 0 1 1 0 7c-1.9 0-3.5-1.75-5-3.5s-3.1-3.5-5-3.5Z" />
+  </Icon>
+);
+
+export const Refresh = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" />
+    <path d="M18 3v4h-4M6 21v-4h4" />
   </Icon>
 );

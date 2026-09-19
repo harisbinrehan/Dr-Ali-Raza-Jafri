@@ -43,10 +43,10 @@
 }
 
 [data-theme="dark"] {
-  /* Deep ink navy with a teal glow; orange stays on the actions. */
-  --canvas: #0b1220;
-  --canvas-alt: #0f1829;
-  --surface: #121b2c;
+  /* Deep ink navy with a teal glow. */
+  --canvas: #070c16;
+  --canvas-alt: #0b1220;
+  --surface: #0f1829;
   --ink: #f7f4ee;
   --ink-soft: rgb(247 244 238 / 0.8);
   --muted: #a7adbb;
@@ -63,9 +63,9 @@
   --deep-line: rgb(255 255 255 / 0.1);
   --deep-accent: #7cc4b8;
 
-  --btn-bg: #7cc4b8;
+  --btn-bg: #f7f4ee;
   --btn-fg: #0b1222;
-  --btn-hover: #9ad4c9;
+  --btn-hover: #eee9e0;
   --btn-deep-bg: #7cc4b8;
   --btn-deep-fg: #0b1222;
   --btn-deep-hover: #9ad4c9;

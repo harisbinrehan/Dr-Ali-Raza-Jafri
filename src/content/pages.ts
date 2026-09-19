@@ -20,14 +20,17 @@ export const home = {
 export const promises = [
   {
     title: "Buy once, keep it",
+    short: "Buy once, keep it. No subscription.",
     body: "No subscription. A course you buy stays in your library, including the updates an instructor makes to it later.",
   },
   {
     title: "A certificate that checks out",
+    short: "Certificates with a publicly verifiable serial.",
     body: "Each one carries a serial anyone can verify from a public link, so it stands up to being shown to an employer.",
   },
   {
     title: "Refundable",
+    short: "Refundable within {refundDays} days, no justification needed.",
     body: "Changed your mind? Ask within the refund window and we return it. You do not have to justify it.",
   },
 ];

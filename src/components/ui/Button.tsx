@@ -28,9 +28,8 @@ export function buttonClasses({ variant = "primary", size = "md", className }: {
   return cn(base, variants[variant], sizes[size], className);
 }
 
-/** Square outlined icon button (theme, cart, menu) — as in the Amir Engineering navbar. */
-export const iconButtonClasses =
-  "relative inline-grid size-9 shrink-0 place-items-center rounded-lg border border-line-strong bg-canvas text-ink transition-colors hover:bg-ink/[0.06] dark:bg-white/[0.04] dark:hover:bg-white/[0.08] [&_svg]:size-4";
+/** Plain icon button (theme, cart, menu): no border or fill, just the glyph. */
+export const iconButtonClasses = "relative inline-grid size-9 shrink-0 place-items-center rounded-lg text-ink transition-colors hover:bg-ink/[0.06] [&_svg]:size-5";
 
 function Arrow() {
   return <ArrowRight className="size-4 shrink-0 transition-transform duration-700 ease-(--ease-editorial) group-hover/btn:translate-x-1" />;
