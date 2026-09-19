@@ -69,7 +69,7 @@
     true,
   );
 
-  // Programmatic navigation (e.g. "Browse courses" buttons).
+  // Programmatic navigation (e.g. "Browse courses" buttons, navigating lessons).
   ["pushState", "replaceState"].forEach(function (name) {
     var original = history[name];
     history[name] = function (state, title, url) {
@@ -78,7 +78,11 @@
         location.assign(u.href);
         return;
       }
+      var oldPath = location.pathname;
       var result = original.apply(this, arguments);
+      if (location.pathname !== oldPath) {
+        window.scrollTo(0, 0);
+      }
       updateBottomNav();
       return result;
     };

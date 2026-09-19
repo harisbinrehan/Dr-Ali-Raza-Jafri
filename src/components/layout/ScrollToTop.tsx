@@ -1,15 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
-/** Every route change starts scrolled to the top, regardless of where the previous page left off. */
+/** Every route or search parameter change starts scrolled to the top, regardless of where the previous view left off. */
 export function ScrollToTop() {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, searchParams]);
 
   return null;
 }

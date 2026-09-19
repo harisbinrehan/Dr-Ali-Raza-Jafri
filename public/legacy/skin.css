@@ -259,6 +259,14 @@ html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-slate-100 {
 body:has(.aa-bottom-nav) {
   padding-bottom: calc(4rem + env(safe-area-inset-bottom));
 }
+/* Pages built to exactly fill the viewport (sign-in, register) would
+ * otherwise overshoot by the bottom nav's height and gain a scrollbar that
+ * wasn't there before — shrink them by the same amount the body padding adds. */
+@media (max-width: 1023px) {
+  body:has(.aa-bottom-nav) .min-h-screen {
+    min-height: calc(100dvh - 4rem - env(safe-area-inset-bottom));
+  }
+}
 @media (min-width: 1024px) {
   body:has(.aa-bottom-nav) {
     padding-bottom: 0;
