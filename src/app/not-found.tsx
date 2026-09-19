@@ -2,6 +2,7 @@ import Link from "next/link";
 import { getCourses, upgradeThumbnail } from "@/lib/catalog";
 import { displayTitle } from "@/lib/format";
 import { ArrowLink, ButtonLink } from "@/components/ui/Button";
+import { ArrowRight } from "@/components/ui/Icons";
 import { CourseImage } from "@/components/course/CourseImage";
 import { PriceTag } from "@/components/course/PriceTag";
 import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
@@ -35,20 +36,25 @@ export default async function NotFound() {
           {featured && (
             <div className="lg:col-span-4 lg:col-start-9">
               <p className="label text-on-deep-muted">While you&rsquo;re here</p>
-              <article className="group relative mt-5">
+              <article className="group relative mt-5 overflow-hidden rounded-2xl border border-deep-line">
                 <div className="relative">
-                  <CourseImage src={featuredImage} title={displayTitle(featured.title)} sizes="(min-width: 1024px) 320px, 90vw" className="rounded-lg" />
+                  <CourseImage src={featuredImage} title={displayTitle(featured.title)} sizes="(min-width: 1024px) 320px, 90vw" />
                   <span className="label absolute left-4 top-4 rounded-full bg-canvas/90 px-3 py-1 text-ink backdrop-blur">Featured</span>
                 </div>
-                <p className="label mt-5 text-eyebrow-deep">{featured.category?.name}</p>
-                <h3 className="mt-2 font-display text-h4 text-on-deep">
-                  <Link href={`/courses/${featured.slug}`} className="after:absolute after:inset-0 after:content-['']">
-                    {displayTitle(featured.title)}
-                  </Link>
-                </h3>
-                <div className="mt-4 flex items-center justify-between border-t border-deep-line pt-4">
-                  <span className="text-[0.8125rem] text-on-deep-muted">{featured.instructor}</span>
-                  <PriceTag priceCents={featured.priceCents} effectivePriceCents={featured.effectivePriceCents} currency={featured.currency} tone="deep" />
+                <div className="p-5">
+                  <p className="label text-eyebrow-deep">{featured.category?.name}</p>
+                  <h3 className="mt-2 font-display text-h4 text-on-deep">
+                    <Link href={`/courses/${featured.slug}`} className="after:absolute after:inset-0 after:content-['']">
+                      {displayTitle(featured.title)}
+                    </Link>
+                  </h3>
+                  <div className="mt-4 flex items-center justify-between border-t border-deep-line pt-4">
+                    <span className="text-[0.8125rem] text-on-deep-muted">{featured.instructor}</span>
+                    <span className="flex items-center gap-2">
+                      <PriceTag priceCents={featured.priceCents} effectivePriceCents={featured.effectivePriceCents} currency={featured.currency} tone="deep" />
+                      <ArrowRight className="size-3.5 text-on-deep transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+                    </span>
+                  </div>
                 </div>
               </article>
             </div>

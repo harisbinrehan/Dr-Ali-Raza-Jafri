@@ -20,11 +20,11 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
   return (
     <div className="relative isolate">
       <DarkBackdrop />
-      <div className="container-x pb-32 pt-16">
-        <header className="grid gap-6 pb-14 pt-12 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-20 lg:pt-20">
+      <div className="container-x pb-24 pt-8">
+        <header className="grid gap-4 pb-8 pt-4 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-12 lg:pt-8">
           <div className="lg:col-span-8">
             <p className="label text-eyebrow animate-fade">The courses</p>
-            <h1 className="mt-6 font-display text-h1 text-ink">
+            <h1 className="mt-4 font-display text-h1 text-ink">
               <span className="mask">
                 <span className="block animate-mask">Browse courses</span>
               </span>

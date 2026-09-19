@@ -13,7 +13,7 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
   const meta = [plural(course.lessonCount, "lesson"), formatDuration(course.totalDurationSeconds), levelLabel[course.level]].filter(Boolean);
 
   return (
-    <article className="group relative grid gap-10 lg:grid-cols-12 lg:gap-8">
+    <article className="group relative grid gap-6 overflow-hidden rounded-2xl border border-line bg-surface lg:grid-cols-12 lg:gap-0">
       <div data-reveal="image" className="lg:col-span-7">
         <CourseImage
           src={imageUrl}
@@ -23,7 +23,7 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
         />
       </div>
 
-      <div className="flex flex-col lg:col-span-4 lg:col-start-9">
+      <div className="flex flex-col p-6 sm:p-8 lg:col-span-5 lg:col-start-8 lg:py-10">
         <p data-reveal className="label text-eyebrow">
           Featured · {course.category?.name}
         </p>

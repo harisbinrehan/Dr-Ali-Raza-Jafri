@@ -92,7 +92,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
 
   return (
     <div>
-      <div className="grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-8">
+      <div className="grid gap-5 lg:grid-cols-12 lg:items-end lg:gap-8">
         <div className="relative lg:col-span-8">
           <label htmlFor="catalog-search" className="sr-only">
             Search courses
@@ -130,7 +130,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
       </div>
 
       {/* Subjects: a quiet tab rail rather than a row of pills. */}
-      <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1.25rem,4.5vw,4rem)] mt-10 border-b border-line bg-canvas/92 px-[clamp(1.25rem,4.5vw,4rem)] backdrop-blur-xl transition-[top] duration-700 ease-(--ease-editorial)">
+      <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1.25rem,4.5vw,4rem)] mt-6 border-b border-line bg-canvas/92 px-[clamp(1.25rem,4.5vw,4rem)] backdrop-blur-xl transition-[top] duration-700 ease-(--ease-editorial)">
         <div role="group" aria-label="Filter by subject" className="no-scrollbar -mb-px flex gap-7 overflow-x-auto pr-10 [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)] lg:pr-0 lg:[mask-image:none]">
           {tabs.map((c) => {
             const active = category === c.slug;
@@ -153,7 +153,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
         </div>
       </div>
 
-      <div className="mt-10 flex flex-wrap items-baseline justify-between gap-3">
+      <div className="mt-6 flex flex-wrap items-baseline justify-between gap-3">
         <p role="status" className="text-[0.9375rem] text-muted">
           {plural(results.length, "course")}
           {activeCategory && (

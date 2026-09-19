@@ -5,6 +5,7 @@ import { displayTitle } from "@/lib/format";
 import { revealDelay } from "@/lib/motion";
 import { site } from "@/lib/site";
 import { ButtonLink } from "@/components/ui/Button";
+import { ArrowRight } from "@/components/ui/Icons";
 import { CourseImage } from "@/components/course/CourseImage";
 import { PriceTag } from "@/components/course/PriceTag";
 import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
@@ -73,7 +74,10 @@ export function Hero({ featured, stats }: HeroProps) {
                 <p className="mt-2 font-display text-h3 leading-snug text-ink">{displayTitle(featured.title)}</p>
                 <div className="mt-5 flex items-center justify-between">
                   <span className="text-[0.9375rem] text-muted">{featured.instructor}</span>
-                  <PriceTag priceCents={featured.priceCents} effectivePriceCents={featured.effectivePriceCents} currency={featured.currency} />
+                  <span className="flex items-center gap-2">
+                    <PriceTag priceCents={featured.priceCents} effectivePriceCents={featured.effectivePriceCents} currency={featured.currency} />
+                    <ArrowRight className="size-4 text-ink transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+                  </span>
                 </div>
               </div>
             </Link>

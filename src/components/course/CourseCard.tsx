@@ -16,15 +16,15 @@ type CourseCardProps = {
 };
 
 /**
- * Image-first catalogue entry. No box, no shadow: the photograph, a quiet
+ * Image-first catalogue entry, in a bordered card: the photograph, a quiet
  * subject line, the title in display type, and the facts on a hairline.
- * The whole card is one link target.
+ * The whole card is one link target, with an arrow that marks it as such.
  */
 export function CourseCard({ course, headingLevel: Heading = "h3", preload, className }: CourseCardProps) {
   const meta = [plural(course.lessonCount, "lesson"), formatDuration(course.totalDurationSeconds)].filter(Boolean).join(" · ");
 
   return (
-    <article className={cn("group relative flex h-full flex-col", className)}>
+    <article className={cn("group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface", className)}>
       <CourseImage
         src={course.thumbnailUrl}
         title={displayTitle(course.title)}
@@ -33,7 +33,7 @@ export function CourseCard({ course, headingLevel: Heading = "h3", preload, clas
         imageClassName="transition-transform duration-[1600ms] ease-(--ease-editorial) group-hover:scale-[1.035]"
       />
 
-      <div className="flex flex-1 flex-col pt-6">
+      <div className="flex flex-1 flex-col p-5">
         <p className="text-[0.8125rem] text-muted">
           {course.category?.name}
           <span aria-hidden="true" className="mx-2 text-line-strong">/</span>
@@ -53,7 +53,7 @@ export function CourseCard({ course, headingLevel: Heading = "h3", preload, clas
             <span className="text-[0.8125rem] tabular-nums text-muted">{meta}</span>
             <span className="flex items-center gap-2">
               <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} />
-              <ArrowRight className="size-3.5 -translate-x-1 text-ink opacity-0 transition-[opacity,transform] duration-700 ease-(--ease-editorial) group-hover:translate-x-0 group-hover:opacity-100" />
+              <ArrowRight className="size-3.5 text-ink transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
             </span>
           </div>
         </div>

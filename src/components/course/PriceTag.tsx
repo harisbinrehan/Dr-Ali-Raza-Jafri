@@ -16,7 +16,7 @@ export function PriceTag({ priceCents, effectivePriceCents, currency, size = "sm
   const onSale = effectivePriceCents < priceCents;
   return (
     <span className={cn("inline-flex items-baseline gap-2.5 tabular-nums", className)}>
-      <span className={cn(size === "lg" ? "font-display text-[2.75rem] leading-none" : "text-[0.875rem] font-semibold", text)}>
+      <span className={cn(size === "lg" ? "font-display text-[1.875rem] leading-none" : "text-[0.875rem] font-semibold", text)}>
         {formatPrice(effectivePriceCents, currency)}
       </span>
       {onSale && (

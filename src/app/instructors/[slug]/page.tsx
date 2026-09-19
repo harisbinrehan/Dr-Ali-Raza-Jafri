@@ -71,7 +71,7 @@ export default async function InstructorPage({ params }: PageProps<"/instructors
               {stats.map((s) => (
                 <div key={s.label} className="flex flex-col-reverse py-5">
                   <dt className="mt-1.5 text-[0.8125rem] text-muted">{s.label}</dt>
-                  <dd className="font-display text-[2.5rem] leading-none tabular-nums text-ink">{s.value}</dd>
+                  <dd className="font-display text-[2rem] leading-none tabular-nums text-ink">{s.value}</dd>
                 </div>
               ))}
             </dl>

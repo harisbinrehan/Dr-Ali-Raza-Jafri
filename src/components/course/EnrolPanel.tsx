@@ -112,7 +112,7 @@ export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePri
 
         <div className="p-7">
           {status === "owned" ? (
-            <p className="font-display text-[2.75rem] leading-none text-ink">Owned</p>
+            <p className="font-display text-[1.875rem] leading-none text-ink">Owned</p>
           ) : (
             <PriceTag priceCents={priceCents} effectivePriceCents={effectivePriceCents} currency={currency} size="lg" />
           )}
