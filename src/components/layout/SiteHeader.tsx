@@ -110,7 +110,9 @@ export function SiteHeader() {
               </Link>
             </span>
             <ThemeToggle />
-            <CartButton />
+            <span className="hidden lg:contents">
+              <CartButton />
+            </span>
             <span className="contents lg:hidden">
               <button
                 type="button"

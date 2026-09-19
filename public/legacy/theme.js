@@ -102,7 +102,21 @@
     return '<span class="aa-bn-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + "</svg></span>";
   }
 
+  // Signed-in cart count comes from the platform's own header badge (its cart
+  // is server-side once signed in, not the guest localStorage list). That
+  // header link is hidden with display:none via CSS, so it's still readable
+  // here — this mirrors whatever count it has rather than guessing at how the
+  // platform tracks it.
+  function readHeaderCartCount() {
+    var link = document.querySelector('header a[href="/cart"]');
+    if (!link) return null;
+    var match = link.textContent.match(/\d+/);
+    return match ? parseInt(match[0], 10) : 0;
+  }
+
   function readCartCount() {
+    var fromHeader = readHeaderCartCount();
+    if (fromHeader !== null) return fromHeader;
     try {
       var parsed = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
       return Array.isArray(parsed) ? parsed.length : 0;
@@ -181,4 +195,29 @@
   });
   window.addEventListener("pageshow", updateBottomNav);
   window.addEventListener("popstate", updateBottomNav);
+
+  // The platform's own header cart badge updates as its React tree re-renders
+  // (e.g. after an add-to-cart call). Mirror those changes onto the bottom
+  // bar's badge, ignoring the bottom bar's own DOM so this can't loop on itself.
+  var pendingUpdate = null;
+  function scheduleUpdate() {
+    if (pendingUpdate) return;
+    pendingUpdate = setTimeout(function () {
+      pendingUpdate = null;
+      updateBottomNav();
+    }, 50);
+  }
+  function isInsideBottomNav(node) {
+    var el = node.nodeType === 1 ? node : node.parentElement;
+    return !!(el && el.closest && el.closest(".aa-bottom-nav"));
+  }
+  var cartObserver = new MutationObserver(function (mutations) {
+    for (var i = 0; i < mutations.length; i++) {
+      if (!isInsideBottomNav(mutations[i].target)) {
+        scheduleUpdate();
+        return;
+      }
+    }
+  });
+  cartObserver.observe(document.body, { childList: true, subtree: true, characterData: true });
 })();

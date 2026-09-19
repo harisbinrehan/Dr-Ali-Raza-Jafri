@@ -180,6 +180,15 @@ header .rounded-full.size-9 {
   display: none !important;
 }
 
+/* Cart now lives only in the mobile bottom bar; hidden here so it isn't
+ * duplicated. Hidden with display:none (not removed) so theme.js can still
+ * read its live count and mirror it onto the bottom bar's badge. */
+@media (max-width: 1023px) {
+  header a[href="/cart"] {
+    display: none !important;
+  }
+}
+
 /* ------------------------------------------------------------ Responsive fixes
  * The platform's single-column grids size to their content on phones, so two
  * side-by-side inputs push checkout wider than the screen. */
@@ -197,6 +206,34 @@ textarea {
 .sticky.top-0.z-20.rounded-t-panel {
   position: static !important;
   z-index: auto !important;
+}
+
+/* --- Dashboard Featured Card Overrides ---
+ * The legacy "Continue learning" card natively uses bg-slate-900 (dark card).
+ * In our dark mode variable inversion, that turns it bright off-white. 
+ * These rules force the card to stay dark and style its internal elements.
+ */
+html[data-theme="dark"] .rounded-panel.bg-slate-900 {
+  background-color: var(--surface) !important;
+  border-color: var(--line) !important;
+}
+/* Force all text inside the dark card to be light */
+html[data-theme="dark"] .rounded-panel.bg-slate-900 * {
+  color: var(--ink);
+}
+/* Style the primary action button inside the card */
+html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-white {
+  background-color: var(--skin-button) !important;
+  color: var(--skin-button-text) !important;
+  border-color: var(--skin-button) !important;
+}
+/* Ensure button text inherits the button's text color */
+html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-white * {
+  color: inherit !important;
+}
+/* Style the progress bar track inside the card */
+html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-slate-100 {
+  background-color: var(--line-strong) !important;
 }
 
 /* ------------------------------------------------------------ Bottom nav
