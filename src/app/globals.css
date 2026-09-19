@@ -197,17 +197,24 @@
   [data-reveal] {
     transition:
       opacity 0.9s var(--ease-out-expo),
-      transform 0.9s var(--ease-out-expo),
-      clip-path 1.2s var(--ease-in-out-quart);
+      transform 0.9s var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
   [data-reveal]:not(.is-revealed) {
     opacity: 0;
     transform: translateY(28px);
   }
+  /* Images wipe upwards. The clip sits on the child so the observed element keeps
+     its full box — a fully clipped target would never register as intersecting. */
   [data-reveal="image"]:not(.is-revealed) {
     opacity: 1;
     transform: none;
+  }
+  [data-reveal="image"] > * {
+    transition: clip-path 1.2s var(--ease-in-out-quart);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  [data-reveal="image"]:not(.is-revealed) > * {
     clip-path: inset(100% 0 0 0);
   }
 }
@@ -225,6 +232,8 @@
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+  }
+  [data-reveal="image"] > * {
     clip-path: none !important;
   }
   [data-parallax] {

@@ -77,7 +77,7 @@ export function Hero({ featured, stats }: HeroProps) {
             </figure>
           </Parallax>
 
-          <Parallax speed={0.05} className="relative z-10 -mt-12 ml-auto w-[88%] sm:w-[70%] lg:absolute lg:-bottom-6 lg:-left-16 lg:mt-0 lg:ml-0 lg:w-[19rem]">
+          <Parallax speed={0.05} className="relative z-10 -mt-10 ml-auto w-[82%] sm:w-[62%] lg:absolute lg:-bottom-6 lg:-left-16 lg:mt-0 lg:ml-0 lg:w-[19rem]">
             <Link
               href={`/courses/${featured.slug}`}
               className="group block rounded-md bg-paper p-3 text-ink shadow-float animate-rise [animation-delay:700ms]"

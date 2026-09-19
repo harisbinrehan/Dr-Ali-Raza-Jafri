@@ -3,15 +3,16 @@
 import { useEffect, useRef, type ReactNode } from "react";
 
 /**
- * Moves its content at `speed` × scroll distance while on screen. Transform
- * only, one rAF per frame, and switched off under prefers-reduced-motion (CSS).
+ * Moves its content at `speed` × scroll distance while on screen (desktop widths).
+ * Transform only, one rAF per frame, and off under prefers-reduced-motion.
  */
 export function Parallax({ speed = -0.08, className, children }: { speed?: number; className?: string; children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Desktop only: on phones the offsets are large enough to misalign stacked images.
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce), (max-width: 1023px)").matches) return;
     let frame = 0;
     let visible = false;
 
