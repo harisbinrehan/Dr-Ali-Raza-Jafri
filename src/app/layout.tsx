@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { getCategories, getContact } from "@/lib/catalog";
 import { site } from "@/lib/site";
@@ -11,9 +11,11 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
-// Headings: Plus Jakarta Sans (600–700). Text: Inter (400–500).
-const heading = Plus_Jakarta_Sans({ variable: "--font-heading", subsets: ["latin"], weight: ["600", "700"], display: "swap" });
-const body = Inter({ variable: "--font-body", subsets: ["latin"], display: "swap" });
+import { GlobalNavigationLoader } from "@/components/layout/GlobalNavigationLoader";
+
+// One functional sans-serif for both headings and body, Udemy-style: hierarchy
+// comes from weight (400–700), not from switching typefaces.
+const body = Inter({ variable: "--font-body", subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -44,7 +46,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const [contact, categories] = await Promise.all([getContact(), getCategories()]);
 
   return (
-    <html lang="en" className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
+    <html lang="en" className={body.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -62,6 +64,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <BottomNav />
           <RevealObserver />
           <ScrollToTop />
+          <GlobalNavigationLoader />
         </ThemeProvider>
         <JsonLd data={organizationSchema(contact)} />
       </body>

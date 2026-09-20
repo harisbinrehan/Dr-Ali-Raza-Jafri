@@ -60,7 +60,7 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="how-title" className="section-y bg-canvas-alt">
+      <section aria-labelledby="how-title" className="section-y bg-canvas-alt dark:bg-transparent">
         <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
           <div className="md:col-span-4 lg:col-span-4">
             <RevealHeading id="how-title" className="text-h2 text-ink">

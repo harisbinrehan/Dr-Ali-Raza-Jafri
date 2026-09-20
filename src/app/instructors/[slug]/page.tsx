@@ -12,7 +12,6 @@ import { CourseCard } from "@/components/course/CourseCard";
 import { ArrowLink } from "@/components/ui/Button";
 import { Parallax } from "@/components/ui/Parallax";
 import { RevealHeading } from "@/components/ui/SectionHeading";
-import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 export const revalidate = 300;
 

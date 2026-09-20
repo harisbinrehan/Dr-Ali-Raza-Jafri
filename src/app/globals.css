@@ -104,8 +104,11 @@ html.has-token .aa-unauth-links {
   --color-btn-deep-fg: var(--btn-deep-fg);
   --color-btn-deep-hover: var(--btn-deep-hover);
 
-  --font-display: var(--font-heading), "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  /* One family everywhere — headings aren't a different typeface, just a
+     heavier weight of the same one (Udemy-style: hierarchy from weight and
+     size, not from switching faces). */
   --font-sans: var(--font-body), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-sans);
 }
 
 @theme {
@@ -116,26 +119,27 @@ html.has-token .aa-unauth-links {
   --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Type scale — Plus Jakarta Sans headings (600–700), Inter text (400–500).
-     Compact pass: every step trimmed roughly 15–20% for a tighter, more
-     professional feel, while keeping the same fluid mobile→desktop ramp. */
-  --text-hero: clamp(2.125rem, 1.4rem + 3vw, 3.25rem);
-  --text-hero--line-height: 1.1;
-  --text-hero--letter-spacing: -0.03em;
-  --text-h1: clamp(1.875rem, 1.3rem + 2.4vw, 2.875rem);
-  --text-h1--line-height: 1.12;
-  --text-h1--letter-spacing: -0.025em;
-  --text-h2: clamp(1.5rem, 1.1rem + 1.7vw, 2.375rem);
-  --text-h2--line-height: 1.18;
-  --text-h2--letter-spacing: -0.02em;
-  --text-h3: clamp(1.1875rem, 1.05rem + 0.7vw, 1.5625rem);
-  --text-h3--line-height: 1.22;
-  --text-h3--letter-spacing: -0.015em;
-  --text-h4: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
-  --text-h4--line-height: 1.32;
-  --text-h4--letter-spacing: -0.01em;
-  --text-lead: clamp(0.9375rem, 0.9rem + 0.2vw, 1.0625rem);
-  --text-lead--line-height: 1.55;
+  /* Type scale — one sans (Inter) throughout. Udemy-style: a dense,
+     functional marketplace scale rather than editorial display type —
+     hierarchy comes from weight (600/700) and modest size steps, with
+     near-neutral letter-spacing instead of tight editorial tracking. */
+  --text-hero: clamp(1.75rem, 1.35rem + 1.8vw, 2.5rem);
+  --text-hero--line-height: 1.2;
+  --text-hero--letter-spacing: -0.01em;
+  --text-h1: clamp(1.5rem, 1.2rem + 1.3vw, 2rem);
+  --text-h1--line-height: 1.25;
+  --text-h1--letter-spacing: -0.01em;
+  --text-h2: clamp(1.3125rem, 1.1rem + 0.9vw, 1.625rem);
+  --text-h2--line-height: 1.28;
+  --text-h2--letter-spacing: -0.005em;
+  --text-h3: clamp(1.125rem, 1.02rem + 0.5vw, 1.3125rem);
+  --text-h3--line-height: 1.3;
+  --text-h3--letter-spacing: 0em;
+  --text-h4: clamp(1rem, 0.96rem + 0.2vw, 1.0625rem);
+  --text-h4--line-height: 1.35;
+  --text-h4--letter-spacing: 0em;
+  --text-lead: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem);
+  --text-lead--line-height: 1.5;
 
   --animate-rise: rise 1.1s var(--ease-editorial) both;
   --animate-fade: fade 1.4s var(--ease-editorial) both;
@@ -187,15 +191,37 @@ html.has-token .aa-unauth-links {
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
   }
+  /* One ambience for the whole site, fixed to the viewport so it never seams
+     between sections: navy, a wide teal glow, a whisper of warmth in the
+     opposite corner, and fine grain that dithers the gradients. The platform's
+     own pages (sign-in, cart, checkout, /learn, dashboards) carry the identical
+     rule in public/legacy/skin.css. */
   [data-theme="dark"] body {
     background-color: #0b1220;
     background-image:
-      radial-gradient(70% 60% at 85% 10%, rgb(26 138 124 / 0.22), transparent 60%),
-      radial-gradient(40% 40% at 0% 100%, rgb(184 146 74 / 0.1), transparent 60%);
-    background-size: 100% 100%, 100% 100%;
-    background-position: 0 0, 0 0;
-    background-repeat: no-repeat, no-repeat;
-    background-attachment: fixed, fixed;
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 .045'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(
+        62% 48% at 84% 4%,
+        rgb(124 196 184 / 0.17) 0%,
+        rgb(124 196 184 / 0.125) 18%,
+        rgb(124 196 184 / 0.082) 33%,
+        rgb(124 196 184 / 0.048) 47%,
+        rgb(124 196 184 / 0.024) 60%,
+        rgb(124 196 184 / 0.009) 72%,
+        rgb(124 196 184 / 0) 84%
+      ),
+      radial-gradient(
+        52% 44% at 0% 100%,
+        rgb(201 160 117 / 0.07) 0%,
+        rgb(201 160 117 / 0.045) 24%,
+        rgb(201 160 117 / 0.024) 44%,
+        rgb(201 160 117 / 0.009) 62%,
+        rgb(201 160 117 / 0) 78%
+      );
+    background-size: 160px 160px, 100% 100%, 100% 100%;
+    background-position: 0 0, 0 0, 0 0;
+    background-repeat: repeat, no-repeat, no-repeat;
+    background-attachment: fixed, fixed, fixed;
   }
   ::selection {
     background: var(--accent-soft);
@@ -226,8 +252,8 @@ html.has-token .aa-unauth-links {
 
 @utility font-display {
   font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.005em;
 }
 
 /* Small capitals label — used sparingly for metadata, never as decoration. */
@@ -267,10 +293,40 @@ html.has-token .aa-unauth-links {
   background-position: center top;
 }
 
+/* Film grain, and the dither that keeps the wide gradients from banding.
+   The noise is desaturated (colour speckle reads as compression artefact on a
+   dark ground) and drawn at half a CSS pixel per texel, so it resolves to real
+   1px grain on a 2× screen instead of soft blotches. */
 @utility grain {
-  opacity: 0.08;
+  opacity: 0.05;
   mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.33 .33 .33 0 0 .33 .33 .33 0 0 .33 .33 .33 0 0 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* The dark theme's ambience: a wide teal glow with a long, many-stop falloff
+   (two stops band visibly across a whole viewport) and a whisper of warmth in
+   the opposite corner. */
+@utility ambient-glow {
+  background-image:
+    radial-gradient(
+      62% 48% at 84% 4%,
+      rgb(124 196 184 / 0.17) 0%,
+      rgb(124 196 184 / 0.125) 18%,
+      rgb(124 196 184 / 0.082) 33%,
+      rgb(124 196 184 / 0.048) 47%,
+      rgb(124 196 184 / 0.024) 60%,
+      rgb(124 196 184 / 0.009) 72%,
+      rgb(124 196 184 / 0) 84%
+    ),
+    radial-gradient(
+      52% 44% at 0% 100%,
+      rgb(201 160 117 / 0.07) 0%,
+      rgb(201 160 117 / 0.045) 24%,
+      rgb(201 160 117 / 0.024) 44%,
+      rgb(201 160 117 / 0.009) 62%,
+      rgb(201 160 117 / 0) 78%
+    );
 }
 
 /* Loading placeholders: a flat tint with a soft light sweep. Blend mode keeps

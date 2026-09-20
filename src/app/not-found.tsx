@@ -5,7 +5,6 @@ import { ArrowLink, ButtonLink } from "@/components/ui/Button";
 import { ArrowRight } from "@/components/ui/Icons";
 import { CourseImage } from "@/components/course/CourseImage";
 import { PriceTag } from "@/components/course/PriceTag";
-import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 export default async function NotFound() {
   const courses = await getCourses().catch(() => []);
@@ -14,7 +13,6 @@ export default async function NotFound() {
 
   return (
     <section className="relative isolate overflow-hidden bg-deep text-on-deep">
-      <DarkBackdrop />
       <div className="container-x flex min-h-[70vh] flex-col justify-center py-16">
         <div className="grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
           <div className="md:col-span-7 lg:col-span-7">

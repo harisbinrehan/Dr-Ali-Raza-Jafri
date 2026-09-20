@@ -9,7 +9,7 @@ import { RevealHeading } from "@/components/ui/SectionHeading";
 /** Who is teaching, and why that matters — using only what the site already says. */
 export function InstructorIntro({ stats }: { stats: { value: string; label: string }[] }) {
   return (
-    <section aria-labelledby="instructor-title" className="section-y bg-canvas-alt">
+    <section aria-labelledby="instructor-title" className="section-y bg-canvas-alt dark:bg-transparent">
       <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
         <div className="md:col-span-5 lg:col-span-5">
           <figure className="lg:sticky lg:top-28">

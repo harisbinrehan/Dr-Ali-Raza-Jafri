@@ -20,7 +20,6 @@ import { PriceTag } from "@/components/course/PriceTag";
 import { CourseSection, HowItWorks, InstructorFeature, LearningOutcomes, Requirements, Reviews } from "@/components/course/CourseSections";
 import { Award, BarChart, Clock, Globe, ListVideo } from "@/components/ui/Icons";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
-import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 export const revalidate = 300;
 
@@ -106,7 +105,6 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
   return (
     <>
       <div className="relative isolate">
-        <DarkBackdrop />
         <article className="container-x grid pb-6 pt-16 md:grid-cols-12 lg:grid-cols-12 lg:gap-x-8">
           {/* Hero */}
           <header className="pb-8 pt-6 md:col-span-7 lg:col-span-7 md:col-start-1 lg:col-start-1 lg:row-start-1 lg:pb-12 lg:pt-8">

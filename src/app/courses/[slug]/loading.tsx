@@ -1,13 +1,11 @@
 import { CourseFactsSkeleton } from "@/components/course/CourseFactsSkeleton";
 import { EnrolPanelSkeleton } from "@/components/course/EnrolPanelSkeleton";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 /** Mirrors courses/[slug]/page.tsx's hero + enrol panel + body sections. */
 export default function Loading() {
   return (
     <div className="relative isolate">
-      <DarkBackdrop />
       <div className="container-x grid pb-6 pt-16 md:grid-cols-12 lg:grid-cols-12 lg:gap-x-8">
         <header className="pb-8 pt-6 md:col-span-7 md:col-start-1 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pb-12 lg:pt-8">
           <div className="flex items-center gap-2">

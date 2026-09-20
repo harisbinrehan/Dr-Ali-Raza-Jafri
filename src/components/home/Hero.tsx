@@ -8,7 +8,6 @@ import { ButtonLink } from "@/components/ui/Button";
 import { ArrowRight } from "@/components/ui/Icons";
 import { CourseImage } from "@/components/course/CourseImage";
 import { PriceTag } from "@/components/course/PriceTag";
-import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 type HeroProps = {
   featured: CourseSummary;
@@ -23,7 +22,6 @@ type HeroProps = {
 export function Hero({ featured, stats }: HeroProps) {
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-8 pt-16 sm:pb-10">
-      <DarkBackdrop />
       <div className="container-x">
         <div className="flex items-center justify-between border-b border-line pb-4 pt-8 lg:pt-10">
           <p className="label text-eyebrow animate-fade">{home.eyebrow}</p>

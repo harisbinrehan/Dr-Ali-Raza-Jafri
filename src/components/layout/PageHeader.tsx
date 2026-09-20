@@ -1,12 +1,10 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
-import { DarkBackdrop } from "@/components/theme/DarkBackdrop";
 
 /** Opening block for the text-led pages: label, masked display title, lead. */
 export function PageHeader({ eyebrow, title, lead, children, className }: { eyebrow?: string; title: string; lead?: ReactNode; children?: ReactNode; className?: string }) {
   return (
     <div className="relative isolate overflow-hidden">
-      <DarkBackdrop />
       <header className={cn("container-x pt-16", className)}>
         <div className="grid gap-6 pb-8 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pb-10 lg:pt-10">
           <div className="md:col-span-8 lg:col-span-8">
