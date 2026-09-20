@@ -1,11 +1,10 @@
 import type { ReactNode } from "react";
-import { Skeleton, SkeletonAnnounce, SkeletonText } from "@/components/ui/Skeleton";
+import { Skeleton, SkeletonText } from "@/components/ui/Skeleton";
 
 /** Matches PageHeader.tsx's structure, so real content drops in without shifting the layout. */
 export function PageHeaderSkeleton({ withLead = true, children }: { withLead?: boolean; children?: ReactNode }) {
   return (
-    <div className="container-x pt-16" aria-busy="true">
-      <SkeletonAnnounce />
+    <div className="container-x pt-16">
       <div className="grid gap-6 pb-8 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pb-10 lg:pt-10">
         <div className="md:col-span-8 lg:col-span-8">
           <Skeleton className="h-[0.8125rem] w-40" />

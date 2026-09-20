@@ -21,13 +21,13 @@ export default async function TeachPage() {
   return (
     <>
       <PageHeader eyebrow="Teach with us" title={teach.title} lead={teach.lead}>
-        <p className="mt-6 leading-relaxed text-muted animate-rise [animation-delay:300ms]">{teach.intro}</p>
+        <p className="mt-6 leading-relaxed text-muted animate-rise [animation-delay:160ms]">{teach.intro}</p>
       </PageHeader>
 
       <section aria-label="At a glance" className="section-y-sm">
         <ol className="container-x grid gap-x-8 md:grid-cols-3">
           {teach.highlights.map((h, i) => (
-            <li key={h.title} data-reveal style={revealDelay(i * 110)} className="border-t border-ink py-6 md:pr-6">
+            <li key={h.title} data-reveal style={revealDelay(i * 60)} className="border-t border-ink py-6 md:pr-6">
               <h2 className="font-display text-h3 text-ink">{fillPolicy(h.title, policy)}</h2>
               <p className="mt-5 leading-[1.6] text-muted">{fillPolicy(h.body, policy)}</p>
             </li>
@@ -44,7 +44,7 @@ export default async function TeachPage() {
               </RevealHeading>
               <div className="prose-copy max-w-[62ch]">
                 {s.paragraphs.map((p, i) => (
-                  <p key={i} data-reveal style={revealDelay(i * 80)}>
+                  <p key={i} data-reveal style={revealDelay(i * 60)}>
                     {p}
                   </p>
                 ))}

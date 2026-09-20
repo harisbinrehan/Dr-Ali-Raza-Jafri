@@ -57,7 +57,7 @@ export function EnrolButton({ courseId, free, tone = "light", size = "lg", class
   return (
     <button type="button" onClick={enrol} disabled={pending} className={buttonClasses({ variant, size, className })}>
       {pending ? "Opening checkout…" : free ? "Enrol for free" : "Buy this course"}
-      {!pending && <ArrowRight className="size-4 transition-transform duration-700 ease-(--ease-editorial) group-hover/btn:translate-x-1" />}
+      {!pending && <ArrowRight className="size-4 transition-transform duration-200 ease-(--ease-editorial) group-hover/btn:translate-x-1" />}
     </button>
   );
 }
@@ -90,7 +90,7 @@ export function EnrolPanel({ courseId, title, imageUrl, priceCents, effectivePri
               className="group absolute inset-0 flex items-end bg-gradient-to-t from-black/60 via-black/10 to-transparent p-5 text-left text-white"
             >
               <span className="flex items-center gap-3">
-                <span className="grid size-11 place-items-center bg-white text-black transition-transform duration-700 ease-(--ease-editorial) group-hover:scale-105">
+                <span className="grid size-11 place-items-center bg-white text-black transition-transform duration-200 ease-(--ease-editorial) group-hover:scale-105">
                   <Play className="ml-0.5 size-4" />
                 </span>
                 <span className="text-[0.875rem] font-semibold">Preview this course</span>

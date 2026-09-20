@@ -121,16 +121,16 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
                 <span className="block animate-mask">{title}</span>
               </span>
             </h1>
-            {course.subtitle && <p className="mt-5 max-w-2xl text-lead text-ink-soft animate-rise [animation-delay:200ms]">{course.subtitle}</p>}
+            {course.subtitle && <p className="mt-5 max-w-2xl text-lead text-ink-soft animate-rise [animation-delay:100ms]">{course.subtitle}</p>}
 
-            <div className="mt-6 animate-rise [animation-delay:320ms]">
+            <div className="mt-6 animate-rise [animation-delay:160ms]">
               <CourseFacts instructor={course.instructor} instructorSlug={course.instructorSlug} studentCount={course.studentCount} facts={facts} />
             </div>
           </header>
 
           {/* Enrolment: sticky beside the whole course on desktop, straight after the hero on mobile */}
           <aside aria-label="Enrol" className="relative z-10 md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:pt-8">
-            <div className="animate-rise [animation-delay:240ms] lg:sticky lg:top-[calc(var(--header-offset,4rem)+1.5rem)] lg:transition-[top] lg:duration-700">
+            <div className="animate-rise [animation-delay:120ms] lg:sticky lg:top-[calc(var(--header-offset,4rem)+1.5rem)] lg:transition-[top] lg:duration-700">
               <EnrolPanel
                 courseId={course.id}
                 title={title}
@@ -225,7 +225,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
             </div>
             <ul className="mt-10 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((c, i) => (
-                <li key={c.id} data-reveal style={revealDelay(i * 110)}>
+                <li key={c.id} data-reveal style={revealDelay(i * 60)}>
                   <CourseCard course={c} />
                 </li>
               ))}

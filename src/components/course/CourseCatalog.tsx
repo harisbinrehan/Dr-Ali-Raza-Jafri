@@ -130,7 +130,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
       </div>
 
       {/* Subjects: a quiet tab rail rather than a row of pills. */}
-      <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1rem,3vw,2.5rem)] mt-6 border-b border-line bg-canvas/92 px-[clamp(1rem,3vw,2.5rem)] backdrop-blur-xl transition-[top] duration-700 ease-(--ease-editorial)">
+      <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1rem,3vw,2.5rem)] mt-6 border-b border-line bg-canvas/92 px-[clamp(1rem,3vw,2.5rem)] backdrop-blur-xl transition-[top] duration-300 ease-(--ease-editorial)">
         <div role="group" aria-label="Filter by subject" className="no-scrollbar -mb-px flex gap-7 overflow-x-auto pr-10 [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)] lg:pr-0 lg:[mask-image:none]">
           {tabs.map((c) => {
             const active = category === c.slug;
@@ -141,7 +141,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
                 aria-pressed={active}
                 onClick={() => onCategoryChange(c.slug)}
                 className={cn(
-                  "flex shrink-0 items-baseline gap-1.5 border-b py-4 text-[0.875rem] transition-colors duration-500",
+                  "flex shrink-0 items-baseline gap-1.5 border-b py-4 text-[0.875rem] transition-colors duration-200",
                   active ? "border-ink font-semibold text-ink" : "border-transparent text-muted hover:text-ink",
                 )}
               >

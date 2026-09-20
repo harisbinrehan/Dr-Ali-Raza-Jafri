@@ -8,7 +8,7 @@ type Variant = "primary" | "outline" | "ghost" | "on-deep" | "outline-deep" | "d
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform,box-shadow] duration-500 ease-(--ease-editorial) active:translate-y-px disabled:pointer-events-none disabled:opacity-40";
+  "group/btn relative inline-flex select-none items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-transparent text-[0.9375rem] font-medium transition-[background-color,color,border-color,transform,box-shadow] duration-200 ease-(--ease-editorial) active:translate-y-px disabled:pointer-events-none disabled:opacity-40";
 
 const variants: Record<Variant, string> = {
   primary: "bg-btn text-btn-fg shadow-[0_1px_2px_rgb(0_0_0/0.06),0_8px_20px_-8px_rgb(15_107_97/0.45)] hover:bg-btn-hover hover:-translate-y-px hover:shadow-[0_2px_4px_rgb(0_0_0/0.08),0_12px_24px_-8px_rgb(15_107_97/0.5)]",
@@ -33,7 +33,7 @@ export function buttonClasses({ variant = "primary", size = "md", className }: {
 export const iconButtonClasses = "relative inline-grid size-9 shrink-0 place-items-center rounded-lg text-ink transition-colors hover:bg-ink/[0.06] [&_svg]:size-5";
 
 function Arrow() {
-  return <ArrowRight className="size-4 shrink-0 transition-transform duration-700 ease-(--ease-editorial) group-hover/btn:translate-x-1" />;
+  return <ArrowRight className="size-4 shrink-0 transition-transform duration-200 ease-(--ease-editorial) group-hover/btn:translate-x-1" />;
 }
 
 type LinkProps = { href: string; children: ReactNode; className?: string } & Omit<ComponentPropsWithoutRef<"a">, "href" | "className" | "children">;
@@ -90,7 +90,7 @@ export function ArrowLink({ href, children, className, ...rest }: LinkProps) {
   return (
     <SmartLink href={href} className={cn("group/arrow inline-flex items-center gap-2.5 py-2 text-[0.9375rem] font-semibold", className)} {...rest}>
       <span className="link-line pb-0.5 group-hover/arrow:bg-[length:100%_1px]">{children}</span>
-      <ArrowRight className="size-4 shrink-0 transition-transform duration-700 ease-(--ease-editorial) group-hover/arrow:translate-x-1" />
+      <ArrowRight className="size-4 shrink-0 transition-transform duration-200 ease-(--ease-editorial) group-hover/arrow:translate-x-1" />
     </SmartLink>
   );
 }

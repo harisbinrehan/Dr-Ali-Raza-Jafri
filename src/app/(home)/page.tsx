@@ -63,7 +63,7 @@ export default async function HomePage() {
 
           <ul className="mt-12 grid gap-x-6 gap-y-10 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-3">
             {gridCourses.map((course, i) => (
-              <li key={course.id} data-reveal style={revealDelay((i % 3) * 110)}>
+              <li key={course.id} data-reveal style={revealDelay((i % 3) * 60)}>
                 <CourseCard course={course} />
               </li>
             ))}

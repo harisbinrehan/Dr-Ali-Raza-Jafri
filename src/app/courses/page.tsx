@@ -28,7 +28,7 @@ export default async function CoursesPage({ searchParams }: PageProps<"/courses"
               </span>
             </h1>
           </div>
-          <p className="text-lead text-muted animate-rise [animation-delay:200ms] md:col-span-4 lg:col-span-4 lg:text-right">{plural(courses.length, "course")} available</p>
+          <p className="text-lead text-muted animate-rise [animation-delay:100ms] md:col-span-4 lg:col-span-4 lg:text-right">{plural(courses.length, "course")} available</p>
         </header>
 
         <CourseCatalog key={`${initial.category}|${initial.query}|${initial.sort}`} courses={courses} categories={categories} initial={initial} />

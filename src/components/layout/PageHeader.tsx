@@ -17,7 +17,7 @@ export function PageHeader({ eyebrow, title, lead, children, className }: { eyeb
           </div>
           {(lead || children) && (
             <div className="md:col-span-4 lg:col-span-4 lg:self-end">
-              {lead && <p className="text-lead text-ink-soft animate-rise [animation-delay:200ms]">{lead}</p>}
+              {lead && <p className="text-lead text-ink-soft animate-rise [animation-delay:100ms]">{lead}</p>}
               {children}
             </div>
           )}

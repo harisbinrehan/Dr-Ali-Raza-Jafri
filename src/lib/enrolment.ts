@@ -50,9 +50,13 @@ export function subscribeCart(onChange: () => void) {
   };
 }
 
+/** Announces a hand-off to the platform so the loading state matches a link click. */
+export const HANDOFF_EVENT = "alignodontic:handoff";
+
 /** Same behaviour as the platform's primary course button. */
 export function enrolNow(courseId: string) {
   addToCart(courseId);
+  window.dispatchEvent(new Event(HANDOFF_EVENT));
   window.location.assign(legacyRoutes.checkout);
 }
 

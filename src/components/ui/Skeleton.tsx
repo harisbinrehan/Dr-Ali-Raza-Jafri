@@ -1,11 +1,11 @@
-import type { CSSProperties } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 type Tone = "light" | "deep";
 type SkeletonProps = { className?: string; style?: CSSProperties; tone?: Tone };
 
 function toneStyle(tone: Tone | undefined): CSSProperties | undefined {
-  return tone === "deep" ? ({ "--skeleton-bg": "var(--deep-line)" } as CSSProperties) : undefined;
+  return tone === "deep" ? ({ "--skeleton-bg": "var(--skeleton-deep)" } as CSSProperties) : undefined;
 }
 
 /** A single shimmering placeholder block. Compose these to match a page's real layout. */
@@ -54,6 +54,21 @@ export function SkeletonImage({ className, tone }: { className?: string; tone?: 
 export function SkeletonButton({ size = "lg", className, tone }: { size?: "sm" | "md" | "lg"; className?: string; tone?: Tone }) {
   const heights = { sm: "h-9", md: "h-11", lg: "h-[3.25rem]" };
   return <Skeleton tone={tone} className={cn(heights[size], "rounded-lg", className)} />;
+}
+
+/**
+ * The one wrapper every route's loading.tsx uses. It owns the whole loading
+ * contract in a single place: the status role, the announcement, and the
+ * shared appearance timing (nothing for 120ms, then a short fade), so no page
+ * can invent its own loading behaviour and no two loaders can announce twice.
+ */
+export function RouteSkeleton({ children, className }: { children: ReactNode; className?: string }) {
+  return (
+    <div role="status" aria-busy="true" className={cn("route-skeleton", className)}>
+      <SkeletonAnnounce />
+      {children}
+    </div>
+  );
 }
 
 /** Announces the loading state to screen readers — every Skeleton block itself is aria-hidden. */

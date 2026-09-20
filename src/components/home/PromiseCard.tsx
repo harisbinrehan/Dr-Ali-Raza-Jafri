@@ -13,7 +13,7 @@ export function PromiseCard({ items }: { items: string[] }) {
           {items.map((text, i) => {
             const Icon = ICONS[i];
             return (
-              <li key={text} data-reveal style={revealDelay(i * 80)} className="flex items-start gap-4">
+              <li key={text} data-reveal style={revealDelay(i * 60)} className="flex items-start gap-4">
                 <Icon className="mt-0.5 size-5 shrink-0 text-eyebrow" />
                 <p className="text-[0.9375rem] leading-relaxed text-ink-soft">{text}</p>
               </li>

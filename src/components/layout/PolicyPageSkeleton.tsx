@@ -1,13 +1,13 @@
 import { PageHeaderSkeleton } from "@/components/ui/PageHeaderSkeleton";
-import { Skeleton, SkeletonText } from "@/components/ui/Skeleton";
+import { RouteSkeleton, Skeleton, SkeletonText } from "@/components/ui/Skeleton";
 
 /** Shared loading state for terms, privacy, refunds, delivery, service policy and pricing. */
 export function PolicyPageSkeleton() {
   return (
-    <>
+    <RouteSkeleton>
       <PageHeaderSkeleton />
 
-      <div className="container-x grid gap-8 pb-16 pt-8 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-10" aria-busy="true">
+      <div className="container-x grid gap-8 pb-16 pt-8 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-10">
         <nav aria-hidden="true" className="hidden md:col-span-3 lg:col-span-3 lg:block">
           <Skeleton className="h-[0.8125rem] w-24" />
           <div className="mt-6 space-y-3">
@@ -26,6 +26,6 @@ export function PolicyPageSkeleton() {
           ))}
         </div>
       </div>
-    </>
+    </RouteSkeleton>
   );
 }

@@ -34,7 +34,7 @@ export default async function NotFound() {
           {featured && (
             <div className="md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9">
               <p className="label text-on-deep-muted">While you&rsquo;re here</p>
-              <article className="group relative mt-5 overflow-hidden rounded-2xl border border-deep-line transition-[transform,box-shadow] duration-500 ease-(--ease-editorial) hover:-translate-y-1 hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.4)]">
+              <article className="group relative mt-5 overflow-hidden rounded-2xl border border-deep-line transition-[transform,box-shadow] duration-300 ease-(--ease-editorial) hover:-translate-y-1 hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.4)]">
                 <div className="relative">
                   <CourseImage src={featuredImage} title={displayTitle(featured.title)} sizes="(min-width: 1024px) 320px, 90vw" />
                 </div>
@@ -49,7 +49,7 @@ export default async function NotFound() {
                     <span className="text-[0.8125rem] text-on-deep-muted">{featured.instructor}</span>
                     <span className="flex items-center gap-2">
                       <PriceTag priceCents={featured.priceCents} effectivePriceCents={featured.effectivePriceCents} currency={featured.currency} tone="deep" />
-                      <ArrowRight className="size-3.5 text-on-deep transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+                      <ArrowRight className="size-3.5 text-on-deep transition-transform duration-200 ease-(--ease-editorial) group-hover:translate-x-1" />
                     </span>
                   </div>
                 </div>

@@ -17,7 +17,7 @@ export function Commitments() {
 
         <ol className="md:col-span-6 lg:col-span-6 md:col-start-7 lg:col-start-7">
           {promises.map((p, i) => (
-            <li key={p.title} data-reveal style={revealDelay(i * 110)} className="grid gap-3 border-t border-deep-line py-7 first:border-t-0 first:pt-2 sm:grid-cols-[1fr_1.15fr] sm:gap-10">
+            <li key={p.title} data-reveal style={revealDelay(i * 60)} className="grid gap-3 border-t border-deep-line py-7 first:border-t-0 first:pt-2 sm:grid-cols-[1fr_1.15fr] sm:gap-10">
               <h3 className="font-display text-h3 text-on-deep">{p.title}</h3>
               <p className="leading-[1.6] text-on-deep-muted sm:pt-2">{p.body}</p>
             </li>

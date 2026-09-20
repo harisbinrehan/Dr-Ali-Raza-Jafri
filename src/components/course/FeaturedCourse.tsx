@@ -13,13 +13,13 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
   const meta = [plural(course.lessonCount, "lesson"), formatDuration(course.totalDurationSeconds), levelLabel[course.level]].filter(Boolean);
 
   return (
-    <article className="group relative grid gap-6 overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-editorial) md:grid-cols-12 lg:grid-cols-12 lg:gap-0 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]">
+    <article className="group relative grid gap-6 overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-300 ease-(--ease-editorial) md:grid-cols-12 lg:grid-cols-12 lg:gap-0 hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]">
       <div data-reveal="image" className="md:col-span-7 lg:col-span-7">
         <CourseImage
           src={imageUrl}
           title={displayTitle(course.title)}
           sizes="(min-width: 1360px) 760px, (min-width: 1024px) 56vw, 100vw"
-          imageClassName="transition-transform duration-[1800ms] ease-(--ease-editorial) group-hover:scale-[1.025]"
+          imageClassName="transition-transform duration-200 ease-(--ease-editorial) group-hover:scale-[1.025]"
         />
       </div>
 
@@ -33,13 +33,13 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
           </Link>
         </h3>
         {course.subtitle && (
-          <p data-reveal style={revealDelay(120)} className="mt-5 leading-relaxed text-muted">
+          <p data-reveal style={revealDelay(60)} className="mt-5 leading-relaxed text-muted">
             {course.subtitle}
           </p>
         )}
 
         {outcomes.length > 0 && (
-          <ul data-reveal style={revealDelay(180)} className="mt-8 border-t border-line">
+          <ul data-reveal style={revealDelay(80)} className="mt-8 border-t border-line">
             {outcomes.map((o) => (
               <li key={o} className="border-b border-line py-3.5 text-[0.9375rem] leading-snug text-ink-soft">
                 <CourseText text={o} />
@@ -48,14 +48,14 @@ export function FeaturedCourse({ course, imageUrl }: { course: CourseDetail; ima
           </ul>
         )}
 
-        <div data-reveal style={revealDelay(240)} className="mt-auto flex flex-wrap items-end justify-between gap-x-6 gap-y-3 pt-10">
+        <div data-reveal style={revealDelay(120)} className="mt-auto flex flex-wrap items-end justify-between gap-x-6 gap-y-3 pt-10">
           <div>
             <p className="text-[0.8125rem] text-muted">{meta.join(" · ")}</p>
             <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} className="mt-2" />
           </div>
           <span className="inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap text-[0.875rem] font-semibold text-ink">
             <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:100%_1px] bg-left-bottom bg-no-repeat pb-0.5">View course</span>
-            <ArrowRight className="size-4 transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+            <ArrowRight className="size-4 transition-transform duration-200 ease-(--ease-editorial) group-hover:translate-x-1" />
           </span>
         </div>
       </div>

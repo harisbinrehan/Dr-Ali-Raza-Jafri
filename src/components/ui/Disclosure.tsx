@@ -38,13 +38,13 @@ export function Disclosure({ summary, meta, children, open, onToggle, headingLev
           onClick={onToggle}
           className={cn("group flex w-full items-baseline gap-6 py-6 text-left sm:py-7", deep ? "text-on-deep" : "text-ink")}
         >
-          <span className="min-w-0 flex-1 transition-colors duration-500 group-hover:text-accent">{summary}</span>
+          <span className="min-w-0 flex-1 transition-colors duration-200 group-hover:text-accent">{summary}</span>
           {meta && <span className="hidden shrink-0 sm:block">{meta}</span>}
           <span aria-hidden="true" className="relative mt-1 size-3.5 shrink-0 self-center">
             <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />
             <span
               className={cn(
-                "absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-current transition-transform duration-700 ease-(--ease-editorial)",
+                "absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-current transition-transform duration-200 ease-(--ease-editorial)",
                 open ? "scale-y-0" : "scale-y-100",
               )}
             />

@@ -52,7 +52,7 @@ export default async function AboutPage() {
           </blockquote>
           <div className="prose-copy md:col-span-4 lg:col-span-4 md:col-start-9 lg:col-start-9 lg:pt-3">
             {about.body.map((p, i) => (
-              <p key={i} data-reveal style={revealDelay(i * 100)}>
+              <p key={i} data-reveal style={revealDelay(i * 60)}>
                 {p}
               </p>
             ))}
@@ -69,7 +69,7 @@ export default async function AboutPage() {
           </div>
           <ol className="md:col-span-7 lg:col-span-7 md:col-start-6 lg:col-start-6">
             {about.howItWorks.body.map((p, i) => (
-              <li key={i} data-reveal style={revealDelay(i * 110)} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[4.5rem_1fr]">
+              <li key={i} data-reveal style={revealDelay(i * 60)} className="grid grid-cols-[3rem_1fr] gap-4 border-t border-line py-6 first:border-t-0 first:pt-0 sm:grid-cols-[4.5rem_1fr]">
                 <span className="font-display text-[1.625rem] leading-none text-accent">{String(i + 1).padStart(2, "0")}</span>
                 <p className="text-[1.0625rem] leading-[1.6] text-ink-soft">{p}</p>
               </li>

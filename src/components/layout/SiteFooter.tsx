@@ -10,7 +10,7 @@ const helpLinks = [
   { href: "/teach", label: "Teach with us" },
 ];
 
-const linkClass = "link-line inline-block py-1 text-on-deep/80 transition-colors duration-500 hover:text-on-deep";
+const linkClass = "link-line inline-block py-1 text-on-deep/80 transition-colors duration-200 hover:text-on-deep";
 
 export function SiteFooter({ contact, categories }: { contact: Contact; categories: Category[] }) {
   const year = new Date().getFullYear();

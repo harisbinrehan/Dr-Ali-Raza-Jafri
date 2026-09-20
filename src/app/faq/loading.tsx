@@ -1,13 +1,13 @@
 import { PageHeaderSkeleton } from "@/components/ui/PageHeaderSkeleton";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { RouteSkeleton, Skeleton } from "@/components/ui/Skeleton";
 
 /** Mirrors faq/page.tsx's accordion + "ask us" sidebar. */
 export default function Loading() {
   return (
-    <>
+    <RouteSkeleton>
       <PageHeaderSkeleton withLead={false} />
 
-      <div className="container-x grid gap-10 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8" aria-busy="true">
+      <div className="container-x grid gap-10 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8">
         <div className="border-t border-line md:col-span-7 lg:col-span-7">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="flex items-center justify-between gap-4 border-b border-line py-5">
@@ -31,6 +31,6 @@ export default function Loading() {
           </div>
         </aside>
       </div>
-    </>
+    </RouteSkeleton>
   );
 }

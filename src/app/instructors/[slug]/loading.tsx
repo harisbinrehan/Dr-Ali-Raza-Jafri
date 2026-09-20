@@ -1,12 +1,11 @@
 import { CourseCardSkeleton } from "@/components/course/CourseCardSkeleton";
-import { Skeleton, SkeletonAnnounce, SkeletonAvatar } from "@/components/ui/Skeleton";
+import { RouteSkeleton, Skeleton, SkeletonAvatar } from "@/components/ui/Skeleton";
 
 /** Mirrors instructors/[slug]/page.tsx's avatar/name/stats header + course grid. */
 export default function Loading() {
   return (
-    <>
-      <SkeletonAnnounce />
-      <section className="pt-24 lg:pt-32" aria-busy="true">
+    <RouteSkeleton>
+      <section className="pt-24 lg:pt-32">
         <div className="container-x">
           <SkeletonAvatar className="size-20" />
           <Skeleton className="mt-6 h-9 w-64 lg:h-11" />
@@ -17,7 +16,7 @@ export default function Loading() {
         </div>
       </section>
 
-      <section className="section-y pb-24" aria-busy="true">
+      <section className="section-y pb-24">
         <div className="container-x">
           <Skeleton className="h-6 w-56" />
           <ul className="mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -29,6 +28,6 @@ export default function Loading() {
           </ul>
         </div>
       </section>
-    </>
+    </RouteSkeleton>
   );
 }

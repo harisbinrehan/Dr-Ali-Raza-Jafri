@@ -29,7 +29,7 @@ export function LearningOutcomes({ items }: { items: string[] }) {
         <li
           key={item}
           data-reveal
-          style={revealDelay((i % 2) * 90)}
+          style={revealDelay((i % 2) * 60)}
           className={`grid grid-cols-[2.25rem_1fr] gap-3 border-t border-line py-6 ${i === items.length - 1 && items.length % 2 === 1 ? "sm:col-span-2" : ""}`}
         >
           <span className="font-display text-[1.375rem] leading-none text-accent">{i + 1}</span>
@@ -47,7 +47,7 @@ export function HowItWorks({ rows }: { rows: { title: string; body: string }[] }
   return (
     <dl>
       {rows.map((row, i) => (
-        <div key={row.title} data-reveal style={revealDelay(i * 70)} className="grid gap-2 border-t border-line py-6 sm:grid-cols-[14rem_1fr] sm:gap-10">
+        <div key={row.title} data-reveal style={revealDelay(i * 60)} className="grid gap-2 border-t border-line py-6 sm:grid-cols-[14rem_1fr] sm:gap-10">
           <dt className="font-display text-h4 text-ink">{row.title}</dt>
           <dd className="prose-copy text-[0.9375rem]">
             <RichText text={row.body} />

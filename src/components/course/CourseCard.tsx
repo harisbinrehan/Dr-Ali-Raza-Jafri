@@ -26,7 +26,7 @@ export function CourseCard({ course, headingLevel: Heading = "h3", preload, clas
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-500 ease-(--ease-editorial) hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]",
+        "group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface transition-[transform,box-shadow,border-color] duration-300 ease-(--ease-editorial) hover:-translate-y-1 hover:border-line-strong hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.25)]",
         className,
       )}
     >
@@ -35,7 +35,7 @@ export function CourseCard({ course, headingLevel: Heading = "h3", preload, clas
         title={displayTitle(course.title)}
         sizes={CARD_SIZES}
         preload={preload}
-        imageClassName="transition-transform duration-[1600ms] ease-(--ease-editorial) group-hover:scale-[1.035]"
+        imageClassName="transition-transform duration-200 ease-(--ease-editorial) group-hover:scale-[1.035]"
       />
 
       <div className="flex flex-1 flex-col p-5">
@@ -58,7 +58,7 @@ export function CourseCard({ course, headingLevel: Heading = "h3", preload, clas
             <span className="text-[0.8125rem] tabular-nums text-muted">{meta}</span>
             <span className="flex items-center gap-2">
               <PriceTag priceCents={course.priceCents} effectivePriceCents={course.effectivePriceCents} currency={course.currency} />
-              <ArrowRight className="size-3.5 text-ink transition-transform duration-700 ease-(--ease-editorial) group-hover:translate-x-1" />
+              <ArrowRight className="size-3.5 text-ink transition-transform duration-200 ease-(--ease-editorial) group-hover:translate-x-1" />
             </span>
           </div>
         </div>

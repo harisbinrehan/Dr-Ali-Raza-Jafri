@@ -74,9 +74,11 @@
       style.id = "aa-skeleton-styles";
       style.textContent =
         "@keyframes aa-skeleton-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }" +
-        ".aa-skeleton-shimmer { position: relative; overflow: hidden; background-color: var(--skeleton-bg, var(--skin-skeleton-bg, #e5e7eb)); }" +
-        ".aa-skeleton-shimmer::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent); mix-blend-mode: overlay; animation: aa-skeleton-shimmer 1.8s ease-in-out infinite; }" +
-        "@media (prefers-reduced-motion: reduce) { .aa-skeleton-shimmer::after { animation: none; } }";
+        "@keyframes aa-skeleton-appear { from { opacity: 0; } to { opacity: 1; } }" +
+        "#aa-global-skeleton { animation: aa-skeleton-appear 200ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both; }" +
+        ".aa-skeleton-shimmer { position: relative; overflow: hidden; background-color: var(--skeleton-bg, var(--skin-skeleton-bg, rgb(23 24 28 / 0.08))); }" +
+        ".aa-skeleton-shimmer::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background-image: linear-gradient(90deg, transparent, var(--skin-skeleton-sheen, rgb(255 255 255 / 0.5)), transparent); animation: aa-skeleton-shimmer 2.4s cubic-bezier(0.76, 0, 0.24, 1) infinite; }" +
+        "@media (prefers-reduced-motion: reduce) { .aa-skeleton-shimmer::after { animation: none; } #aa-global-skeleton { animation-delay: 0ms; animation-duration: 0.01ms; } }";
       document.head.appendChild(style);
     }
 
@@ -117,10 +119,11 @@
   function hideGlobalSkeleton() {
     var skel = document.getElementById("aa-global-skeleton");
     if (skel) {
-      // Add a fade-out effect
-      skel.style.transition = "opacity 0.3s ease";
+      // Same short fade the app's own route skeletons use, so the boot screen
+      // hands over to the page at the same speed a route change does.
+      skel.style.transition = "opacity 200ms cubic-bezier(0.22, 1, 0.36, 1)";
       skel.style.opacity = "0";
-      setTimeout(function() { skel.remove(); }, 300);
+      setTimeout(function() { skel.remove(); }, 200);
     }
   }
 
