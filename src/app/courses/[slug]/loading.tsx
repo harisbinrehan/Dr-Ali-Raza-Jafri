@@ -1,11 +1,12 @@
 import { CourseFactsSkeleton } from "@/components/course/CourseFactsSkeleton";
 import { EnrolPanelSkeleton } from "@/components/course/EnrolPanelSkeleton";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { Skeleton, SkeletonAnnounce, SkeletonText } from "@/components/ui/Skeleton";
 
 /** Mirrors courses/[slug]/page.tsx's hero + enrol panel + body sections. */
 export default function Loading() {
   return (
-    <div className="relative isolate">
+    <div className="relative isolate" aria-busy="true">
+      <SkeletonAnnounce />
       <div className="container-x grid pb-6 pt-16 md:grid-cols-12 lg:grid-cols-12 lg:gap-x-8">
         <header className="pb-8 pt-6 md:col-span-7 md:col-start-1 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pb-12 lg:pt-8">
           <div className="flex items-center gap-2">
@@ -34,11 +35,7 @@ export default function Loading() {
           ].map((section, i) => (
             <div key={i} className="border-t border-line pt-8 first:border-t-0 first:pt-0 sm:pt-10">
               <Skeleton className="h-6" style={{ width: `${section.title}%` }} />
-              <div className="mt-6 space-y-3">
-                {Array.from({ length: section.rows }).map((_, j) => (
-                  <Skeleton key={j} className="h-4 w-full" />
-                ))}
-              </div>
+              <SkeletonText className="mt-6" lines={section.rows} lastLineWidth="70%" />
             </div>
           ))}
         </div>

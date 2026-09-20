@@ -7,7 +7,7 @@ export default function Loading() {
     <>
       <PageHeaderSkeleton withLead={false} />
 
-      <div className="container-x grid gap-10 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8">
+      <div className="container-x grid gap-10 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8" aria-busy="true">
         <div className="border-t border-line md:col-span-7 lg:col-span-7">
           {Array.from({ length: 6 }).map((_, i) => (
             <div key={i} className="flex items-center justify-between gap-4 border-b border-line py-5">

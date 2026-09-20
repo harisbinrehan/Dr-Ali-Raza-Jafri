@@ -135,21 +135,27 @@
       return;
     }
     
+    // Declared before the first checkReady() call: that call can resolve
+    // synchronously (the platform's own bundle may have already rendered into
+    // #root by this point), and disconnecting an as-yet-undeclared `observer`
+    // there would throw — an uncaught error that, like the cartObserver bug
+    // above, would abort every statement still queued after it.
+    var observer;
     function checkReady() {
       // A fully loaded page usually has a header, main container, etc.
       // If it only has a small loading div, it's not ready.
       // We can check if it has more than a few elements, or if it doesn't contain "loading".
       if (root.innerHTML.length > 500 || (root.children.length > 0 && root.textContent.toLowerCase().indexOf("loading") === -1)) {
         hideGlobalSkeleton();
-        observer.disconnect();
+        if (observer) observer.disconnect();
         return true;
       }
       return false;
     }
-    
+
     if (checkReady()) return;
-    
-    var observer = new MutationObserver(checkReady);
+
+    observer = new MutationObserver(checkReady);
     observer.observe(root, { childList: true, subtree: true, characterData: true });
     
     // Fallback safeguard

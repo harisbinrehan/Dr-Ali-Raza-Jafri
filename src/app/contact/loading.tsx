@@ -1,5 +1,5 @@
 import { PageHeaderSkeleton } from "@/components/ui/PageHeaderSkeleton";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { Skeleton, SkeletonButton } from "@/components/ui/Skeleton";
 
 /** Mirrors contact/page.tsx's location details + form. */
 export default function Loading() {
@@ -7,7 +7,7 @@ export default function Loading() {
     <>
       <PageHeaderSkeleton />
 
-      <div className="container-x grid gap-12 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8">
+      <div className="container-x grid gap-12 pb-16 pt-6 md:grid-cols-12 lg:grid-cols-12 lg:gap-8 lg:pt-8" aria-busy="true">
         <section className="md:col-span-5 lg:col-span-5">
           <Skeleton className="h-6 w-32" />
           <div className="mt-6">
@@ -24,7 +24,7 @@ export default function Loading() {
           <Skeleton className="h-11 w-full" />
           <Skeleton className="h-11 w-full" />
           <Skeleton className="h-28 w-full" />
-          <Skeleton className="h-11 w-32" />
+          <SkeletonButton size="md" className="w-32" />
         </section>
       </div>
     </>

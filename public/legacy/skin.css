@@ -136,10 +136,21 @@ iframe {
   background-color: var(--skin-button-hover) !important;
 }
 
-/* "Start course" / "Continue" on the dashboard's course list was previously
- * styled here by targeting a[href^="/learn/"], but this inadvertently targeted
- * the course headings as well, turning them into green blocks.
- * Reverting to the platform's native outline buttons to fix the headings. */
+/* "Start course" / "Continue" buttons on the dashboard course list.
+ * We safely target these by relying on their outline (border) classes,
+ * ensuring course headings (which are also links to /learn/) aren't affected. */
+a[href^="/learn/"].border,
+a[href^="/learn/"][class*=" border-"] {
+  background-color: var(--skin-button) !important;
+  color: var(--skin-button-text) !important;
+  border-color: var(--skin-button) !important;
+  letter-spacing: 0.01em;
+}
+a[href^="/learn/"].border:hover,
+a[href^="/learn/"][class*=" border-"]:hover {
+  background-color: var(--skin-button-hover) !important;
+  border-color: var(--skin-button-hover) !important;
+}
 
 input:not([type="checkbox"]):not([type="radio"]),
 select,

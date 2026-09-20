@@ -1,10 +1,11 @@
 import { CourseCardSkeleton } from "@/components/course/CourseCardSkeleton";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { Skeleton, SkeletonAnnounce, SkeletonButton } from "@/components/ui/Skeleton";
 
 /** Mirrors courses/page.tsx + CourseCatalog.tsx's search/tabs/grid. */
 export default function Loading() {
   return (
-    <div className="relative isolate">
+    <div className="relative isolate" aria-busy="true">
+      <SkeletonAnnounce />
       <div className="container-x pb-16 pt-16">
         <header className="grid gap-4 pb-8 pt-4 md:grid-cols-12 lg:grid-cols-12 lg:items-end lg:gap-8 lg:pb-12 lg:pt-8">
           <div className="md:col-span-8 lg:col-span-8">
@@ -18,7 +19,7 @@ export default function Loading() {
           <Skeleton className="h-12 w-full md:col-span-8 lg:col-span-8" />
           <div className="flex items-center justify-between gap-4 md:col-span-4 lg:col-span-4 lg:justify-end">
             <Skeleton className="h-4 w-14" />
-            <Skeleton className="h-11 w-40" />
+            <SkeletonButton size="md" className="w-40" />
           </div>
         </div>
 
