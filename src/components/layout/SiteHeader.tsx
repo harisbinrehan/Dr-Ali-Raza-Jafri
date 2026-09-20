@@ -64,7 +64,7 @@ export function SiteHeader() {
             : "bg-canvas/95 backdrop-blur supports-[backdrop-filter]:bg-canvas/80 border-b border-line shadow-[0_1px_2px_rgb(0_0_0/0.04),0_8px_24px_-16px_rgb(0_0_0/0.15)]"
         )}
       >
-        <div className="mx-auto flex h-16 max-w-[1360px] items-center justify-between gap-3 px-[clamp(1.25rem,4.5vw,4rem)]">
+        <div className="mx-auto flex h-16 max-w-[1360px] items-center justify-between gap-3 px-[clamp(1rem,3vw,2.5rem)]">
           <BrandLockup tone={tone} />
 
           <nav aria-label="Primary" className="hidden lg:block">

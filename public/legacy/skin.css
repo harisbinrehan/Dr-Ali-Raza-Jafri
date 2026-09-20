@@ -161,7 +161,7 @@ textarea {
 /* Same page grid as the public site. */
 .container-marketplace {
   max-width: 1360px !important;
-  padding-inline: clamp(1.25rem, 4.5vw, 4rem) !important;
+  padding-inline: clamp(1rem, 3vw, 2.5rem) !important;
 }
 
 /* The platform's footer. Now light in light-mode. */

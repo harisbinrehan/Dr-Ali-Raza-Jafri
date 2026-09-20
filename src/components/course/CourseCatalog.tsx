@@ -130,7 +130,7 @@ export function CourseCatalog({ courses, categories, initial }: { courses: Cours
       </div>
 
       {/* Subjects: a quiet tab rail rather than a row of pills. */}
-      <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1.25rem,4.5vw,4rem)] mt-6 border-b border-line bg-canvas/92 px-[clamp(1.25rem,4.5vw,4rem)] backdrop-blur-xl transition-[top] duration-700 ease-(--ease-editorial)">
+      <div className="sticky top-(--header-offset,0px) z-30 -mx-[clamp(1rem,3vw,2.5rem)] mt-6 border-b border-line bg-canvas/92 px-[clamp(1rem,3vw,2.5rem)] backdrop-blur-xl transition-[top] duration-700 ease-(--ease-editorial)">
         <div role="group" aria-label="Filter by subject" className="no-scrollbar -mb-px flex gap-7 overflow-x-auto pr-10 [mask-image:linear-gradient(to_right,black_calc(100%-3rem),transparent)] lg:pr-0 lg:[mask-image:none]">
           {tabs.map((c) => {
             const active = category === c.slug;
