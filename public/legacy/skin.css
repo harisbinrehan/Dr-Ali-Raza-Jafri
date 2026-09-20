@@ -43,6 +43,13 @@
   --skin-button-text: #f7f4ee;
   --skin-button-hover: #158f83;
   --skin-input: #fbf9f5;
+
+  /* Loading overlay + placeholder tint — matches the public site's --canvas and
+   * --line-strong tokens exactly, so theme.js's skeleton (shown while this SPA
+   * boots) never flashes a different colour than the Next.js app's own loading
+   * skeleton (globals.css's .skeleton utility, GlobalNavigationLoader). */
+  --skin-canvas: #f5f1ea;
+  --skin-skeleton-bg: color-mix(in srgb, var(--color-slate-900) 30%, transparent);
 }
 
 body {
@@ -146,32 +153,50 @@ textarea {
   padding-inline: clamp(1.25rem, 4.5vw, 4rem) !important;
 }
 
-/* The platform's footer is a dark band in both themes, like the public site's. */
+/* The platform's footer. Now light in light-mode. */
 footer.bg-slate-900,
 footer.bg-slate-950 {
-  background-color: #15181e !important;
-  color: #eee9e0;
+  background-color: #eee9e0 !important;
+  color: #15181e !important;
 }
 html[data-theme="dark"] footer.bg-slate-900,
 html[data-theme="dark"] footer.bg-slate-950 {
   background-color: #070b16 !important;
+  color: #f7f4ee !important;
 }
 footer .text-white,
 footer .text-slate-100,
 footer .text-slate-200 {
-  color: #eee9e0 !important;
+  color: #15181e !important;
+}
+html[data-theme="dark"] footer .text-white,
+html[data-theme="dark"] footer .text-slate-100,
+html[data-theme="dark"] footer .text-slate-200 {
+  color: #f7f4ee !important;
 }
 footer .text-slate-300,
 footer .text-slate-400,
 footer .text-slate-500 {
-  color: rgb(238 233 224 / 0.72) !important;
+  color: rgb(21 24 30 / 0.72) !important;
+}
+html[data-theme="dark"] footer .text-slate-300,
+html[data-theme="dark"] footer .text-slate-400,
+html[data-theme="dark"] footer .text-slate-500 {
+  color: rgb(247 244 238 / 0.66) !important;
 }
 footer a:hover {
+  color: #0f6b61 !important;
+}
+html[data-theme="dark"] footer a:hover {
   color: #ffffff !important;
 }
 footer .border-slate-800,
 footer .border-slate-700 {
-  border-color: rgb(238 233 224 / 0.14) !important;
+  border-color: rgb(23 24 28 / 0.15) !important;
+}
+html[data-theme="dark"] footer .border-slate-800,
+html[data-theme="dark"] footer .border-slate-700 {
+  border-color: rgb(255 255 255 / 0.1) !important;
 }
 
 /* Comfortable tap targets for the platform's header and footer links. */
@@ -215,30 +240,30 @@ textarea {
 }
 
 /* --- Dashboard Featured Card Overrides ---
- * The legacy "Continue learning" card natively uses bg-slate-900 (dark card).
- * In our dark mode variable inversion, that turns it bright off-white. 
- * These rules force the card to stay dark and style its internal elements.
+ * The legacy "Continue learning" card natively uses bg-slate-900.
+ * We override it globally to use slate-50 so it's light in light mode,
+ * and seamlessly adapts to dark in dark mode (since slate-50 inverts to dark ink).
  */
-html[data-theme="dark"] .rounded-panel.bg-slate-900 {
+.rounded-panel.bg-slate-900 {
   background-color: var(--color-slate-50) !important;
   border-color: var(--color-slate-200) !important;
 }
-/* Force all text inside the dark card to be light */
-html[data-theme="dark"] .rounded-panel.bg-slate-900 * {
+/* Force all text inside the card to use the inverted dark/light scale */
+.rounded-panel.bg-slate-900 * {
   color: var(--color-slate-900);
 }
 /* Style the primary action button inside the card */
-html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-white {
+.rounded-panel.bg-slate-900 .bg-white {
   background-color: var(--skin-button) !important;
   color: var(--skin-button-text) !important;
   border-color: var(--skin-button) !important;
 }
 /* Ensure button text inherits the button's text color */
-html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-white * {
+.rounded-panel.bg-slate-900 .bg-white * {
   color: inherit !important;
 }
 /* Style the progress bar track inside the card */
-html[data-theme="dark"] .rounded-panel.bg-slate-900 .bg-slate-100 {
+.rounded-panel.bg-slate-900 .bg-slate-100 {
   background-color: var(--color-slate-200) !important;
 }
 
@@ -398,6 +423,9 @@ html[data-theme="dark"] {
   --skin-button-text: #f7f4ee;
   --skin-button-hover: #158f83;
   --skin-input: #0f1829;
+
+  --skin-canvas: #070c16;
+  --skin-skeleton-bg: color-mix(in srgb, var(--color-slate-900) 24%, transparent);
 }
 html[data-theme="dark"] body {
   background-color: #0b1220;

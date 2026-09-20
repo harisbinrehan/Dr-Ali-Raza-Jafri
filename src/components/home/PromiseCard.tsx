@@ -7,7 +7,7 @@ const ICONS: ComponentType<SVGProps<SVGSVGElement>>[] = [InfinityIcon, Award, Re
 /** The three commitments, as a full-width band right under the hero. */
 export function PromiseCard({ items }: { items: string[] }) {
   return (
-    <section className="py-10 sm:py-12 border-y border-line bg-surface text-ink">
+    <section className="py-10 sm:py-12 border-y border-line bg-surface text-ink dark:bg-transparent">
       <div className="container-x">
         <ul className="space-y-6">
           {items.map((text, i) => {

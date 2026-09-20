@@ -48,3 +48,30 @@ export function isOwnedRoute(href: string) {
   const path = href.split(/[?#]/)[0];
   return path === "/" || OWNED_PREFIXES.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
 }
+
+/** Path prefixes rendered by the existing platform (must mirror PLATFORM_PAGES in next.config.ts).
+ *  Used to recognise, before a click completes, that a link is a hard navigation away from this app. */
+export const legacyPlatformPrefixes = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+  "/verify-email",
+  "/cart",
+  "/checkout",
+  "/order-complete",
+  "/wishlist",
+  "/messages",
+  "/learn",
+  "/account",
+  "/teacher",
+  "/admin",
+  "/verify",
+] as const;
+
+/** True when a link is a hard navigation to the legacy platform. */
+export function isLegacyPlatformRoute(href: string) {
+  if (!href.startsWith("/")) return false;
+  const path = href.split(/[?#]/)[0];
+  return legacyPlatformPrefixes.some((prefix) => path === prefix || path.startsWith(`${prefix}/`));
+}

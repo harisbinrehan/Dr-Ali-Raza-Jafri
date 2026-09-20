@@ -64,21 +64,34 @@
 
   function showGlobalSkeleton() {
     if (document.getElementById("aa-global-skeleton")) return;
-    
+
     if (!document.getElementById("aa-skeleton-styles")) {
+      // Same recipe as the public site's .skeleton utility (globals.css) and
+      // GlobalNavigationLoader: a flat tint with a 0.55-opacity light sweep
+      // blended with mix-blend-mode:overlay, so it reads correctly in both
+      // themes from one rule instead of a separate sweep colour per theme.
       var style = document.createElement("style");
       style.id = "aa-skeleton-styles";
-      style.textContent = "@keyframes aa-skeleton-shimmer { 100% { transform: translateX(100%); } } .aa-skeleton-shimmer { position: relative; overflow: hidden; background-color: var(--skeleton-bg, #e5e7eb); } .aa-skeleton-shimmer::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); animation: aa-skeleton-shimmer 1.8s ease-in-out infinite; } html[data-theme='dark'] .aa-skeleton-shimmer { background-color: var(--skeleton-bg, #1f2937); } html[data-theme='dark'] .aa-skeleton-shimmer::after { background-image: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }";
+      style.textContent =
+        "@keyframes aa-skeleton-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }" +
+        ".aa-skeleton-shimmer { position: relative; overflow: hidden; background-color: var(--skeleton-bg, var(--skin-skeleton-bg, #e5e7eb)); }" +
+        ".aa-skeleton-shimmer::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.55), transparent); mix-blend-mode: overlay; animation: aa-skeleton-shimmer 1.8s ease-in-out infinite; }" +
+        "@media (prefers-reduced-motion: reduce) { .aa-skeleton-shimmer::after { animation: none; } }";
       document.head.appendChild(style);
     }
 
     var overlay = document.createElement("div");
     overlay.id = "aa-global-skeleton";
-    overlay.style.cssText = "position:fixed;top:0;right:0;bottom:0;left:0;z-index:999999;background-color:#ffffff;padding:3rem 1.5rem;";
-    if (document.documentElement.getAttribute("data-theme") === "dark") {
-      overlay.style.backgroundColor = "#0b1220";
-    }
-    
+    overlay.setAttribute("role", "status");
+    overlay.setAttribute("aria-busy", "true");
+    overlay.style.cssText = "position:fixed;top:0;right:0;bottom:0;left:0;z-index:999999;background-color:var(--skin-canvas,#f5f1ea);padding:3rem 1.5rem;";
+
+    var srLabel = document.createElement("span");
+    srLabel.className = "sr-only";
+    srLabel.style.cssText = "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;";
+    srLabel.textContent = "Loading…";
+    overlay.appendChild(srLabel);
+
     var container = document.createElement("div");
     container.style.cssText = "max-width:80rem;margin-left:auto;margin-right:auto;padding-top:3rem;padding-bottom:3rem;";
     
@@ -203,8 +216,9 @@
     user: '<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
   };
 
-  function icon(name) {
-    return '<span class="aa-bn-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + "</svg></span>";
+  function icon(name, hasBadge) {
+    var badgeHtml = hasBadge ? '<span class="aa-bn-badge" hidden></span>' : '';
+    return '<span class="aa-bn-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + ICONS[name] + "</svg>" + badgeHtml + "</span>";
   }
 
   // Signed-in cart count comes from the platform's own header badge (its cart
@@ -260,7 +274,7 @@
     nav.innerHTML =
       '<a class="aa-bn-item" data-key="home" href="/"><span class="aa-bn-content">' + icon("home") + "<span>Home</span><span class=\"aa-bn-bar\"></span></span></a>" +
       '<a class="aa-bn-item" data-key="courses" href="/courses"><span class="aa-bn-content">' + icon("book") + "<span>Courses</span><span class=\"aa-bn-bar\"></span></span></a>" +
-      '<a class="aa-bn-item" data-key="cart" href="/cart"><span class="aa-bn-content">' + icon("cart") + '<span class="aa-bn-badge" hidden></span><span>Cart</span><span class="aa-bn-bar"></span></span></a>' +
+      '<a class="aa-bn-item" data-key="cart" href="/cart"><span class="aa-bn-content">' + icon("cart", true) + '<span>Cart</span><span class="aa-bn-bar"></span></span></a>' +
       '<a class="aa-bn-item" data-key="account" href="/login"><span class="aa-bn-content">' + icon("user") + "<span>Account</span><span class=\"aa-bn-bar\"></span></span></a>";
     document.body.appendChild(nav);
     bottomNav = nav;

@@ -6,7 +6,7 @@ import { RevealHeading } from "@/components/ui/SectionHeading";
 /** The closing frame: a sleek glowing background, the academy's own line, one clear action. */
 export function FinalCta({ contact, courseCount }: { contact: Contact; courseCount: number }) {
   return (
-    <section aria-labelledby="final-cta-title" className="relative isolate overflow-hidden bg-deep text-on-deep">
+    <section aria-labelledby="final-cta-title" className="relative isolate overflow-hidden bg-deep text-on-deep dark:bg-transparent">
       {/* Ambient background glow to make the dark theme look premium */}
       <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute -left-1/4 -top-1/4 aspect-square w-[70%] rounded-full bg-[radial-gradient(closest-side,var(--color-deep-accent),transparent)] opacity-[0.15]" />

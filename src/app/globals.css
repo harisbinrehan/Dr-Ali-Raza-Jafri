@@ -26,22 +26,22 @@ html.has-token .aa-unauth-links {
   --accent: #0f6b61;
   --accent-soft: rgb(15 107 97 / 0.1);
   --eyebrow: #0f6b61;
-  --eyebrow-deep: #7cc4b8;
+  --eyebrow-deep: #0f6b61;
 
-  /* The deep bands (commitments, closing image, footer). */
-  --deep: #15181e;
-  --on-deep: #eee9e0;
-  --on-deep-muted: rgb(238 233 224 / 0.66);
-  --deep-line: rgb(238 233 224 / 0.14);
-  --deep-accent: #7cc4b8;
+  /* The deep bands (commitments, closing image, footer). Now light in light-mode. */
+  --deep: #eee9e0;
+  --on-deep: #15181e;
+  --on-deep-muted: rgb(21 24 30 / 0.72);
+  --deep-line: rgb(23 24 28 / 0.15);
+  --deep-accent: #0f6b61;
 
   /* Buttons: the brand teal in both themes. */
   --btn-bg: #0f6b61;
   --btn-fg: #f7f4ee;
   --btn-hover: #158f83;
-  --btn-deep-bg: #eee9e0;
-  --btn-deep-fg: #15181e;
-  --btn-deep-hover: #7cc4b8;
+  --btn-deep-bg: #0f6b61;
+  --btn-deep-fg: #f7f4ee;
+  --btn-deep-hover: #158f83;
 
   --focus: #0f6b61;
   color-scheme: light;

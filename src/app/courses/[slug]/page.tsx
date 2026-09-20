@@ -198,7 +198,7 @@ export default async function CoursePage({ params }: PageProps<"/courses/[slug]"
       </div>
 
       {/* Closing enrolment */}
-      <section aria-labelledby="enrol-title" className="mt-14 bg-deep text-on-deep">
+      <section aria-labelledby="enrol-title" className="mt-14 bg-deep text-on-deep dark:bg-transparent">
         <div className="container-x grid gap-8 py-12 sm:py-14 md:grid-cols-12 lg:grid-cols-12 lg:items-end lg:gap-8">
           <div className="md:col-span-7 lg:col-span-7">
             <p className="label text-eyebrow-deep">{course.category?.name ?? site.name}</p>

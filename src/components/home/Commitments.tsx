@@ -6,7 +6,7 @@ import { SectionIntro } from "@/components/ui/SectionHeading";
 /** "What you get for the money" — three commitments, set as an editorial list. */
 export function Commitments() {
   return (
-    <section aria-labelledby="promise-title" className="section-y relative isolate overflow-hidden bg-deep text-on-deep">
+    <section aria-labelledby="promise-title" className="section-y relative isolate overflow-hidden bg-deep text-on-deep dark:bg-transparent">
       <div className="container-x grid gap-10 md:grid-cols-12 lg:grid-cols-12 lg:gap-8">
         <div className="md:col-span-5 lg:col-span-5">
           <SectionIntro id="promise-title" tone="deep" title={home.promise.heading} />
