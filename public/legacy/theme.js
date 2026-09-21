@@ -62,6 +62,71 @@
     }
   }
 
+  /* The same navigation feedback the public site shows: a thin bar at the top
+   * of the window. It starts when a page begins loading or a link is followed,
+   * creeps forward while the platform's app boots, and completes once content
+   * is on screen — no placeholder blocks, no spinner. */
+  var topbar = null;
+  var topbarTimer = null;
+  function barStart() {
+    if (!topbar) {
+      topbar = document.createElement("div");
+      topbar.id = "aa-topbar";
+      (document.body || document.documentElement).appendChild(topbar);
+    }
+    topbar.style.opacity = "1";
+    var width = 0;
+    clearInterval(topbarTimer);
+    requestAnimationFrame(function () {
+      topbar.style.width = "12%";
+    });
+    // Creep towards, but never reach, the end: arrival is what completes it.
+    topbarTimer = setInterval(function () {
+      width += (90 - width) * 0.12;
+      topbar.style.width = width.toFixed(1) + "%";
+    }, 220);
+  }
+  function barDone() {
+    if (!topbar) return;
+    clearInterval(topbarTimer);
+    topbar.style.width = "100%";
+    setTimeout(function () {
+      if (topbar) topbar.style.opacity = "0";
+      setTimeout(function () {
+        if (topbar) topbar.style.width = "0";
+      }, 220);
+    }, 120);
+  }
+
+  barStart();
+
+  function finishWhenReady() {
+    var root = document.getElementById("root");
+    if (!root) return barDone();
+    var observer;
+    function ready() {
+      if (root.innerHTML.length > 500) {
+        barDone();
+        if (observer) observer.disconnect();
+        return true;
+      }
+      return false;
+    }
+    if (ready()) return;
+    observer = new MutationObserver(ready);
+    observer.observe(root, { childList: true, subtree: true, characterData: true });
+    setTimeout(function () {
+      barDone();
+      observer.disconnect();
+    }, 5000);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", finishWhenReady);
+  } else {
+    finishWhenReady();
+  }
+
   // Links: capture before the platform's router sees the click.
   document.addEventListener(
     "click",
@@ -73,6 +138,7 @@
       if (!u) return;
       e.preventDefault();
       e.stopPropagation();
+      barStart();
       location.assign(u.href);
     },
     true,
@@ -84,6 +150,7 @@
     history[name] = function (state, title, url) {
       var u = url != null ? target(url) : null;
       if (u && u.pathname !== location.pathname) {
+        barStart();
         location.assign(u.href);
         return;
       }

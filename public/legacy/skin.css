@@ -49,6 +49,11 @@
 body {
   font-feature-settings: normal;
   letter-spacing: 0;
+  /* The platform hard-codes a near-black body (#090a0f) whatever the theme, so
+   * a light-theme page flashed black while its app booted — the public site is
+   * ivory either side of that hand-off. The dark rule further down keeps the
+   * navy ambience. */
+  background-color: #f5f1ea;
 }
 
 /* Headings: same face as body (Inter), semibold — weight carries the
@@ -226,28 +231,49 @@ header .rounded-full.size-9 {
 }
 
 /* ------------------------------------------------------------ Loading states
- * The platform's pages render their own grey placeholder blocks while data
- * loads. Its source is not ours to change, so they are hidden from here: the
- * page stays empty until the real content arrives, matching the public site,
- * which has no loading states at all. Every one of these is an empty, fixed
- * height div (most are aria-hidden), never a container for real content.
- *
- * Deliberately NOT hidden: the small spinners inside buttons during an action
- * ("Working…", "Confirming your payment…"), which tell a student their payment
- * is still in flight. */
+ * These pages get the same navigation feedback as the public site: the thin
+ * bar theme.js draws at the top of the window, and nothing else. The
+ * platform's own grey placeholder blocks are hidden so one language covers
+ * the whole site. The spinners inside buttons during an action ("Working…",
+ * "Confirming your payment…") are deliberately left alone — they tell a
+ * student their payment is still in flight. */
 .animate-pulse {
   display: none !important;
 }
 
-/* The full-screen "Loading…" card the platform shows while it works out who is
- * signed in (this class combination appears once in its bundle, for that gate
- * alone), and the "Loading…" row that sits under a section while its list
- * loads. Both are replaced by real content a moment later. */
+/* The platform's two visible "Loading…" messages: the full-screen card it
+ * shows while working out who is signed in (that class combination appears
+ * once in its bundle, for this gate alone), and the centred row it shows
+ * under a section while a list loads. The bar at the top of the window says
+ * the same thing, without a second message on the page.
+ *
+ * The second selector is deliberately narrow: the payment flow shows its own
+ * status the same way ("Finishing your payment…"), and that must stay. */
 .grid.min-h-screen.place-items-center.bg-slate-50 {
   display: none !important;
 }
 p.justify-center.text-slate-500:has(> .animate-spin) {
   display: none !important;
+}
+
+#aa-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000000;
+  height: 2px;
+  width: 0;
+  background-color: #0f6b61;
+  transition: width 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms linear;
+  pointer-events: none;
+}
+html[data-theme="dark"] #aa-topbar {
+  background-color: #7cc4b8;
+}
+@media (prefers-reduced-motion: reduce) {
+  #aa-topbar {
+    transition: none;
+  }
 }
 
 /* ------------------------------------------------------------ Responsive fixes

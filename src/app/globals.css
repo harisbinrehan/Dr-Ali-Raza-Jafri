@@ -325,6 +325,12 @@ html.has-token .aa-unauth-links {
     );
 }
 
+/* The navigation bar (nextjs-toploader) takes the accent in each theme, so it
+   matches the identical bar the platform's pages draw (public/legacy/skin.css). */
+[data-theme="dark"] #nprogress .bar {
+  background: #7cc4b8 !important;
+}
+
 /* Always-underlined text link that darkens its underline on hover. */
 @utility link-quiet {
   text-decoration: underline;

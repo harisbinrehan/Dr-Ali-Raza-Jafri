@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { getCategories, getContact } from "@/lib/catalog";
 import { site } from "@/lib/site";
@@ -54,6 +55,10 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="flex min-h-screen flex-col">
+        {/* The site's only navigation feedback: a thin bar at the top of the
+            window, as in the Amir Engineering build. No spinner, and it only
+            appears once a route actually takes time to arrive. */}
+        <NextTopLoader color="#0f6b61" height={2} shadow={false} showSpinner={false} speed={200} easing="cubic-bezier(0.22, 1, 0.36, 1)" />
         <ThemeProvider>
           <SiteHeader />
           <main id="main" className="flex-1">
