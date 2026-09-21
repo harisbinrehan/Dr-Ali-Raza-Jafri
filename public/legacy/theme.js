@@ -62,118 +62,6 @@
     }
   }
 
-  function showGlobalSkeleton() {
-    if (document.getElementById("aa-global-skeleton")) return;
-
-    if (!document.getElementById("aa-skeleton-styles")) {
-      // Same recipe as the public site's .skeleton utility (globals.css) and
-      // GlobalNavigationLoader: a flat tint with a 0.55-opacity light sweep
-      // blended with mix-blend-mode:overlay, so it reads correctly in both
-      // themes from one rule instead of a separate sweep colour per theme.
-      var style = document.createElement("style");
-      style.id = "aa-skeleton-styles";
-      style.textContent =
-        "@keyframes aa-skeleton-shimmer { from { transform: translateX(-100%); } to { transform: translateX(100%); } }" +
-        "@keyframes aa-skeleton-appear { from { opacity: 0; } to { opacity: 1; } }" +
-        "#aa-global-skeleton { animation: aa-skeleton-appear 200ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both; }" +
-        ".aa-skeleton-shimmer { position: relative; overflow: hidden; background-color: var(--skeleton-bg, var(--skin-skeleton-bg, rgb(23 24 28 / 0.08))); }" +
-        ".aa-skeleton-shimmer::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background-image: linear-gradient(90deg, transparent, var(--skin-skeleton-sheen, rgb(255 255 255 / 0.5)), transparent); animation: aa-skeleton-shimmer 2.4s cubic-bezier(0.76, 0, 0.24, 1) infinite; }" +
-        "@media (prefers-reduced-motion: reduce) { .aa-skeleton-shimmer::after { animation: none; } #aa-global-skeleton { animation-delay: 0ms; animation-duration: 0.01ms; } }";
-      document.head.appendChild(style);
-    }
-
-    var overlay = document.createElement("div");
-    overlay.id = "aa-global-skeleton";
-    overlay.setAttribute("role", "status");
-    overlay.setAttribute("aria-busy", "true");
-    overlay.style.cssText = "position:fixed;top:0;right:0;bottom:0;left:0;z-index:999999;background-color:var(--skin-canvas,#f5f1ea);padding:3rem 1.5rem;";
-
-    var srLabel = document.createElement("span");
-    srLabel.className = "sr-only";
-    srLabel.style.cssText = "position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;";
-    srLabel.textContent = "Loading…";
-    overlay.appendChild(srLabel);
-
-    var container = document.createElement("div");
-    container.style.cssText = "max-width:80rem;margin-left:auto;margin-right:auto;padding-top:3rem;padding-bottom:3rem;";
-    
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:2.5rem;width:66%;max-width:36rem;border-radius:0.5rem;margin-bottom:1rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1.5rem;width:33%;border-radius:0.5rem;margin-bottom:3rem;"></div>';
-    
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:100%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:100%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:83%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:100%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:80%;border-radius:0.5rem;margin-bottom:4rem;"></div>';
-    
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1.5rem;width:25%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:100%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:90%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-    container.innerHTML += '<div class="aa-skeleton-shimmer" style="height:1rem;width:75%;border-radius:0.5rem;margin-bottom:1.5rem;"></div>';
-
-    overlay.appendChild(container);
-    var target = document.body || document.documentElement;
-    target.appendChild(overlay);
-  }
-
-  function hideGlobalSkeleton() {
-    var skel = document.getElementById("aa-global-skeleton");
-    if (skel) {
-      // Same short fade the app's own route skeletons use, so the boot screen
-      // hands over to the page at the same speed a route change does.
-      skel.style.transition = "opacity 200ms cubic-bezier(0.22, 1, 0.36, 1)";
-      skel.style.opacity = "0";
-      setTimeout(function() { skel.remove(); }, 200);
-    }
-  }
-
-  // Show skeleton instantly on initial page parse
-  showGlobalSkeleton();
-
-  function startSkeletonObserver() {
-    var root = document.getElementById("root");
-    if (!root) {
-      // Not a typical SPA page, hide immediately
-      hideGlobalSkeleton();
-      return;
-    }
-    
-    // Declared before the first checkReady() call: that call can resolve
-    // synchronously (the platform's own bundle may have already rendered into
-    // #root by this point), and disconnecting an as-yet-undeclared `observer`
-    // there would throw — an uncaught error that, like the cartObserver bug
-    // above, would abort every statement still queued after it.
-    var observer;
-    function checkReady() {
-      // A fully loaded page usually has a header, main container, etc.
-      // If it only has a small loading div, it's not ready.
-      // We can check if it has more than a few elements, or if it doesn't contain "loading".
-      if (root.innerHTML.length > 500 || (root.children.length > 0 && root.textContent.toLowerCase().indexOf("loading") === -1)) {
-        hideGlobalSkeleton();
-        if (observer) observer.disconnect();
-        return true;
-      }
-      return false;
-    }
-
-    if (checkReady()) return;
-
-    observer = new MutationObserver(checkReady);
-    observer.observe(root, { childList: true, subtree: true, characterData: true });
-    
-    // Fallback safeguard
-    setTimeout(function() {
-      hideGlobalSkeleton();
-      observer.disconnect();
-    }, 5000);
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", startSkeletonObserver);
-  } else {
-    startSkeletonObserver();
-  }
-
   // Links: capture before the platform's router sees the click.
   document.addEventListener(
     "click",
@@ -185,7 +73,6 @@
       if (!u) return;
       e.preventDefault();
       e.stopPropagation();
-      showGlobalSkeleton();
       location.assign(u.href);
     },
     true,
@@ -197,7 +84,6 @@
     history[name] = function (state, title, url) {
       var u = url != null ? target(url) : null;
       if (u && u.pathname !== location.pathname) {
-        showGlobalSkeleton();
         location.assign(u.href);
         return;
       }

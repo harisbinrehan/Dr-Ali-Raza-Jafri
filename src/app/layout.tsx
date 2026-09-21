@@ -11,7 +11,6 @@ import { BottomNav } from "@/components/layout/BottomNav";
 import { RevealObserver } from "@/components/layout/RevealObserver";
 import { ScrollToTop } from "@/components/layout/ScrollToTop";
 
-import { GlobalNavigationLoader } from "@/components/layout/GlobalNavigationLoader";
 
 // One functional sans-serif for both headings and body, Udemy-style: hierarchy
 // comes from weight (400–700), not from switching typefaces.
@@ -64,7 +63,6 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
           <BottomNav />
           <RevealObserver />
           <ScrollToTop />
-          <GlobalNavigationLoader />
         </ThemeProvider>
         <JsonLd data={organizationSchema(contact)} />
       </body>

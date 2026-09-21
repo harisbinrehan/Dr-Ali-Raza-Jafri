@@ -43,13 +43,6 @@ html.has-token .aa-unauth-links {
   --btn-deep-fg: #f7f4ee;
   --btn-deep-hover: #158f83;
 
-  /* Loading placeholders: one tint and one sheen for the whole site, subtle
-     enough that a skeleton reads as "content is coming" rather than as a
-     block of grey furniture. */
-  --skeleton: rgb(23 24 28 / 0.08);
-  --skeleton-deep: rgb(23 24 28 / 0.1);
-  --skeleton-sheen: rgb(255 255 255 / 0.5);
-
   --focus: #0f6b61;
   color-scheme: light;
 }
@@ -81,10 +74,6 @@ html.has-token .aa-unauth-links {
   --btn-deep-bg: #7cc4b8;
   --btn-deep-fg: #0b1222;
   --btn-deep-hover: #9ad4c9;
-
-  --skeleton: rgb(255 255 255 / 0.07);
-  --skeleton-deep: rgb(255 255 255 / 0.07);
-  --skeleton-sheen: rgb(255 255 255 / 0.05);
 
   --focus: #0f6b61;
   color-scheme: dark;
@@ -178,14 +167,6 @@ html.has-token .aa-unauth-links {
   @keyframes draw {
     from { transform: scaleX(0); }
     to { transform: scaleX(1); }
-  }
-  @keyframes skeleton-appear {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes skeleton-shimmer {
-    from { transform: translateX(-100%); }
-    to { transform: translateX(100%); }
   }
 }
 
@@ -342,32 +323,6 @@ html.has-token .aa-unauth-links {
       rgb(201 160 117 / 0.009) 62%,
       rgb(201 160 117 / 0) 78%
     );
-}
-
-/* Loading placeholders: a flat tint with a soft light sweep. Blend mode keeps
-   the sweep visible without hand-tuning a separate highlight colour per theme. */
-/* Every loading state on the site appears through this one rule: nothing for
-   the first 120ms, so a fast navigation never flashes a skeleton, then a short
-   fade. Routes, the legacy hand-off and the platform's own boot screen all use
-   the same delay and curve, so navigation always feels the same. */
-@utility route-skeleton {
-  animation: skeleton-appear 200ms var(--ease-editorial) 120ms both;
-}
-
-@utility skeleton {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  background-color: var(--skeleton-bg, var(--skeleton));
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    transform: translateX(-100%);
-    background-image: linear-gradient(90deg, transparent, var(--skeleton-sheen), transparent);
-    animation: skeleton-shimmer 2.4s var(--ease-in-out-quart) infinite;
-  }
 }
 
 /* Always-underlined text link that darkens its underline on hover. */
